@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "github.com/udistrital/sesionesCrud/routers"
-
+	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
@@ -15,6 +15,7 @@ func init() {
 
 func main() {
 	orm.Debug = true
+	logs.SetLogger(logs.AdapterFile, `{"filename":"/var/log/beego/sesionesCrud.log"}`)
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
