@@ -7,11 +7,13 @@ build:
   go:
     image: golang:1.9
     commands:
-     - go get -t
+     - go get -t ./...
      - GOOS=linux GOARCH=amd64 go build -o main
      - go test ./... -cover
     when:
-      branch: develop
+      branch: 
+        - develop
+        - master
       event: push
 
   # prepare imagedef.json and app.zip for deployment
@@ -22,7 +24,9 @@ build:
       - apk -U add zip
       - zip app.zip imagedef.json
     when:
-      branch: develop
+      branch: 
+        - develop
+        - master
       event: push
 
 publish:
@@ -49,7 +53,9 @@ publish:
     source: app.zip
     target: /apps/sesiones_crud-$$BRANCH.zip
     when:
-      branch: develop
+      branch:
+        - develop
+        - master
       event: push
 
 notify:
