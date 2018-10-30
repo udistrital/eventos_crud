@@ -1,4 +1,5 @@
 # sesiones_crud
+Api para administración de sesiones o periodos.
 API de core, Integración con CI
 sesiones_crud master/develop
  ## Requirements

@@ -7,6 +7,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
 	"github.com/astaxie/beego/plugins/cors"
+	"github.com/udistrital/utils_oas/apiStatusLib"
 )
 
 func init() {
@@ -28,5 +29,7 @@ func main() {
 		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin"},
 		AllowCredentials: true,
 	}))
+
+	apistatus.Init()
 	beego.Run()
 }
