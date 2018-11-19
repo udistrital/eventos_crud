@@ -29,7 +29,7 @@ func (c *RelacionSesionesController) URLMapping() {
 // @Description create RelacionSesiones
 // @Param	body		body 	models.RelacionSesiones	true		"body for RelacionSesiones content"
 // @Success 201 {int} models.RelacionSesiones
-// @Failure 403 body is empty
+// @Failure 400 the request contains incorrect syntax
 // @router / [post]
 func (c *RelacionSesionesController) Post() {
 	var v models.RelacionSesiones
@@ -38,10 +38,12 @@ func (c *RelacionSesionesController) Post() {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			beego.Error(err)
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+			beego.Error(err)
+			c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -51,14 +53,15 @@ func (c *RelacionSesionesController) Post() {
 // @Description get RelacionSesiones by id
 // @Param	id		path 	string	true		"The key for staticblock"
 // @Success 200 {object} models.RelacionSesiones
-// @Failure 403 :id is empty
+// @Failure 404 not found resource
 // @router /:id [get]
 func (c *RelacionSesionesController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetRelacionSesionesById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		beego.Error(err)
+		c.Abort("404")
 	} else {
 		c.Data["json"] = v
 	}
@@ -75,7 +78,7 @@ func (c *RelacionSesionesController) GetOne() {
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
 // @Success 200 {object} models.RelacionSesiones
-// @Failure 403
+// @Failure 404 not found resource
 // @router / [get]
 func (c *RelacionSesionesController) GetAll() {
 	var fields []string
@@ -121,8 +124,12 @@ func (c *RelacionSesionesController) GetAll() {
 
 	l, err := models.GetAllRelacionSesiones(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		beego.Error(err)
+		c.Abort("404")
 	} else {
+		if l == nil {
+			l = append(l, map[string]interface{}{})
+		}
 		c.Data["json"] = l
 	}
 	c.ServeJSON()
@@ -134,7 +141,7 @@ func (c *RelacionSesionesController) GetAll() {
 // @Param	id		path 	string	true		"The id you want to update"
 // @Param	body		body 	models.RelacionSesiones	true		"body for RelacionSesiones content"
 // @Success 200 {object} models.RelacionSesiones
-// @Failure 403 :id is not int
+// @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *RelacionSesionesController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
@@ -142,12 +149,14 @@ func (c *RelacionSesionesController) Put() {
 	v := models.RelacionSesiones{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if err := models.UpdateRelacionSesionesById(&v); err == nil {
-			c.Data["json"] = "OK"
+			c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			beego.Error(err)
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+			beego.Error(err)
+			c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -157,15 +166,16 @@ func (c *RelacionSesionesController) Put() {
 // @Description delete the RelacionSesiones
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
-// @Failure 403 id is empty
+// @Failure 404 not found resource
 // @router /:id [delete]
 func (c *RelacionSesionesController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteRelacionSesiones(id); err == nil {
-		c.Data["json"] = "OK"
+		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
-		c.Data["json"] = err.Error()
+		beego.Error(err)
+		c.Abort("404")
 	}
 	c.ServeJSON()
 }

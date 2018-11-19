@@ -1,13 +1,14 @@
 package main
 
 import (
-	_ "github.com/udistrital/sesiones_crud/routers"
-	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
-	_ "github.com/lib/pq"
 	"github.com/astaxie/beego/plugins/cors"
+	_ "github.com/lib/pq"
+	_ "github.com/udistrital/sesiones_crud/routers"
 	"github.com/udistrital/utils_oas/apiStatusLib"
+	"github.com/udistrital/utils_oas/customerror"
 )
 
 func init() {
@@ -31,5 +32,6 @@ func main() {
 	}))
 
 	apistatus.Init()
+	beego.ErrorController(&customerror.CustomErrorController{})
 	beego.Run()
 }
