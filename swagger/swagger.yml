@@ -48,8 +48,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.ParticipanteSesion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - participante_sesion
@@ -65,8 +65,8 @@ paths:
       responses:
         "201":
           description: '{int} models.ParticipanteSesion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /participante_sesion/{id}:
     get:
       tags:
@@ -84,8 +84,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.ParticipanteSesion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - participante_sesion
@@ -108,8 +108,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.ParticipanteSesion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - participante_sesion
@@ -124,8 +124,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /relacion_sesiones/:
     get:
       tags:
@@ -163,8 +163,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RelacionSesiones'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - relacion_sesiones
@@ -180,8 +180,8 @@ paths:
       responses:
         "201":
           description: '{int} models.RelacionSesiones'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /relacion_sesiones/{id}:
     get:
       tags:
@@ -199,8 +199,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RelacionSesiones'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - relacion_sesiones
@@ -223,8 +223,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RelacionSesiones'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - relacion_sesiones
@@ -239,8 +239,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /rol_participante_sesion/:
     get:
       tags:
@@ -278,8 +278,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RolParticipanteSesion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - rol_participante_sesion
@@ -295,8 +295,8 @@ paths:
       responses:
         "201":
           description: '{int} models.RolParticipanteSesion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /rol_participante_sesion/{id}:
     get:
       tags:
@@ -314,8 +314,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RolParticipanteSesion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - rol_participante_sesion
@@ -338,8 +338,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RolParticipanteSesion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - rol_participante_sesion
@@ -354,8 +354,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /sesion/:
     get:
       tags:
@@ -393,8 +393,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.Sesion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - sesion
@@ -410,8 +410,8 @@ paths:
       responses:
         "201":
           description: '{int} models.Sesion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /sesion/{id}:
     get:
       tags:
@@ -429,8 +429,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.Sesion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - sesion
@@ -453,8 +453,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.Sesion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - sesion
@@ -469,8 +469,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /tipo_sesion/:
     get:
       tags:
@@ -508,8 +508,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoSesion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - tipo_sesion
@@ -525,8 +525,8 @@ paths:
       responses:
         "201":
           description: '{int} models.TipoSesion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /tipo_sesion/{id}:
     get:
       tags:
@@ -544,8 +544,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoSesion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - tipo_sesion
@@ -568,8 +568,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoSesion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - tipo_sesion
@@ -584,8 +584,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
 definitions:
   models.ParticipanteSesion:
     title: ParticipanteSesion
@@ -638,16 +638,16 @@ definitions:
         type: string
       FechaCreacion:
         type: string
-        format: string
+        format: datetime
       FechaFin:
         type: string
-        format: string
+        format: datetime
       FechaInicio:
         type: string
-        format: string
+        format: datetime
       FechaModificacion:
         type: string
-        format: string
+        format: datetime
       Id:
         type: integer
         format: int64

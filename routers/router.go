@@ -8,7 +8,7 @@
 package routers
 
 import (
-	"github.com/udistrital/sesiones_crud/controllers"
+	"github.com/planesticud/sesiones_crud/controllers"
 
 	"github.com/astaxie/beego"
 )
