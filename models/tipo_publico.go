@@ -11,7 +11,7 @@ import (
 )
 
 type TipoPublico struct {
-	Id                 int               `orm:"column(id);pk"`
+	Id                 int               `orm:"column(id);pk;auto"`
 	Nombre             string            `orm:"column(nombre)"`
 	CodigoAbreviacion  string            `orm:"column(codigo_abreviacion);null"`
 	Activo             bool              `orm:"column(activo)"`

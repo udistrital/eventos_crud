@@ -11,7 +11,7 @@ import (
 )
 
 type Migrations struct {
-	Id                 int       `orm:"column(id_migration);pk"`
+	Id                 int       `orm:"column(id_migration);pk;auto"`
 	Name               string    `orm:"column(name);null"`
 	CreatedAt          time.Time `orm:"column(created_at);type(timestamp without time zone);auto_now_add"`
 	Statements         string    `orm:"column(statements);null"`
