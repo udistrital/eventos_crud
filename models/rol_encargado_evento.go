@@ -5,52 +5,55 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type TipoSesion struct {
-	Id                int     `orm:"column(id);pk;auto"`
-	Nombre            string  `orm:"column(nombre)"`
-	Descripcion       string  `orm:"column(descripcion);null"`
-	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
-	Activo            bool    `orm:"column(activo)"`
-	NumeroOrden       float64 `orm:"column(numero_orden);null"`
+type RolEncargadoEvento struct {
+	Id                int       `orm:"column(id);pk"`
+	Nombre            string    `orm:"column(nombre)"`
+	Descripcion       string    `orm:"column(descripcion);null"`
+	CodigoAbreviacion string    `orm:"column(codigo_abreviacion);null"`
+	Activo            bool      `orm:"column(activo)"`
+	NumeroDeOrden     float64   `orm:"column(numero_de_orden);null"`
+	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
-func (t *TipoSesion) TableName() string {
-	return "tipo_sesion"
+func (t *RolEncargadoEvento) TableName() string {
+	return "rol_encargado_evento"
 }
 
 func init() {
-	orm.RegisterModel(new(TipoSesion))
+	orm.RegisterModel(new(RolEncargadoEvento))
 }
 
-// AddTipoSesion insert a new TipoSesion into database and returns
+// AddRolEncargadoEvento insert a new RolEncargadoEvento into database and returns
 // last inserted Id on success.
-func AddTipoSesion(m *TipoSesion) (id int64, err error) {
+func AddRolEncargadoEvento(m *RolEncargadoEvento) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetTipoSesionById retrieves TipoSesion by Id. Returns error if
+// GetRolEncargadoEventoById retrieves RolEncargadoEvento by Id. Returns error if
 // Id doesn't exist
-func GetTipoSesionById(id int) (v *TipoSesion, err error) {
+func GetRolEncargadoEventoById(id int) (v *RolEncargadoEvento, err error) {
 	o := orm.NewOrm()
-	v = &TipoSesion{Id: id}
+	v = &RolEncargadoEvento{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllTipoSesion retrieves all TipoSesion matches certain condition. Returns empty list if
+// GetAllRolEncargadoEvento retrieves all RolEncargadoEvento matches certain condition. Returns empty list if
 // no records exist
-func GetAllTipoSesion(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllRolEncargadoEvento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoSesion))
+	qs := o.QueryTable(new(RolEncargadoEvento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -100,7 +103,7 @@ func GetAllTipoSesion(query map[string]string, fields []string, sortby []string,
 		}
 	}
 
-	var l []TipoSesion
+	var l []RolEncargadoEvento
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -123,11 +126,11 @@ func GetAllTipoSesion(query map[string]string, fields []string, sortby []string,
 	return nil, err
 }
 
-// UpdateTipoSesion updates TipoSesion by Id and returns error if
+// UpdateRolEncargadoEvento updates RolEncargadoEvento by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateTipoSesionById(m *TipoSesion) (err error) {
+func UpdateRolEncargadoEventoById(m *RolEncargadoEvento) (err error) {
 	o := orm.NewOrm()
-	v := TipoSesion{Id: m.Id}
+	v := RolEncargadoEvento{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -138,15 +141,15 @@ func UpdateTipoSesionById(m *TipoSesion) (err error) {
 	return
 }
 
-// DeleteTipoSesion deletes TipoSesion by Id and returns error if
+// DeleteRolEncargadoEvento deletes RolEncargadoEvento by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteTipoSesion(id int) (err error) {
+func DeleteRolEncargadoEvento(id int) (err error) {
 	o := orm.NewOrm()
-	v := TipoSesion{Id: id}
+	v := RolEncargadoEvento{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&TipoSesion{Id: id}); err == nil {
+		if num, err = o.Delete(&RolEncargadoEvento{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

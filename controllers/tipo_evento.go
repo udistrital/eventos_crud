@@ -3,20 +3,20 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/sesiones_crud/models"
+	"github.com/udistrital/eventos_crud/models"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
 )
 
-// ParticipanteSesionController operations for ParticipanteSesion
-type ParticipanteSesionController struct {
+// TipoEventoController operations for TipoEvento
+type TipoEventoController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *ParticipanteSesionController) URLMapping() {
+func (c *TipoEventoController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -26,42 +26,39 @@ func (c *ParticipanteSesionController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create ParticipanteSesion
-// @Param	body		body 	models.ParticipanteSesion	true		"body for ParticipanteSesion content"
-// @Success 201 {int} models.ParticipanteSesion
-// @Failure 400 the request contains incorrect syntax
+// @Description create TipoEvento
+// @Param	body		body 	models.TipoEvento	true		"body for TipoEvento content"
+// @Success 201 {int} models.TipoEvento
+// @Failure 403 body is empty
 // @router / [post]
-func (c *ParticipanteSesionController) Post() {
-	var v models.ParticipanteSesion
+func (c *TipoEventoController) Post() {
+	var v models.TipoEvento
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddParticipanteSesion(&v); err == nil {
+		if _, err := models.AddTipoEvento(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-			beego.Error(err)
-			c.Abort("400")
+			c.Data["json"] = err.Error()
 		}
 	} else {
-			beego.Error(err)
-			c.Abort("400")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
 
 // GetOne ...
 // @Title Get One
-// @Description get ParticipanteSesion by id
+// @Description get TipoEvento by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.ParticipanteSesion
-// @Failure 404 not found resource
+// @Success 200 {object} models.TipoEvento
+// @Failure 403 :id is empty
 // @router /:id [get]
-func (c *ParticipanteSesionController) GetOne() {
+func (c *TipoEventoController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetParticipanteSesionById(id)
+	v, err := models.GetTipoEventoById(id)
 	if err != nil {
-		beego.Error(err)
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
 	}
@@ -70,17 +67,17 @@ func (c *ParticipanteSesionController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get ParticipanteSesion
+// @Description get TipoEvento
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.ParticipanteSesion
-// @Failure 404 not found resource
+// @Success 200 {object} models.TipoEvento
+// @Failure 403
 // @router / [get]
-func (c *ParticipanteSesionController) GetAll() {
+func (c *TipoEventoController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -122,14 +119,10 @@ func (c *ParticipanteSesionController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllParticipanteSesion(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllTipoEvento(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		beego.Error(err)
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	} else {
-		if l == nil {
-			l = append(l, map[string]interface{}{})
-		}
 		c.Data["json"] = l
 	}
 	c.ServeJSON()
@@ -137,45 +130,42 @@ func (c *ParticipanteSesionController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the ParticipanteSesion
+// @Description update the TipoEvento
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.ParticipanteSesion	true		"body for ParticipanteSesion content"
-// @Success 200 {object} models.ParticipanteSesion
-// @Failure 400 the request contains incorrect syntax
+// @Param	body		body 	models.TipoEvento	true		"body for TipoEvento content"
+// @Success 200 {object} models.TipoEvento
+// @Failure 403 :id is not int
 // @router /:id [put]
-func (c *ParticipanteSesionController) Put() {
+func (c *TipoEventoController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.ParticipanteSesion{Id: id}
+	v := models.TipoEvento{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateParticipanteSesionById(&v); err == nil {
-			c.Data["json"] = v
+		if err := models.UpdateTipoEventoById(&v); err == nil {
+			c.Data["json"] = "OK"
 		} else {
-			beego.Error(err)
-			c.Abort("400")
+			c.Data["json"] = err.Error()
 		}
 	} else {
-			beego.Error(err)
-			c.Abort("400")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
 
 // Delete ...
 // @Title Delete
-// @Description delete the ParticipanteSesion
+// @Description delete the TipoEvento
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
-// @Failure 404 not found resource
+// @Failure 403 id is empty
 // @router /:id [delete]
-func (c *ParticipanteSesionController) Delete() {
+func (c *TipoEventoController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteParticipanteSesion(id); err == nil {
-		c.Data["json"] = map[string]interface{}{"Id": id}
+	if err := models.DeleteTipoEvento(id); err == nil {
+		c.Data["json"] = "OK"
 	} else {
-		beego.Error(err)
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
