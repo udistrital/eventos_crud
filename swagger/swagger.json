@@ -953,19 +953,19 @@
                 },
                 "FechaCreacion": {
                     "type": "string",
-                    "format": "string"
+                    "format": "datetime"
                 },
                 "FechaFin": {
                     "type": "string",
-                    "format": "string"
+                    "format": "datetime"
                 },
                 "FechaInicio": {
                     "type": "string",
-                    "format": "string"
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
                     "type": "string",
-                    "format": "string"
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
