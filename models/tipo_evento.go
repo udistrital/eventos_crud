@@ -17,8 +17,8 @@ type TipoEvento struct {
 	CodigoAbreviacion string           `orm:"column(codigo_abreviacion);null"`
 	Activo            bool             `orm:"column(activo)"`
 	DependenciaId     int              `orm:"column(dependencia_id)"`
-	FechaCreacion     time.Time        `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion time.Time        `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time        `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
+	FechaModificacion time.Time        `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now"`
 	TipoRecurrenciaId *TipoRecurrencia `orm:"column(tipo_recurrencia_id);rel(fk)"`
 }
 
