@@ -1052,9 +1052,136 @@
                     }
                 }
             }
+        },
+        "/tr_evento/": {
+            "post": {
+                "tags": [
+                    "tr_evento"
+                ],
+                "description": "create the TrEvento",
+                "operationId": "TrEventoController.PostTrEvento",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrEvento content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TrEvento"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.TrEvento"
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
+        "/tr_evento/{id}": {
+            "put": {
+                "tags": [
+                    "tr_evento"
+                ],
+                "description": "update the TrEvento",
+                "operationId": "TrEventoController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrEvento content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TrEvento"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrEvento"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tr_evento"
+                ],
+                "description": "delete the ProduccionAcademica",
+                "operationId": "TrEventoController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
+        "/tr_evento/{persona}": {
+            "get": {
+                "tags": [
+                    "tr_evento"
+                ],
+                "description": "get TrEventoController",
+                "operationId": "TrEventoController.Get All By Persona",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Persona",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TrEventoController"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "151.\u003cnil\u003e.EncargadoEvento": {
+            "title": "EncargadoEvento",
+            "type": "object"
+        },
+        "191.\u003cnil\u003e.TipoPublico": {
+            "title": "TipoPublico",
+            "type": "object"
+        },
         "models.CalendarioEvento": {
             "title": "CalendarioEvento",
             "type": "object",
@@ -1262,6 +1389,25 @@
                     "type": "string"
                 }
             }
+        },
+        "models.TrEvento": {
+            "title": "TrEvento",
+            "type": "object",
+            "properties": {
+                "CalendarioEvento": {
+                    "$ref": "#/definitions/models.CalendarioEvento"
+                },
+                "EncargadosEvento": {
+                    "$ref": "#/definitions/151.\u003cnil\u003e.EncargadoEvento"
+                },
+                "TiposPublico": {
+                    "$ref": "#/definitions/191.\u003cnil\u003e.TipoPublico"
+                }
+            }
+        },
+        "models.TrEventoController": {
+            "title": "TrEventoController",
+            "type": "object"
         }
     },
     "tags": [
@@ -1280,6 +1426,10 @@
         {
             "name": "tipo_evento",
             "description": "TipoEventoController operations for TipoEvento\n"
+        },
+        {
+            "name": "tr_evento",
+            "description": "operations for TrEvento\n"
         },
         {
             "name": "calendario_evento",

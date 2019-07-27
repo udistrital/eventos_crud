@@ -19,7 +19,7 @@ type CalendarioEvento struct {
 	FechaFin          time.Time         `orm:"column(fecha_fin);type(timestamp without time zone);null"`
 	PeriodoId         int               `orm:"column(periodo_id)"`
 	Activo            bool              `orm:"column(activo)"`
-	EventoPadreId     *CalendarioEvento `orm:"column(evento_padre_id);rel(fk)"`
+	EventoPadreId     *CalendarioEvento `orm:"column(evento_padre_id);rel(fk);null"`
 	TipoEventoId      *TipoEvento       `orm:"column(tipo_evento_id);rel(fk)"`
 }
 

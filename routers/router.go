@@ -40,6 +40,12 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/tr_evento",
+			beego.NSInclude(
+				&controllers.TrEventoController{},
+			),
+		),
+
 		beego.NSNamespace("/calendario_evento",
 			beego.NSInclude(
 				&controllers.CalendarioEventoController{},

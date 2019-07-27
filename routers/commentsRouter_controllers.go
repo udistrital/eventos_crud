@@ -277,4 +277,40 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:TrEventoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:TrEventoController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:TrEventoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:TrEventoController"],
+        beego.ControllerComments{
+            Method: "Put",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:TrEventoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:TrEventoController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:TrEventoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:TrEventoController"],
+        beego.ControllerComments{
+            Method: "GetAllByPersona",
+            Router: `/:persona`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
 }
