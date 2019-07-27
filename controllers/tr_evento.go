@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	// "strconv"
+	"strconv"
 
 	"github.com/udistrital/eventos_crud/models"
 
@@ -30,10 +30,9 @@ func (c *TrEventoController) URLMapping() {
 // @Failure 404 not found resource
 // @router /:persona [get]
 func (c *TrEventoController) GetAllByPersona() {
-	/*
 	idPersonaStr := c.Ctx.Input.Param(":persona")
 	idPersona, _ := strconv.Atoi(idPersonaStr)
-	l, err := models.GetProduccionesAcademicasByPersona(idPersona)
+	l, err := models.GetEventosByPersona(idPersona)
 	if err != nil {
 		logs.Error(err)
 		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
@@ -45,7 +44,6 @@ func (c *TrEventoController) GetAllByPersona() {
 		}
 		c.Data["json"] = l
 	}
-	*/
 	c.ServeJSON()
 }
 

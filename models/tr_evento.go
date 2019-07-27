@@ -12,40 +12,34 @@ type TrEvento struct {
 	TiposPublico        *[]TipoPublico
 }
 
-// GetProduccionesAcademicasByPersona Transacción para consultar todas las producciones con toda la información de las mismas
-func GetProduccionesAcademicasByPersona(persona int) (v []interface{}, err error) {
-	/*
+// GetEventosByPersona Transacción para consultar todos los eventos con toda la información de las mismas
+func GetEventosByPersona(persona int) (v []interface{}, err error) {
 	o := orm.NewOrm()
-	var autores []*AutorProduccionAcademica
-	if _, err := o.QueryTable(new(AutorProduccionAcademica)).RelatedSel().Filter("persona",persona).Filter("ProduccionAcademicaId__Activo",true).All(&autores); err == nil{
-		for _, autor := range autores {
+	var encargados []*EncargadoEvento
+	if _, err := o.QueryTable(new(EncargadoEvento)).RelatedSel().Filter("EncargadoId",persona).Filter("CalendarioEventoId__Activo",true).All(&encargados); err == nil{
+		for _, encargado := range encargados {
 
-			produccionAcademica := autor.ProduccionAcademicaId
+			evento := encargado.CalendarioEventoId
 
-			var autoresProduccion []AutorProduccionAcademica
-			if _, err := o.QueryTable(new(AutorProduccionAcademica)).RelatedSel().Filter("ProduccionAcademicaId__Id",produccionAcademica.Id).All(&autoresProduccion); err != nil{
+			var encargadosEvento []EncargadoEvento
+			if _, err := o.QueryTable(new(EncargadoEvento)).RelatedSel().Filter("CalendarioEventoId__Id",evento.Id).All(&encargadosEvento); err != nil{
 				return nil, err
 			}
 
-			var metadatos []MetadatoProduccionAcademica
-			if _, err := o.QueryTable(new(MetadatoProduccionAcademica)).RelatedSel().Filter("ProduccionAcademicaId__Id",produccionAcademica.Id).All(&metadatos); err != nil{
+			var tiposPublico []TipoPublico
+			if _, err := o.QueryTable(new(TipoPublico)).RelatedSel().Filter("CalendarioEventoId__Id",evento.Id).All(&tiposPublico); err != nil{
 				return nil, err
 			}
 
 			v = append(v,map[string]interface{}{
-				"Id": produccionAcademica.Id,
-				"Titulo": produccionAcademica.Titulo,
-				"Resumen": produccionAcademica.Resumen,
-				"Fecha": produccionAcademica.Fecha,
-				"SubtipoProduccionId":produccionAcademica.SubtipoProduccionId,
-				"Autores": &autoresProduccion,
-				"Metadatos": &metadatos,
+				"CalendarioEvento": &evento,
+				"EncargadosEvento": &encargadosEvento,
+				"TiposPublico": &tiposPublico,
 			})
 		}
 
 		return v, nil
 	}
-	*/
 	return nil, err
 }
 
