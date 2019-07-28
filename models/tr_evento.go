@@ -80,19 +80,18 @@ func AddTransaccionEvento(m *TrEvento) (err error) {
 	return
 }
 
-// UpdateTransaccionProduccionAcademica updates ProduccionAcademica by Id and returns error if
+// UpdateTransaccionEvento updates Evento by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateTransaccionProduccionAcademica(m *TrEvento) (err error) {
-	/*
+func UpdateTransaccionEvento(m *TrEvento) (err error) {
 	o := orm.NewOrm()
 	err = o.Begin()
-	v := ProduccionAcademica{Id: m.ProduccionAcademica.Id}
+	v := CalendarioEvento{Id: m.CalendarioEvento.Id}
 	// ascertain id exists in the database
 	if errTr := o.Read(&v); errTr == nil {
 		var num int64
-		if num, errTr = o.Update(m.ProduccionAcademica,"Titulo","Resumen","Fecha","FechaModificacion"); errTr == nil {
-			fmt.Println("Number of records updated in database:", num)
-
+		if num, errTr = o.Update(m.CalendarioEvento,"Descripcion","FechaInicio","FechaFin"); errTr == nil {
+			fmt.Println("Number of records updated (CalendarioEvento) in database:", num)
+			/*
 			for _, v := range *m.Metadatos {
 					fmt.Println("metadatos",m.Metadatos)
 					var metadato MetadatoProduccionAcademica
@@ -130,7 +129,7 @@ func UpdateTransaccionProduccionAcademica(m *TrEvento) (err error) {
 						return
 					}		
 			}
-
+			*/
 			_ = o.Commit()
 		}	else {
 			err = errTr
@@ -143,7 +142,6 @@ func UpdateTransaccionProduccionAcademica(m *TrEvento) (err error) {
 		fmt.Println(err)
 		_ = o.Rollback()
 	}
-	*/
 	return
 }
 

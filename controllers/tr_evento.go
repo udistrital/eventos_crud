@@ -83,13 +83,12 @@ func (c *TrEventoController) Post() {
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *TrEventoController) Put() {
-	/*
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	var v models.TrEvento
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.ProduccionAcademica.Id = id
-		if err := models.UpdateTransaccionProduccionAcademica(&v); err == nil {
+		v.CalendarioEvento.Id = id
+		if err := models.UpdateTransaccionEvento(&v); err == nil {
 			c.Data["json"] = v
 		} else {
 			logs.Error(err)
@@ -103,7 +102,6 @@ func (c *TrEventoController) Put() {
 		c.Data["system"] = err
 		c.Abort("400")
 	}
-	*/
 	c.ServeJSON()
 }
 
