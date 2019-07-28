@@ -109,16 +109,15 @@ func (c *TrEventoController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the ProduccionAcademica
+// @Description delete the Evento
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
 func (c *TrEventoController) Delete() {
-	/*
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.TrDeleteProduccionAcademica(id); err == nil {
+	if err := models.TrDeleteEvento(id); err == nil {
 		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
 		logs.Error(err)
@@ -126,6 +125,5 @@ func (c *TrEventoController) Delete() {
 		c.Data["system"] = err
 		c.Abort("404")
 	}
-	*/
 	c.ServeJSON()
 }

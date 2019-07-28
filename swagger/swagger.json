@@ -1122,7 +1122,7 @@
                 "tags": [
                     "tr_evento"
                 ],
-                "description": "delete the ProduccionAcademica",
+                "description": "delete the Evento",
                 "operationId": "TrEventoController.Delete",
                 "parameters": [
                     {

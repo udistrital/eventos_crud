@@ -147,21 +147,68 @@ func UpdateTransaccionProduccionAcademica(m *TrEvento) (err error) {
 	return
 }
 
-// TrDeleteProduccionAcademica deletes ProduccionAcademica by Id and returns error if
+// TrDeleteEvento deletes Evento by Id and returns error if
 // the record to be deleted doesn't exist
-func TrDeleteProduccionAcademica(id int) (err error) {
-	/*
+func TrDeleteEvento(id int) (err error) {
 	o := orm.NewOrm()
-	v := ProduccionAcademica{Id: id}
+	err = o.Begin()
+	v := CalendarioEvento{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		// if num, err = o.Delete(&ProduccionAcademica{Id: id}); err == nil {
+		// if num, err = o.Delete(&CalendarioEvento{Id: id}); err == nil {
 			// fmt.Println("Number of records deleted in database:", num)
-		if num, err = o.Update(&ProduccionAcademica{Id: id, Activo: false, FechaModificacion: time.Now()},"Activo", "FechaModificacion"); err == nil {
+		if num, err = o.Update(&CalendarioEvento{Id: id, Activo: false },"Activo"); err == nil {
 			fmt.Println("Number of records updated in database:", num)
+		} else {
+			fmt.Println(err)
+			_ = o.Rollback()
+			return
 		}
+
+		// Buscar tipos publico e inactivarlos.
+		var tiposPublico []*TipoPublico
+		if _, err = o.QueryTable(new(TipoPublico)).RelatedSel().Filter("CalendarioEventoId__Id",id).All(&tiposPublico); err == nil{
+			for _, tipoPublico := range tiposPublico {
+				tipoPublico.Activo = false
+				if num, err = o.Update(tipoPublico,"Activo"); err == nil {
+					fmt.Println("Tipo publico inactivated in database:", num)
+				} else {
+					fmt.Println(err)
+					_ = o.Rollback()
+					return
+				}
+			}
+		} else {
+			fmt.Println(err)
+			_ = o.Rollback()
+			return
+		}
+
+
+		// Buscar encargados e inactivarlos a todos.
+		var encargadosEvento []*EncargadoEvento
+		if _, err = o.QueryTable(new(EncargadoEvento)).RelatedSel().Filter("CalendarioEventoId__Id",id).All(&encargadosEvento); err == nil{
+			for _, encargadoEvento := range encargadosEvento {
+				encargadoEvento.Activo = false
+				if num, err = o.Update(encargadoEvento,"Activo"); err == nil {
+					fmt.Println("Encargado Evento inactivated in database:", num)
+				} else {
+					fmt.Println(err)
+					_ = o.Rollback()
+					return
+				}
+			}
+		} else {
+			fmt.Println(err)
+			_ = o.Rollback()
+			return
+		}		
+
+		_ = o.Commit()
+	} else {
+		fmt.Println(err)
+		_ = o.Rollback()
 	}
-	*/
 	return
 }
