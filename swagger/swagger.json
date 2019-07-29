@@ -1102,7 +1102,7 @@
                         "description": "body for TrEvento content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.TrEvento"
+                            "$ref": "#/definitions/models.TrEventoPut"
                         }
                     }
                 ],
@@ -1110,7 +1110,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.TrEvento"
+                            "$ref": "#/definitions/models.TrEventoPut"
                         }
                     },
                     "400": {
@@ -1179,6 +1179,22 @@
             "type": "object"
         },
         "191.\u003cnil\u003e.TipoPublico": {
+            "title": "TipoPublico",
+            "type": "object"
+        },
+        "293.\u003cnil\u003e.EncargadoEvento": {
+            "title": "EncargadoEvento",
+            "type": "object"
+        },
+        "333.\u003cnil\u003e.TipoPublico": {
+            "title": "TipoPublico",
+            "type": "object"
+        },
+        "375.\u003cnil\u003e.EncargadoEvento": {
+            "title": "EncargadoEvento",
+            "type": "object"
+        },
+        "422.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
@@ -1408,6 +1424,27 @@
         "models.TrEventoController": {
             "title": "TrEventoController",
             "type": "object"
+        },
+        "models.TrEventoPut": {
+            "title": "TrEventoPut",
+            "type": "object",
+            "properties": {
+                "CalendarioEvento": {
+                    "$ref": "#/definitions/models.CalendarioEvento"
+                },
+                "EncargadosEvento": {
+                    "$ref": "#/definitions/293.\u003cnil\u003e.EncargadoEvento"
+                },
+                "EncargadosEventoBorrados": {
+                    "$ref": "#/definitions/375.\u003cnil\u003e.EncargadoEvento"
+                },
+                "TiposPublico": {
+                    "$ref": "#/definitions/333.\u003cnil\u003e.TipoPublico"
+                },
+                "TiposPublicoBorrados": {
+                    "$ref": "#/definitions/422.\u003cnil\u003e.TipoPublico"
+                }
+            }
         }
     },
     "tags": [

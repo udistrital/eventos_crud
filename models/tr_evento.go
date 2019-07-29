@@ -12,6 +12,14 @@ type TrEvento struct {
 	TiposPublico        *[]TipoPublico
 }
 
+type TrEventoPut struct {
+	CalendarioEvento    *CalendarioEvento
+	EncargadosEvento  *[]EncargadoEvento
+	TiposPublico        *[]TipoPublico
+	EncargadosEventoBorrados  *[]EncargadoEvento
+	TiposPublicoBorrados       *[]TipoPublico
+}
+
 // GetEventosByPersona Transacción para consultar todos los eventos con toda la información de las mismas
 func GetEventosByPersona(persona int) (v []interface{}, err error) {
 	o := orm.NewOrm()
@@ -22,12 +30,12 @@ func GetEventosByPersona(persona int) (v []interface{}, err error) {
 			evento := encargado.CalendarioEventoId
 
 			var encargadosEvento []EncargadoEvento
-			if _, err := o.QueryTable(new(EncargadoEvento)).RelatedSel().Filter("CalendarioEventoId__Id",evento.Id).All(&encargadosEvento); err != nil{
+			if _, err := o.QueryTable(new(EncargadoEvento)).RelatedSel().Filter("CalendarioEventoId__Id",evento.Id).Filter("Activo", true).All(&encargadosEvento); err != nil{
 				return nil, err
 			}
 
 			var tiposPublico []TipoPublico
-			if _, err := o.QueryTable(new(TipoPublico)).RelatedSel().Filter("CalendarioEventoId__Id",evento.Id).All(&tiposPublico); err != nil{
+			if _, err := o.QueryTable(new(TipoPublico)).RelatedSel().Filter("CalendarioEventoId__Id",evento.Id).Filter("Activo", true).All(&tiposPublico); err != nil{
 				return nil, err
 			}
 
@@ -82,7 +90,7 @@ func AddTransaccionEvento(m *TrEvento) (err error) {
 
 // UpdateTransaccionEvento updates Evento by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateTransaccionEvento(m *TrEvento) (err error) {
+func UpdateTransaccionEvento(m *TrEventoPut) (err error) {
 	o := orm.NewOrm()
 	err = o.Begin()
 	v := CalendarioEvento{Id: m.CalendarioEvento.Id}
@@ -91,45 +99,55 @@ func UpdateTransaccionEvento(m *TrEvento) (err error) {
 		var num int64
 		if num, errTr = o.Update(m.CalendarioEvento,"Descripcion","FechaInicio","FechaFin"); errTr == nil {
 			fmt.Println("Number of records updated (CalendarioEvento) in database:", num)
-			/*
-			for _, v := range *m.Metadatos {
-					fmt.Println("metadatos",m.Metadatos)
-					var metadato MetadatoProduccionAcademica
-					if errTr = o.QueryTable(new(MetadatoProduccionAcademica)).RelatedSel().Filter("MetadatoSubtipoProduccionId__Id",v.MetadatoSubtipoProduccionId.Id).Filter("ProduccionAcademicaId__Id",m.ProduccionAcademica.Id).One(&metadato); err == nil{
-						
-						if (metadato.Valor != v.Valor) {
-							metadato.Valor = v.Valor
-							metadato.FechaModificacion = v.FechaModificacion
-						}
-
-						if (metadato.Id != 0) {
-							if _, errTr = o.Update(&metadato,"Valor","FechaModificacion"); errTr != nil {
-								err = errTr
-								fmt.Println(err)
-								_ = o.Rollback()
-								return
-							}
-						} else {
-							metadato.ProduccionAcademicaId= m.ProduccionAcademica
-							metadato.MetadatoSubtipoProduccionId = v.MetadatoSubtipoProduccionId
-							metadato.FechaCreacion = v.FechaCreacion
-							if _, errTr = o.Insert(&metadato); errTr != nil {
-								err = errTr
-								fmt.Println(err)
-								_ = o.Rollback()
-								return
-							}
-						}
-
-						
-					} else {
+			
+			// Eliminar tipospublico
+			for _, v := range *m.TiposPublicoBorrados {
+				v.Activo = false
+				if _, errTr = o.Update(&v,"Activo"); errTr != nil {
+					err = errTr
+					fmt.Println(err)
+					_ = o.Rollback()
+					return
+				}
+			}
+			// Agregar y actualizar TiposPublico
+			for _, v := range *m.TiposPublico {
+				if (v.Id != 0) {
+					if _, errTr = o.Update(&v,"Nombre"); errTr != nil {
 						err = errTr
 						fmt.Println(err)
 						_ = o.Rollback()
 						return
-					}		
+					}
+				} else {
+					if _, errTr = o.Insert(&v); errTr != nil {
+						err = errTr
+						fmt.Println(err)
+						_ = o.Rollback()
+						return
+					}
+				}
 			}
-			*/
+			// Agregar encagadosEvennto
+			for _, v := range *m.EncargadosEvento {
+				if _, errTr = o.Insert(&v); errTr != nil {
+					err = errTr
+					fmt.Println(err)
+					_ = o.Rollback()
+					return
+				}
+			}
+			// Eliminar encargadodsEvento
+			for _, v := range *m.EncargadosEventoBorrados {
+				v.Activo = false
+				if _, errTr = o.Update(&v,"Activo"); errTr != nil {
+					err = errTr
+					fmt.Println(err)
+					_ = o.Rollback()
+					return
+				}
+			}
+
 			_ = o.Commit()
 		}	else {
 			err = errTr

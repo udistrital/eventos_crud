@@ -78,14 +78,14 @@ func (c *TrEventoController) Post() {
 // @Title Put
 // @Description update the TrEvento
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.TrEvento	true		"body for TrEvento content"
-// @Success 200 {object} models.TrEvento
+// @Param	body		body 	models.TrEventoPut	true		"body for TrEvento content"
+// @Success 200 {object} models.TrEventoPut
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *TrEventoController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	var v models.TrEvento
+	var v models.TrEventoPut
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.CalendarioEvento.Id = id
 		if err := models.UpdateTransaccionEvento(&v); err == nil {

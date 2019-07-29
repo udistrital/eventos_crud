@@ -736,12 +736,12 @@ paths:
         description: body for TrEvento content
         required: true
         schema:
-          $ref: '#/definitions/models.TrEvento'
+          $ref: '#/definitions/models.TrEventoPut'
       responses:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.TrEvento'
+            $ref: '#/definitions/models.TrEventoPut'
         "400":
           description: the request contains incorrect syntax
     delete:
@@ -784,6 +784,18 @@ definitions:
     title: EncargadoEvento
     type: object
   191.<nil>.TipoPublico:
+    title: TipoPublico
+    type: object
+  293.<nil>.EncargadoEvento:
+    title: EncargadoEvento
+    type: object
+  333.<nil>.TipoPublico:
+    title: TipoPublico
+    type: object
+  375.<nil>.EncargadoEvento:
+    title: EncargadoEvento
+    type: object
+  422.<nil>.TipoPublico:
     title: TipoPublico
     type: object
   models.CalendarioEvento:
@@ -946,6 +958,20 @@ definitions:
   models.TrEventoController:
     title: TrEventoController
     type: object
+  models.TrEventoPut:
+    title: TrEventoPut
+    type: object
+    properties:
+      CalendarioEvento:
+        $ref: '#/definitions/models.CalendarioEvento'
+      EncargadosEvento:
+        $ref: '#/definitions/293.<nil>.EncargadoEvento'
+      EncargadosEventoBorrados:
+        $ref: '#/definitions/375.<nil>.EncargadoEvento'
+      TiposPublico:
+        $ref: '#/definitions/333.<nil>.TipoPublico'
+      TiposPublicoBorrados:
+        $ref: '#/definitions/422.<nil>.TipoPublico'
 tags:
 - name: rol_encargado_evento
   description: |
