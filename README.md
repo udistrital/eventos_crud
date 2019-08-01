@@ -1,4 +1,4 @@
-# sesiones_crud
+# eventos_crud
 Api para administración de sesiones o periodos.
 API de core, Integración con CI
 sesiones_crud master/develop
