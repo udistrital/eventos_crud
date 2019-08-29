@@ -6,8 +6,9 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/plugins/cors"
 	_ "github.com/lib/pq"
-	_ "github.com/planesticud/sesiones_crud/routers"
-	"github.com/udistrital/utils_oas/apiStatusLib"
+	_ "github.com/planesticud/eventos_crud/routers"
+	"github.com/udistrital/auditoria"
+	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
 	"github.com/udistrital/utils_oas/customerror"
 )
 
@@ -16,22 +17,32 @@ func init() {
 }
 
 func main() {
-	orm.Debug = true
-	logs.SetLogger(logs.AdapterFile, `{"filename":"/var/log/beego/sesiones_crud.log"}`)
+	//orm.Debug = true
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
-	beego.Debug("Filters init...")
+
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
-		AllowAllOrigins:  true,
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders:     []string{"Origin", "Authorization", "Access-Control-Allow-Origin", "Content-Type"},
-		ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin"},
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"PUT", "PATCH", "GET", "POST", "OPTIONS", "DELETE"},
+		AllowHeaders: []string{"Origin", "x-requested-with",
+			"content-type",
+			"accept",
+			"origin",
+			"authorization",
+			"x-csrftoken"},
+		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 	}))
 
+	logPath := "{\"filename\":\""
+	logPath += beego.AppConfig.String("logPath")
+	logPath += "\"}"
+	logs.SetLogger(logs.AdapterFile, logPath)
+
 	apistatus.Init()
+	auditoria.InitMiddleware()
 	beego.ErrorController(&customerror.CustomErrorController{})
 	beego.Run()
 }

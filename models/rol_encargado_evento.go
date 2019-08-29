@@ -7,47 +7,55 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
-type RelacionSesiones struct {
-	Id          int     `orm:"column(id);pk;auto"`
-	SesionPadre *Sesion `orm:"column(sesion_padre);rel(fk)"`
-	SesionHijo  *Sesion `orm:"column(sesion_hijo);rel(fk)"`
+type RolEncargadoEvento struct {
+	Id                int     `orm:"column(id);pk"`
+	Nombre            string  `orm:"column(nombre);null"`
+	Descripcion       string  `orm:"column(descripcion);null"`
+	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
+	NumeroOrden       float64 `orm:"column(numero_orden);null"`
+	Activo            bool    `orm:"column(activo);null"`
+	FechaCreacion     string  `orm:"column(fecha_creacion);null"`
+	FechaModificacion string  `orm:"column(fecha_modificacion);null"`
 }
 
-func (t *RelacionSesiones) TableName() string {
-	return "relacion_sesiones"
+func (t *RolEncargadoEvento) TableName() string {
+	return "rol_encargado_evento"
 }
 
 func init() {
-	orm.RegisterModel(new(RelacionSesiones))
+	orm.RegisterModel(new(RolEncargadoEvento))
 }
 
-// AddRelacionSesiones insert a new RelacionSesiones into database and returns
+// AddRolEncargadoEvento insert a new RolEncargadoEvento into database and returns
 // last inserted Id on success.
-func AddRelacionSesiones(m *RelacionSesiones) (id int64, err error) {
+func AddRolEncargadoEvento(m *RolEncargadoEvento) (id int64, err error) {
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetRelacionSesionesById retrieves RelacionSesiones by Id. Returns error if
+// GetRolEncargadoEventoById retrieves RolEncargadoEvento by Id. Returns error if
 // Id doesn't exist
-func GetRelacionSesionesById(id int) (v *RelacionSesiones, err error) {
+func GetRolEncargadoEventoById(id int) (v *RolEncargadoEvento, err error) {
 	o := orm.NewOrm()
-	v = &RelacionSesiones{Id: id}
+	v = &RolEncargadoEvento{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllRelacionSesiones retrieves all RelacionSesiones matches certain condition. Returns empty list if
+// GetAllRolEncargadoEvento retrieves all RolEncargadoEvento matches certain condition. Returns empty list if
 // no records exist
-func GetAllRelacionSesiones(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllRolEncargadoEvento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(RelacionSesiones)).RelatedSel()
+	qs := o.QueryTable(new(RolEncargadoEvento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -97,7 +105,7 @@ func GetAllRelacionSesiones(query map[string]string, fields []string, sortby []s
 		}
 	}
 
-	var l []RelacionSesiones
+	var l []RolEncargadoEvento
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -120,11 +128,12 @@ func GetAllRelacionSesiones(query map[string]string, fields []string, sortby []s
 	return nil, err
 }
 
-// UpdateRelacionSesiones updates RelacionSesiones by Id and returns error if
+// UpdateRolEncargadoEvento updates RolEncargadoEvento by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateRelacionSesionesById(m *RelacionSesiones) (err error) {
+func UpdateRolEncargadoEventoById(m *RolEncargadoEvento) (err error) {
 	o := orm.NewOrm()
-	v := RelacionSesiones{Id: m.Id}
+	v := RolEncargadoEvento{Id: m.Id}
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -135,15 +144,15 @@ func UpdateRelacionSesionesById(m *RelacionSesiones) (err error) {
 	return
 }
 
-// DeleteRelacionSesiones deletes RelacionSesiones by Id and returns error if
+// DeleteRolEncargadoEvento deletes RolEncargadoEvento by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteRelacionSesiones(id int) (err error) {
+func DeleteRolEncargadoEvento(id int) (err error) {
 	o := orm.NewOrm()
-	v := RelacionSesiones{Id: id}
+	v := RolEncargadoEvento{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&RelacionSesiones{Id: id}); err == nil {
+		if num, err = o.Delete(&RolEncargadoEvento{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

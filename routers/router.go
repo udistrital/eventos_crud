@@ -8,7 +8,7 @@
 package routers
 
 import (
-	"github.com/planesticud/sesiones_crud/controllers"
+	"github.com/planesticud/eventos_crud/controllers"
 
 	"github.com/astaxie/beego"
 )
@@ -16,33 +16,45 @@ import (
 func init() {
 	ns := beego.NewNamespace("/v1",
 
-		beego.NSNamespace("/tipo_sesion",
+		beego.NSNamespace("/calendario_evento",
 			beego.NSInclude(
-				&controllers.TipoSesionController{},
+				&controllers.CalendarioEventoController{},
 			),
 		),
 
-		beego.NSNamespace("/rol_participante_sesion",
+		beego.NSNamespace("/tipo_recurrencia",
 			beego.NSInclude(
-				&controllers.RolParticipanteSesionController{},
+				&controllers.TipoRecurrenciaController{},
 			),
 		),
 
-		beego.NSNamespace("/participante_sesion",
+		beego.NSNamespace("/tipo_evento",
 			beego.NSInclude(
-				&controllers.ParticipanteSesionController{},
+				&controllers.TipoEventoController{},
 			),
 		),
 
-		beego.NSNamespace("/sesion",
+		beego.NSNamespace("/rol_encargado_evento",
 			beego.NSInclude(
-				&controllers.SesionController{},
+				&controllers.RolEncargadoEventoController{},
 			),
 		),
 
-		beego.NSNamespace("/relacion_sesiones",
+		beego.NSNamespace("/encargado_evento",
 			beego.NSInclude(
-				&controllers.RelacionSesionesController{},
+				&controllers.EncargadoEventoController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_publico",
+			beego.NSInclude(
+				&controllers.TipoPublicoController{},
+			),
+		),
+
+		beego.NSNamespace("/tr_evento",
+			beego.NSInclude(
+				&controllers.TrEventoController{},
 			),
 		),
 	)

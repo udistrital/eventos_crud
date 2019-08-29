@@ -7,50 +7,54 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
-type RolParticipanteSesion struct {
-	Id                int     `orm:"column(id);pk;auto"`
-	Nombre            string  `orm:"column(nombre)"`
-	Descripcion       string  `orm:"column(descripcion);null"`
-	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
-	Activo            bool    `orm:"column(activo)"`
-	NumeroOrden       float64 `orm:"column(numero_orden);null"`
+type EncargadoEvento struct {
+	Id                 int                 `orm:"column(id);pk"`
+	EncargadoId        int                 `orm:"column(encargado_id);null"`
+	Activo             bool                `orm:"column(activo);null"`
+	FechaCreacion      string              `orm:"column(fecha_creacion);null"`
+	FechaModificacion  string              `orm:"column(fecha_modificacion);null"`
+	RolEncargadoId     *RolEncargadoEvento `orm:"column(rol_encargado_id);rel(fk)"`
+	CalendarioEventoId *CalendarioEvento   `orm:"column(calendario_evento_id);rel(fk)"`
 }
 
-func (t *RolParticipanteSesion) TableName() string {
-	return "rol_participante_sesion"
+func (t *EncargadoEvento) TableName() string {
+	return "encargado_evento"
 }
 
 func init() {
-	orm.RegisterModel(new(RolParticipanteSesion))
+	orm.RegisterModel(new(EncargadoEvento))
 }
 
-// AddRolParticipanteSesion insert a new RolParticipanteSesion into database and returns
+// AddEncargadoEvento insert a new EncargadoEvento into database and returns
 // last inserted Id on success.
-func AddRolParticipanteSesion(m *RolParticipanteSesion) (id int64, err error) {
+func AddEncargadoEvento(m *EncargadoEvento) (id int64, err error) {
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetRolParticipanteSesionById retrieves RolParticipanteSesion by Id. Returns error if
+// GetEncargadoEventoById retrieves EncargadoEvento by Id. Returns error if
 // Id doesn't exist
-func GetRolParticipanteSesionById(id int) (v *RolParticipanteSesion, err error) {
+func GetEncargadoEventoById(id int) (v *EncargadoEvento, err error) {
 	o := orm.NewOrm()
-	v = &RolParticipanteSesion{Id: id}
+	v = &EncargadoEvento{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllRolParticipanteSesion retrieves all RolParticipanteSesion matches certain condition. Returns empty list if
+// GetAllEncargadoEvento retrieves all EncargadoEvento matches certain condition. Returns empty list if
 // no records exist
-func GetAllRolParticipanteSesion(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllEncargadoEvento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(RolParticipanteSesion))
+	qs := o.QueryTable(new(EncargadoEvento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -100,7 +104,7 @@ func GetAllRolParticipanteSesion(query map[string]string, fields []string, sortb
 		}
 	}
 
-	var l []RolParticipanteSesion
+	var l []EncargadoEvento
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -123,11 +127,12 @@ func GetAllRolParticipanteSesion(query map[string]string, fields []string, sortb
 	return nil, err
 }
 
-// UpdateRolParticipanteSesion updates RolParticipanteSesion by Id and returns error if
+// UpdateEncargadoEvento updates EncargadoEvento by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateRolParticipanteSesionById(m *RolParticipanteSesion) (err error) {
+func UpdateEncargadoEventoById(m *EncargadoEvento) (err error) {
 	o := orm.NewOrm()
-	v := RolParticipanteSesion{Id: m.Id}
+	v := EncargadoEvento{Id: m.Id}
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -138,15 +143,15 @@ func UpdateRolParticipanteSesionById(m *RolParticipanteSesion) (err error) {
 	return
 }
 
-// DeleteRolParticipanteSesion deletes RolParticipanteSesion by Id and returns error if
+// DeleteEncargadoEvento deletes EncargadoEvento by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteRolParticipanteSesion(id int) (err error) {
+func DeleteEncargadoEvento(id int) (err error) {
 	o := orm.NewOrm()
-	v := RolParticipanteSesion{Id: id}
+	v := EncargadoEvento{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&RolParticipanteSesion{Id: id}); err == nil {
+		if num, err = o.Delete(&EncargadoEvento{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

@@ -1,5 +1,5 @@
 kind: pipeline
-name: sesiones_crud
+name: eventos_crud
 
 workspace:
   base: /go

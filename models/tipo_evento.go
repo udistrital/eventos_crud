@@ -5,57 +5,58 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
-type Sesion struct {
-	Id                 int         `orm:"column(id);pk;auto"`
-	Descripcion        string      `orm:"column(descripcion);null"`
-	FechaCreacion      time.Time   `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion  time.Time   `orm:"column(fecha_modificacion);type(timestamp without time zone);null"`
-	FechaInicio        time.Time   `orm:"column(fecha_inicio);type(timestamp without time zone)"`
-	FechaFin           time.Time   `orm:"column(fecha_fin);type(timestamp without time zone);null"`
-	Periodo            int         `orm:"column(periodo);null"`
-	Recurrente         bool        `orm:"column(recurrente)"`
-	NumeroRecurrencias int         `orm:"column(numero_recurrencias);null"`
-	TipoSesion         *TipoSesion `orm:"column(tipo_sesion);rel(fk)"`
+type TipoEvento struct {
+	Id                int              `orm:"column(id);pk"`
+	Nombre            string           `orm:"column(nombre);null"`
+	Descripcion       string           `orm:"column(descripcion);null"`
+	CodigoAbreviacion string           `orm:"column(codigo_abreviacion);null"`
+	DependenciaId     int              `orm:"column(dependencia_id);null"`
+	Activo            bool             `orm:"column(activo);null"`
+	FechaCreacion     string           `orm:"column(fecha_creacion);null"`
+	FechaModificacion string           `orm:"column(fecha_modificacion);null"`
+	TipoRecurrenciaId *TipoRecurrencia `orm:"column(tipo_recurrencia_id);rel(fk)"`
 }
 
-func (t *Sesion) TableName() string {
-	return "sesion"
+func (t *TipoEvento) TableName() string {
+	return "tipo_evento"
 }
 
 func init() {
-	orm.RegisterModel(new(Sesion))
+	orm.RegisterModel(new(TipoEvento))
 }
 
-// AddSesion insert a new Sesion into database and returns
+// AddTipoEvento insert a new TipoEvento into database and returns
 // last inserted Id on success.
-func AddSesion(m *Sesion) (id int64, err error) {
+func AddTipoEvento(m *TipoEvento) (id int64, err error) {
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetSesionById retrieves Sesion by Id. Returns error if
+// GetTipoEventoById retrieves TipoEvento by Id. Returns error if
 // Id doesn't exist
-func GetSesionById(id int) (v *Sesion, err error) {
+func GetTipoEventoById(id int) (v *TipoEvento, err error) {
 	o := orm.NewOrm()
-	v = &Sesion{Id: id}
+	v = &TipoEvento{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllSesion retrieves all Sesion matches certain condition. Returns empty list if
+// GetAllTipoEvento retrieves all TipoEvento matches certain condition. Returns empty list if
 // no records exist
-func GetAllSesion(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllTipoEvento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Sesion)).RelatedSel()
+	qs := o.QueryTable(new(TipoEvento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -105,7 +106,7 @@ func GetAllSesion(query map[string]string, fields []string, sortby []string, ord
 		}
 	}
 
-	var l []Sesion
+	var l []TipoEvento
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -128,11 +129,12 @@ func GetAllSesion(query map[string]string, fields []string, sortby []string, ord
 	return nil, err
 }
 
-// UpdateSesion updates Sesion by Id and returns error if
+// UpdateTipoEvento updates TipoEvento by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateSesionById(m *Sesion) (err error) {
+func UpdateTipoEventoById(m *TipoEvento) (err error) {
 	o := orm.NewOrm()
-	v := Sesion{Id: m.Id}
+	v := TipoEvento{Id: m.Id}
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -143,15 +145,15 @@ func UpdateSesionById(m *Sesion) (err error) {
 	return
 }
 
-// DeleteSesion deletes Sesion by Id and returns error if
+// DeleteTipoEvento deletes TipoEvento by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteSesion(id int) (err error) {
+func DeleteTipoEvento(id int) (err error) {
 	o := orm.NewOrm()
-	v := Sesion{Id: id}
+	v := TipoEvento{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Sesion{Id: id}); err == nil {
+		if num, err = o.Delete(&TipoEvento{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

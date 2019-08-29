@@ -5,50 +5,60 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
-type ParticipanteSesion struct {
-	Id                    int                    `orm:"column(id);pk;auto"`
-	Sesion                *Sesion                `orm:"column(sesion);rel(fk)"`
-	RolParticipanteSesion *RolParticipanteSesion `orm:"column(rol_participante_sesion);rel(fk)"`
-	Ente                  int                    `orm:"column(ente)"`
+type CalendarioEvento struct {
+	Id                int               `orm:"column(id);pk"`
+	Descripcion       string            `orm:"column(descripcion);null"`
+	PeriodoId         int               `orm:"column(periodo_id);null"`
+	EventoPadreId     *CalendarioEvento `orm:"column(evento_padre_id);rel(fk)"`
+	Activo            bool              `orm:"column(activo);null"`
+	FechaInicio       time.Time         `orm:"column(fecha_inicio);type(timestamp with time zone)"`
+	FechaFin          time.Time         `orm:"column(fecha_fin);type(timestamp with time zone)"`
+	TipoEventoId      *TipoEvento       `orm:"column(tipo_evento_id);rel(fk)"`
+	FechaCreacion     string            `orm:"column(fecha_creacion);null"`
+	FechaModificacion string            `orm:"column(fecha_modificacion);null"`
 }
 
-func (t *ParticipanteSesion) TableName() string {
-	return "participante_sesion"
+func (t *CalendarioEvento) TableName() string {
+	return "calendario_evento"
 }
 
 func init() {
-	orm.RegisterModel(new(ParticipanteSesion))
+	orm.RegisterModel(new(CalendarioEvento))
 }
 
-// AddParticipanteSesion insert a new ParticipanteSesion into database and returns
+// AddCalendarioEvento insert a new CalendarioEvento into database and returns
 // last inserted Id on success.
-func AddParticipanteSesion(m *ParticipanteSesion) (id int64, err error) {
+func AddCalendarioEvento(m *CalendarioEvento) (id int64, err error) {
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetParticipanteSesionById retrieves ParticipanteSesion by Id. Returns error if
+// GetCalendarioEventoById retrieves CalendarioEvento by Id. Returns error if
 // Id doesn't exist
-func GetParticipanteSesionById(id int) (v *ParticipanteSesion, err error) {
+func GetCalendarioEventoById(id int) (v *CalendarioEvento, err error) {
 	o := orm.NewOrm()
-	v = &ParticipanteSesion{Id: id}
+	v = &CalendarioEvento{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllParticipanteSesion retrieves all ParticipanteSesion matches certain condition. Returns empty list if
+// GetAllCalendarioEvento retrieves all CalendarioEvento matches certain condition. Returns empty list if
 // no records exist
-func GetAllParticipanteSesion(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllCalendarioEvento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ParticipanteSesion)).RelatedSel()
+	qs := o.QueryTable(new(CalendarioEvento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -98,7 +108,7 @@ func GetAllParticipanteSesion(query map[string]string, fields []string, sortby [
 		}
 	}
 
-	var l []ParticipanteSesion
+	var l []CalendarioEvento
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -121,11 +131,12 @@ func GetAllParticipanteSesion(query map[string]string, fields []string, sortby [
 	return nil, err
 }
 
-// UpdateParticipanteSesion updates ParticipanteSesion by Id and returns error if
+// UpdateCalendarioEvento updates CalendarioEvento by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateParticipanteSesionById(m *ParticipanteSesion) (err error) {
+func UpdateCalendarioEventoById(m *CalendarioEvento) (err error) {
 	o := orm.NewOrm()
-	v := ParticipanteSesion{Id: m.Id}
+	v := CalendarioEvento{Id: m.Id}
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -136,15 +147,15 @@ func UpdateParticipanteSesionById(m *ParticipanteSesion) (err error) {
 	return
 }
 
-// DeleteParticipanteSesion deletes ParticipanteSesion by Id and returns error if
+// DeleteCalendarioEvento deletes CalendarioEvento by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteParticipanteSesion(id int) (err error) {
+func DeleteCalendarioEvento(id int) (err error) {
 	o := orm.NewOrm()
-	v := ParticipanteSesion{Id: id}
+	v := CalendarioEvento{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&ParticipanteSesion{Id: id}); err == nil {
+		if num, err = o.Delete(&CalendarioEvento{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

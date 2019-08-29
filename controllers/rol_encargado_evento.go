@@ -2,21 +2,20 @@ package controllers
 
 import (
 	"encoding/json"
-	"errors"
-	"github.com/planesticud/sesiones_crud/models"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/planesticud/eventos_crud/models"
 )
 
-// RelacionSesionesController operations for RelacionSesiones
-type RelacionSesionesController struct {
+// RolEncargadoEventoController operations for RolEncargadoEvento
+type RolEncargadoEventoController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *RelacionSesionesController) URLMapping() {
+func (c *RolEncargadoEventoController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -26,41 +25,47 @@ func (c *RelacionSesionesController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create RelacionSesiones
-// @Param	body		body 	models.RelacionSesiones	true		"body for RelacionSesiones content"
-// @Success 201 {int} models.RelacionSesiones
+// @Description create RolEncargadoEvento
+// @Param	body		body 	models.RolEncargadoEvento	true		"body for RolEncargadoEvento content"
+// @Success 201 {int} models.RolEncargadoEvento
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
-func (c *RelacionSesionesController) Post() {
-	var v models.RelacionSesiones
+func (c *RolEncargadoEventoController) Post() {
+	var v models.RolEncargadoEvento
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddRelacionSesiones(&v); err == nil {
+		if _, err := models.AddRolEncargadoEvento(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
 			beego.Error(err)
+			//c.Data["development"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+			c.Data["system"] = err
 			c.Abort("400")
 		}
 	} else {
-			beego.Error(err)
-			c.Abort("400")
+		beego.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
 
 // GetOne ...
 // @Title Get One
-// @Description get RelacionSesiones by id
+// @Description get RolEncargadoEvento by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.RelacionSesiones
+// @Success 200 {object} models.RolEncargadoEvento
 // @Failure 404 not found resource
 // @router /:id [get]
-func (c *RelacionSesionesController) GetOne() {
+func (c *RolEncargadoEventoController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetRelacionSesionesById(id)
+	v, err := models.GetRolEncargadoEventoById(id)
 	if err != nil {
 		beego.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
 		c.Abort("404")
 	} else {
 		c.Data["json"] = v
@@ -70,17 +75,17 @@ func (c *RelacionSesionesController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get RelacionSesiones
+// @Description get RolEncargadoEvento
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.RelacionSesiones
+// @Success 200 {object} models.RolEncargadoEvento
 // @Failure 404 not found resource
 // @router / [get]
-func (c *RelacionSesionesController) GetAll() {
+func (c *RolEncargadoEventoController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -113,7 +118,7 @@ func (c *RelacionSesionesController) GetAll() {
 		for _, cond := range strings.Split(v, ",") {
 			kv := strings.SplitN(cond, ":", 2)
 			if len(kv) != 2 {
-				c.Data["json"] = errors.New("Error: invalid query key/value pair")
+				c.Data["json"] = models.Alert{Type: "error", Code: "E_400", Body: "Error: invalid query key/value pair"}
 				c.ServeJSON()
 				return
 			}
@@ -122,9 +127,11 @@ func (c *RelacionSesionesController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllRelacionSesiones(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllRolEncargadoEvento(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		beego.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
 		c.Abort("404")
 	} else {
 		if l == nil {
@@ -137,44 +144,51 @@ func (c *RelacionSesionesController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the RelacionSesiones
+// @Description update the RolEncargadoEvento
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.RelacionSesiones	true		"body for RelacionSesiones content"
-// @Success 200 {object} models.RelacionSesiones
+// @Param	body		body 	models.RolEncargadoEvento	true		"body for RolEncargadoEvento content"
+// @Success 200 {object} models.RolEncargadoEvento
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
-func (c *RelacionSesionesController) Put() {
+func (c *RolEncargadoEventoController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.RelacionSesiones{Id: id}
+	v := models.RolEncargadoEvento{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateRelacionSesionesById(&v); err == nil {
+		if err := models.UpdateRolEncargadoEventoById(&v); err == nil {
+			c.Ctx.Output.SetStatus(200)
 			c.Data["json"] = v
 		} else {
 			beego.Error(err)
+			//c.Data["development"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+			c.Data["System"] = err
 			c.Abort("400")
 		}
 	} else {
-			beego.Error(err)
-			c.Abort("400")
+		beego.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Data["System"] = err
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
 
 // Delete ...
 // @Title Delete
-// @Description delete the RelacionSesiones
+// @Description delete the RolEncargadoEvento
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
-func (c *RelacionSesionesController) Delete() {
+func (c *RolEncargadoEventoController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteRelacionSesiones(id); err == nil {
+	if err := models.DeleteRolEncargadoEvento(id); err == nil {
 		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
 		beego.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
+		c.Data["System"] = err
 		c.Abort("404")
 	}
 	c.ServeJSON()
