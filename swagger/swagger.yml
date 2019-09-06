@@ -780,22 +780,22 @@ paths:
         "404":
           description: not found resource
 definitions:
-  18882.<nil>.EncargadoEvento:
+  19280.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  18919.<nil>.TipoPublico:
+  19317.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  19033.<nil>.EncargadoEvento:
+  19431.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  19078.<nil>.TipoPublico:
+  19476.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  19119.<nil>.EncargadoEvento:
+  19517.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  19164.<nil>.TipoPublico:
+  19562.<nil>.TipoPublico:
     title: TipoPublico
     type: object
   models.CalendarioEvento:
@@ -943,9 +943,9 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/18882.<nil>.EncargadoEvento'
+        $ref: '#/definitions/19280.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/18919.<nil>.TipoPublico'
+        $ref: '#/definitions/19317.<nil>.TipoPublico'
   models.TrEventoController:
     title: TrEventoController
     type: object
@@ -956,13 +956,13 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/19033.<nil>.EncargadoEvento'
+        $ref: '#/definitions/19431.<nil>.EncargadoEvento'
       EncargadosEventoBorrados:
-        $ref: '#/definitions/19119.<nil>.EncargadoEvento'
+        $ref: '#/definitions/19517.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/19078.<nil>.TipoPublico'
+        $ref: '#/definitions/19476.<nil>.TipoPublico'
       TiposPublicoBorrados:
-        $ref: '#/definitions/19164.<nil>.TipoPublico'
+        $ref: '#/definitions/19562.<nil>.TipoPublico'
 tags:
 - name: calendario_evento
   description: |

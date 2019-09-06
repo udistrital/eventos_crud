@@ -1174,27 +1174,27 @@
         }
     },
     "definitions": {
-        "18882.\u003cnil\u003e.EncargadoEvento": {
+        "19280.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "18919.\u003cnil\u003e.TipoPublico": {
+        "19317.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "19033.\u003cnil\u003e.EncargadoEvento": {
+        "19431.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "19078.\u003cnil\u003e.TipoPublico": {
+        "19476.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "19119.\u003cnil\u003e.EncargadoEvento": {
+        "19517.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "19164.\u003cnil\u003e.TipoPublico": {
+        "19562.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
@@ -1406,10 +1406,10 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/18882.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/19280.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/18919.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/19317.\u003cnil\u003e.TipoPublico"
                 }
             }
         },
@@ -1425,16 +1425,16 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/19033.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/19431.\u003cnil\u003e.EncargadoEvento"
                 },
                 "EncargadosEventoBorrados": {
-                    "$ref": "#/definitions/19119.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/19517.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/19078.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/19476.\u003cnil\u003e.TipoPublico"
                 },
                 "TiposPublicoBorrados": {
-                    "$ref": "#/definitions/19164.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/19562.\u003cnil\u003e.TipoPublico"
                 }
             }
         }
