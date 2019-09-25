@@ -1,0 +1,6 @@
+projectKey=eventos_crud
+serverUrl=http://sonarqube.planestic.udistrital.edu.co:9005
+serverVersion=7.0.0.36138
+dashboardUrl=http://sonarqube.planestic.udistrital.edu.co:9005/dashboard/index/eventos_crud
+ceTaskId=AW1qBD2nlGVdvusbrOKg
+ceTaskUrl=http://sonarqube.planestic.udistrital.edu.co:9005/api/ce/task?id=AW1qBD2nlGVdvusbrOKg

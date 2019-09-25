@@ -1,0 +1,1 @@
+qcontrollers/tipo_publico.go 2goXÅhrcontrollers/tipo_publico.go
