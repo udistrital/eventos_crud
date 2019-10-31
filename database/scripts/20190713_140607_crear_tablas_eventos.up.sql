@@ -1,18 +1,3 @@
--- Database generated with pgModeler (PostgreSQL Database Modeler).
--- pgModeler  version: 0.9.2-alpha1
--- PostgreSQL version: 10.0
--- Project Site: pgmodeler.io
--- Model Author: ---
-
-
--- Database creation must be done outside a multicommand file.
--- These commands were put in this file only as a convenience.
--- -- object: evento | type: DATABASE --
--- -- DROP DATABASE IF EXISTS evento;
--- CREATE DATABASE evento;
--- -- ddl-end --
--- 
-
 -- object: evento | type: SCHEMA --
 -- DROP SCHEMA IF EXISTS evento CASCADE;
 CREATE SCHEMA evento;
@@ -258,6 +243,6 @@ COMMENT ON CONSTRAINT fk_evento_padre ON evento.calendario_evento  IS 'FK de la 
 -- ddl-end --
 
 -- Permisos de usuario
-GRANT USAGE ON SCHEMA evento TO test;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA evento TO test;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA evento TO test;
+GRANT USAGE ON SCHEMA evento TO desarrollooas;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA evento TO desarrollooas;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA evento TO desarrollooas;
