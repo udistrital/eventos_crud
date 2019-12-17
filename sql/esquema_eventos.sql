@@ -2,7 +2,7 @@
 -- DROP SCHEMA IF EXISTS evento CASCADE;
 CREATE SCHEMA eventos;
 -- ddl-end --
-COMMENT ON SCHEMA evento IS 'Esquema del core';
+COMMENT ON SCHEMA eventos IS 'Esquema del core';
 -- ddl-end --
 
 -- SET search_path TO pg_catalog,public,evento;
@@ -26,21 +26,21 @@ CREATE TABLE eventos.tipo_evento (
 -- ddl-end --
 COMMENT ON TABLE eventos.tipo_evento IS 'Tabla que permite registrar los diferentes tipos de sesion que tienen las diferentes organizaciones';
 -- ddl-end --
-COMMENT ON COLUMN eventos.tipo_eventos.id IS 'Identificador de la tabla tipo sesion';
+COMMENT ON COLUMN eventos.tipo_evento.id IS 'Identificador de la tabla tipo sesion';
 -- ddl-end --
-COMMENT ON COLUMN eventos.tipo_eventos.nombre IS 'Nombre del tipo de sesion';
+COMMENT ON COLUMN eventos.tipo_evento.nombre IS 'Nombre del tipo de sesion';
 -- ddl-end --
-COMMENT ON COLUMN eventos.tipo_eventos.descripcion IS 'Descripcion del tipo de sesion que se referencia';
+COMMENT ON COLUMN eventos.tipo_evento.descripcion IS 'Descripcion del tipo de sesion que se referencia';
 -- ddl-end --
-COMMENT ON COLUMN eventos.tipo_eventos.codigo_abreviacion IS 'Codigo de abreviación del tipo de sesión que se maneja';
+COMMENT ON COLUMN eventos.tipo_evento.codigo_abreviacion IS 'Codigo de abreviación del tipo de sesión que se maneja';
 -- ddl-end --
-COMMENT ON COLUMN eventos.tipo_eventos.activo IS 'Booleano que define si el tipo de sesión se encuentra actualmente activo o no';
+COMMENT ON COLUMN eventos.tipo_evento.activo IS 'Booleano que define si el tipo de sesión se encuentra actualmente activo o no';
 -- ddl-end --
-COMMENT ON COLUMN eventos.tipo_eventos.dependencia_id IS 'se referencia al esquema de dependencia del sistema OKIOS';
+COMMENT ON COLUMN eventos.tipo_evento.dependencia_id IS 'se referencia al esquema de dependencia del sistema OKIOS';
 -- ddl-end --
-COMMENT ON COLUMN eventos.tipo_eventos.fecha_creacion IS 'Fecha de creacion de un tipo de evento';
+COMMENT ON COLUMN eventos.tipo_evento.fecha_creacion IS 'Fecha de creacion de un tipo de evento';
 -- ddl-end --
-COMMENT ON COLUMN eventos.tipo_eventos.fecha_modificacion IS 'Fecha de modifiación de un tipo de evento';
+COMMENT ON COLUMN eventos.tipo_evento.fecha_modificacion IS 'Fecha de modifiación de un tipo de evento';
 -- ddl-end --
 COMMENT ON CONSTRAINT pk_tipo_evento ON eventos.tipo_evento  IS 'Contrait para pk de la tabla';
 -- ddl-end --
@@ -64,21 +64,21 @@ CREATE TABLE eventos.calendario_evento (
 -- ddl-end --
 COMMENT ON TABLE eventos.calendario_evento IS 'Tabla que almacena cada uno de las sesiones y sus datos';
 -- ddl-end --
-COMMENT ON COLUMN eventos.calendario_eventos.id IS 'Identificador de la sesión';
+COMMENT ON COLUMN eventos.calendario_evento.id IS 'Identificador de la sesión';
 -- ddl-end --
-COMMENT ON COLUMN eventos.calendario_eventos.descripcion IS 'Descripción de la sesión qeu se registra';
+COMMENT ON COLUMN eventos.calendario_evento.descripcion IS 'Descripción de la sesión qeu se registra';
 -- ddl-end --
-COMMENT ON COLUMN eventos.calendario_eventos.fecha_creacion IS 'Fecha de creacion de una sesión para la organización';
+COMMENT ON COLUMN eventos.calendario_evento.fecha_creacion IS 'Fecha de creacion de una sesión para la organización';
 -- ddl-end --
-COMMENT ON COLUMN eventos.calendario_eventos.fecha_modificacion IS 'Fecha de modifiación del evento para la organización';
+COMMENT ON COLUMN eventos.calendario_evento.fecha_modificacion IS 'Fecha de modifiación del evento para la organización';
 -- ddl-end --
-COMMENT ON COLUMN eventos.calendario_eventos.fecha_inicio IS 'Fecha de inicio de la sesión para la organización';
+COMMENT ON COLUMN eventos.calendario_evento.fecha_inicio IS 'Fecha de inicio de la sesión para la organización';
 -- ddl-end --
-COMMENT ON COLUMN eventos.calendario_eventos.fecha_fin IS 'Fecha de finalización de la sesión para la organización';
+COMMENT ON COLUMN eventos.calendario_evento.fecha_fin IS 'Fecha de finalización de la sesión para la organización';
 -- ddl-end --
-COMMENT ON COLUMN eventos.calendario_eventos.periodo_id IS 'Se almacena el periodo al cual pertenece el evento';
+COMMENT ON COLUMN eventos.calendario_evento.periodo_id IS 'Se almacena el periodo al cual pertenece el evento';
 -- ddl-end --
-COMMENT ON COLUMN eventos.calendario_eventos.activo IS 'Campo para registrar si el  registro se encuentra activo o no, solo a nivel de registro.';
+COMMENT ON COLUMN eventos.calendario_evento.activo IS 'Campo para registrar si el  registro se encuentra activo o no, solo a nivel de registro.';
 -- ddl-end --
 COMMENT ON CONSTRAINT pk_calendario_evento ON eventos.calendario_evento  IS 'Restriccion pk de la tabla calendario evento';
 -- ddl-end --
@@ -99,15 +99,15 @@ CREATE TABLE eventos.encargado_evento (
 -- ddl-end --
 COMMENT ON TABLE eventos.encargado_evento IS 'Tabla de rompimiento entre los diferentes encargados y el evento';
 -- ddl-end --
-COMMENT ON COLUMN eventos.encargado_eventos.id IS 'Identificador de la tabla responsable_sesion';
+COMMENT ON COLUMN eventos.encargado_evento.id IS 'Identificador de la tabla responsable_sesion';
 -- ddl-end --
-COMMENT ON COLUMN eventos.encargado_eventos.encargado_id IS 'Se hace referencia al esquema de persona';
+COMMENT ON COLUMN eventos.encargado_evento.encargado_id IS 'Se hace referencia al esquema de persona';
 -- ddl-end --
-COMMENT ON COLUMN eventos.encargado_eventos.fecha_creacion IS 'Fecha de creacion de un participante del evento';
+COMMENT ON COLUMN eventos.encargado_evento.fecha_creacion IS 'Fecha de creacion de un participante del evento';
 -- ddl-end --
-COMMENT ON COLUMN eventos.encargado_eventos.fecha_modificacion IS 'Fecha de modifiación de un participante del evento';
+COMMENT ON COLUMN eventos.encargado_evento.fecha_modificacion IS 'Fecha de modifiación de un participante del evento';
 -- ddl-end --
-COMMENT ON COLUMN eventos.encargado_eventos.activo IS 'Campo para registrar si el  registro se encuentra activo o no, solo a nivel de registro.';
+COMMENT ON COLUMN eventos.encargado_evento.activo IS 'Campo para registrar si el  registro se encuentra activo o no, solo a nivel de registro.';
 -- ddl-end --
 COMMENT ON CONSTRAINT pk_encargado_evento ON eventos.encargado_evento  IS 'Identificador de la tabla responsable evento';
 -- ddl-end --
@@ -129,19 +129,19 @@ CREATE TABLE eventos.rol_encargado_evento (
 -- ddl-end --
 COMMENT ON TABLE eventos.rol_encargado_evento IS 'Permite almacenar los diferentes roles que puede tener un encargado en un evento';
 -- ddl-end --
-COMMENT ON COLUMN eventos.rol_encargado_eventos.id IS 'Identificador de la tabla rol_participante_sesion';
+COMMENT ON COLUMN eventos.rol_encargado_evento.id IS 'Identificador de la tabla rol_participante_sesion';
 -- ddl-end --
-COMMENT ON COLUMN eventos.rol_encargado_eventos.nombre IS 'Nombre del rol que puede tener un participante de una sesion';
+COMMENT ON COLUMN eventos.rol_encargado_evento.nombre IS 'Nombre del rol que puede tener un participante de una sesion';
 -- ddl-end --
-COMMENT ON COLUMN eventos.rol_encargado_eventos.descripcion IS 'Descripcion que permite especificar el rol y las funciones en la sesion';
+COMMENT ON COLUMN eventos.rol_encargado_evento.descripcion IS 'Descripcion que permite especificar el rol y las funciones en la sesion';
 -- ddl-end --
-COMMENT ON COLUMN eventos.rol_encargado_eventos.codigo_abreviacion IS 'Codigo de abreviacion del nombre del rol que cumple un participante en la sesion';
+COMMENT ON COLUMN eventos.rol_encargado_evento.codigo_abreviacion IS 'Codigo de abreviacion del nombre del rol que cumple un participante en la sesion';
 -- ddl-end --
-COMMENT ON COLUMN eventos.rol_encargado_eventos.activo IS 'Booleano que permite identificar si el rol se encuentra activo o no';
+COMMENT ON COLUMN eventos.rol_encargado_evento.activo IS 'Booleano que permite identificar si el rol se encuentra activo o no';
 -- ddl-end --
-COMMENT ON COLUMN eventos.rol_encargado_eventos.fecha_creacion IS 'Fecha de creacion de un rol participante del evento';
+COMMENT ON COLUMN eventos.rol_encargado_evento.fecha_creacion IS 'Fecha de creacion de un rol participante del evento';
 -- ddl-end --
-COMMENT ON COLUMN eventos.rol_encargado_eventos.fecha_modificacion IS 'Fecha de modifiación de un rol participante del evento';
+COMMENT ON COLUMN eventos.rol_encargado_evento.fecha_modificacion IS 'Fecha de modifiación de un rol participante del evento';
 -- ddl-end --
 
 -- object: eventos.tipo_recurrencia | type: TABLE --
