@@ -28,9 +28,7 @@ COMMENT ON COLUMN eventos.tipo_sesion.numero_orden IS 'Número de orden para la 
 COMMENT ON CONSTRAINT pk_tipo_sesion ON eventos.tipo_sesion  IS 'Contrait para pk de la tabla';
 -- ddl-end --
 COMMENT ON CONSTRAINT uq_nombre_tipo_sesion ON eventos.tipo_sesion  IS 'UK para garantizar unicidad del nombre del tipo de la sesión';
--- ddl-end --
-ALTER TABLE eventos.tipo_sesion OWNER TO postgres;
--- ddl-end --
+
 
 -- object: eventos.sesion | type: TABLE --
 -- DROP TABLE IF EXISTS eventos.sesion CASCADE;
@@ -70,16 +68,6 @@ COMMENT ON COLUMN eventos.sesion.recurrente IS 'Booleano qeu permite identificar
 COMMENT ON COLUMN eventos.sesion.numero_recurrencias IS 'Numero de veces que va a ser necesarioqeu se repita la sesión';
 -- ddl-end --
 COMMENT ON CONSTRAINT pk_sesion ON eventos.sesion  IS 'Restriccion pk de la tabla sesión';
--- ddl-end --
-ALTER TABLE eventos.sesion OWNER TO postgres;
--- ddl-end --
-
--- object: fk_sesion_tipo_sesion | type: CONSTRAINT --
--- ALTER TABLE eventos.sesion DROP CONSTRAINT IF EXISTS fk_sesion_tipo_sesion CASCADE;
-ALTER TABLE eventos.sesion ADD CONSTRAINT fk_sesion_tipo_sesion FOREIGN KEY (tipo_sesion)
-REFERENCES eventos.tipo_sesion (id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
--- ddl-end --
 
 -- object: eventos.participante_sesion | type: TABLE --
 -- DROP TABLE IF EXISTS eventos.participante_sesion CASCADE;
@@ -100,15 +88,7 @@ COMMENT ON COLUMN eventos.participante_sesion.ente IS 'Columna que referencia el
 -- ddl-end --
 COMMENT ON CONSTRAINT pk_participante_sesion ON eventos.participante_sesion  IS 'Identificador de la tabla responsable sesión';
 -- ddl-end --
-ALTER TABLE eventos.participante_sesion OWNER TO postgres;
--- ddl-end --
 
--- object: fk_participante_sesion_sesion | type: CONSTRAINT --
--- ALTER TABLE eventos.participante_sesion DROP CONSTRAINT IF EXISTS fk_participante_sesion_sesion CASCADE;
-ALTER TABLE eventos.participante_sesion ADD CONSTRAINT fk_participante_sesion_sesion FOREIGN KEY (sesion)
-REFERENCES eventos.sesion (id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
--- ddl-end --
 
 -- object: eventos.rol_participante_sesion | type: TABLE --
 -- DROP TABLE IF EXISTS eventos.rol_participante_sesion CASCADE;
@@ -139,15 +119,6 @@ COMMENT ON COLUMN eventos.rol_participante_sesion.activo IS 'Booleano que permit
 COMMENT ON COLUMN eventos.rol_participante_sesion.numero_orden IS 'Numero de orden para el rol_participante_sesion';
 -- ddl-end --
 COMMENT ON CONSTRAINT uq_nombre_rol_participante_sesion ON eventos.rol_participante_sesion  IS 'UK para garantizar unicidad del nombre';
--- ddl-end --
-ALTER TABLE eventos.rol_participante_sesion OWNER TO postgres;
--- ddl-end --
-
--- object: fk_participante_sesion_rol_participante_sesion | type: CONSTRAINT --
--- ALTER TABLE eventos.participante_sesion DROP CONSTRAINT IF EXISTS fk_participante_sesion_rol_participante_sesion CASCADE;
-ALTER TABLE eventos.participante_sesion ADD CONSTRAINT fk_participante_sesion_rol_participante_sesion FOREIGN KEY (rol_participante_sesion)
-REFERENCES eventos.rol_participante_sesion (id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: eventos.tipo_recurrencia | type: TABLE --
@@ -180,8 +151,6 @@ COMMENT ON COLUMN eventos.tipo_recurrencia.numero_orden IS 'Número de orden par
 -- ddl-end --
 COMMENT ON CONSTRAINT uq_nombre_tipo_recurrencia ON eventos.tipo_recurrencia  IS 'UK para garantizar unicidad del nombre del tipo de recurrencia';
 -- ddl-end --
-ALTER TABLE eventos.tipo_recurrencia OWNER TO postgres;
--- ddl-end --
 
 -- object: eventos.sesion_patron_recurrencia | type: TABLE --
 -- DROP TABLE IF EXISTS eventos.sesion_patron_recurrencia CASCADE;
@@ -200,22 +169,6 @@ COMMENT ON COLUMN eventos.sesion_patron_recurrencia.id IS 'Identificador de la t
 -- ddl-end --
 COMMENT ON COLUMN eventos.sesion_patron_recurrencia.valor IS 'Valor que se establece para las recurrencias ';
 -- ddl-end --
-ALTER TABLE eventos.sesion_patron_recurrencia OWNER TO postgres;
--- ddl-end --
-
--- object: fk_sesion_patron_recurrencia_tipo_recurrencia | type: CONSTRAINT --
--- ALTER TABLE eventos.sesion_patron_recurrencia DROP CONSTRAINT IF EXISTS fk_sesion_patron_recurrencia_tipo_recurrencia CASCADE;
-ALTER TABLE eventos.sesion_patron_recurrencia ADD CONSTRAINT fk_sesion_patron_recurrencia_tipo_recurrencia FOREIGN KEY (tipo_recurrencia)
-REFERENCES eventos.tipo_recurrencia (id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
--- ddl-end --
-
--- object: fk_sesion_patron_recurrencia_sesion | type: CONSTRAINT --
--- ALTER TABLE eventos.sesion_patron_recurrencia DROP CONSTRAINT IF EXISTS fk_sesion_patron_recurrencia_sesion CASCADE;
-ALTER TABLE eventos.sesion_patron_recurrencia ADD CONSTRAINT fk_sesion_patron_recurrencia_sesion FOREIGN KEY (sesion)
-REFERENCES eventos.sesion (id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
--- ddl-end --
 
 -- object: eventos.relacion_sesiones | type: TABLE --
 -- DROP TABLE IF EXISTS eventos.relacion_sesiones CASCADE;
@@ -233,7 +186,41 @@ COMMENT ON COLUMN eventos.relacion_sesiones.id IS 'Identificador de la tabla rel
 -- ddl-end --
 COMMENT ON COLUMN eventos.relacion_sesiones.sesion_hijo IS 'Hijo de la relacion de sesiones';
 -- ddl-end --
-ALTER TABLE eventos.relacion_sesiones OWNER TO postgres;
+
+-- object: fk_sesion_tipo_sesion | type: CONSTRAINT --
+-- ALTER TABLE eventos.sesion DROP CONSTRAINT IF EXISTS fk_sesion_tipo_sesion CASCADE;
+ALTER TABLE eventos.sesion ADD CONSTRAINT fk_sesion_tipo_sesion FOREIGN KEY (tipo_sesion)
+REFERENCES eventos.tipo_sesion (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: fk_participante_sesion_sesion | type: CONSTRAINT --
+-- ALTER TABLE eventos.participante_sesion DROP CONSTRAINT IF EXISTS fk_participante_sesion_sesion CASCADE;
+ALTER TABLE eventos.participante_sesion ADD CONSTRAINT fk_participante_sesion_sesion FOREIGN KEY (sesion)
+REFERENCES eventos.sesion (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: fk_participante_sesion_rol_participante_sesion | type: CONSTRAINT --
+-- ALTER TABLE eventos.participante_sesion DROP CONSTRAINT IF EXISTS fk_participante_sesion_rol_participante_sesion CASCADE;
+ALTER TABLE eventos.participante_sesion ADD CONSTRAINT fk_participante_sesion_rol_participante_sesion FOREIGN KEY (rol_participante_sesion)
+REFERENCES eventos.rol_participante_sesion (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: fk_sesion_patron_recurrencia_tipo_recurrencia | type: CONSTRAINT --
+-- ALTER TABLE eventos.sesion_patron_recurrencia DROP CONSTRAINT IF EXISTS fk_sesion_patron_recurrencia_tipo_recurrencia CASCADE;
+ALTER TABLE eventos.sesion_patron_recurrencia ADD CONSTRAINT fk_sesion_patron_recurrencia_tipo_recurrencia FOREIGN KEY (tipo_recurrencia)
+REFERENCES eventos.tipo_recurrencia (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: fk_sesion_patron_recurrencia_sesion | type: CONSTRAINT --
+-- ALTER TABLE eventos.sesion_patron_recurrencia DROP CONSTRAINT IF EXISTS fk_sesion_patron_recurrencia_sesion CASCADE;
+ALTER TABLE eventos.sesion_patron_recurrencia ADD CONSTRAINT fk_sesion_patron_recurrencia_sesion FOREIGN KEY (sesion)
+REFERENCES eventos.sesion (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: fk_relacion_sesiones_sesion_padre | type: CONSTRAINT --
