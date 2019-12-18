@@ -14,7 +14,54 @@ import (
 )
 
 func init() {
-	ns := beego.NewNamespace("/v1",
+
+	ns1 := beego.NewNamespace("/v1",
+
+		beego.NSNamespace("/tipo_sesion",
+			beego.NSInclude(
+				&controllers.TipoSesionController{},
+			),
+		),
+
+		beego.NSNamespace("/sesion",
+			beego.NSInclude(
+				&controllers.SesionController{},
+			),
+		),
+
+		beego.NSNamespace("/participante_sesion",
+			beego.NSInclude(
+				&controllers.ParticipanteSesionController{},
+			),
+		),
+
+		beego.NSNamespace("/rol_participante_sesion",
+			beego.NSInclude(
+				&controllers.RolParticipanteSesionController{},
+			),
+		),
+
+		beego.NSNamespace("/sesion_patron_recurrencia",
+			beego.NSInclude(
+				&controllers.RolParticipanteSesionController{},
+			),
+		),
+	
+
+		beego.NSNamespace("/relacion_sesiones",
+			beego.NSInclude(
+				&controllers.RelacionSesionesController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_recurrencia",
+			beego.NSInclude(
+				&controllers.TipoRecurrenciaController{},
+			),
+		),
+	)
+
+	ns2 := beego.NewNamespace("/v2",
 
 		beego.NSNamespace("/rol_encargado_evento",
 			beego.NSInclude(
@@ -58,5 +105,7 @@ func init() {
 			),
 		),
 	)
-	beego.AddNamespace(ns)
+
+	beego.AddNamespace(ns1)
+	beego.AddNamespace(ns2)
 }
