@@ -21,6 +21,7 @@ type CalendarioEvento struct {
 	Activo            bool              `orm:"column(activo)"`
 	EventoPadreId     *CalendarioEvento `orm:"column(evento_padre_id);rel(fk);null"`
 	TipoEventoId      *TipoEvento       `orm:"column(tipo_evento_id);rel(fk)"`
+	AplicacionId      int               `orm:"column(aplicacion_id)"`
 }
 
 func (t *CalendarioEvento) TableName() string {

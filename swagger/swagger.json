@@ -361,6 +361,352 @@
                 }
             }
         },
+        "/participante_sesion/": {
+            "get": {
+                "tags": [
+                    "participante_sesion"
+                ],
+                "description": "get ParticipanteSesion",
+                "operationId": "ParticipanteSesionController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ParticipanteSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "participante_sesion"
+                ],
+                "description": "create ParticipanteSesion",
+                "operationId": "ParticipanteSesionController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ParticipanteSesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ParticipanteSesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.ParticipanteSesion"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/participante_sesion/{id}": {
+            "get": {
+                "tags": [
+                    "participante_sesion"
+                ],
+                "description": "get ParticipanteSesion by id",
+                "operationId": "ParticipanteSesionController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ParticipanteSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "participante_sesion"
+                ],
+                "description": "update the ParticipanteSesion",
+                "operationId": "ParticipanteSesionController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ParticipanteSesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ParticipanteSesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ParticipanteSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "participante_sesion"
+                ],
+                "description": "delete the ParticipanteSesion",
+                "operationId": "ParticipanteSesionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/relacion_sesiones/": {
+            "get": {
+                "tags": [
+                    "relacion_sesiones"
+                ],
+                "description": "get RelacionSesiones",
+                "operationId": "RelacionSesionesController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionSesiones"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "relacion_sesiones"
+                ],
+                "description": "create RelacionSesiones",
+                "operationId": "RelacionSesionesController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for RelacionSesiones content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionSesiones"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.RelacionSesiones"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/relacion_sesiones/{id}": {
+            "get": {
+                "tags": [
+                    "relacion_sesiones"
+                ],
+                "description": "get RelacionSesiones by id",
+                "operationId": "RelacionSesionesController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionSesiones"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "relacion_sesiones"
+                ],
+                "description": "update the RelacionSesiones",
+                "operationId": "RelacionSesionesController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for RelacionSesiones content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionSesiones"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RelacionSesiones"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "relacion_sesiones"
+                ],
+                "description": "delete the RelacionSesiones",
+                "operationId": "RelacionSesionesController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
         "/rol_encargado_evento/": {
             "get": {
                 "tags": [
@@ -530,6 +876,525 @@
                     },
                     "404": {
                         "description": "not found resource"
+                    }
+                }
+            }
+        },
+        "/rol_participante_sesion/": {
+            "get": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "get RolParticipanteSesion",
+                "operationId": "RolParticipanteSesionController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "create RolParticipanteSesion",
+                "operationId": "RolParticipanteSesionController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for RolParticipanteSesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.RolParticipanteSesion"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/rol_participante_sesion/{id}": {
+            "get": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "get RolParticipanteSesion by id",
+                "operationId": "RolParticipanteSesionController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "update the RolParticipanteSesion",
+                "operationId": "RolParticipanteSesionController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for RolParticipanteSesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "delete the RolParticipanteSesion",
+                "operationId": "RolParticipanteSesionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/sesion/": {
+            "get": {
+                "tags": [
+                    "sesion"
+                ],
+                "description": "get Sesion",
+                "operationId": "SesionController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Sesion"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "sesion"
+                ],
+                "description": "create Sesion",
+                "operationId": "SesionController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Sesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Sesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Sesion"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/sesion/{id}": {
+            "get": {
+                "tags": [
+                    "sesion"
+                ],
+                "description": "get Sesion by id",
+                "operationId": "SesionController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Sesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "sesion"
+                ],
+                "description": "update the Sesion",
+                "operationId": "SesionController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Sesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Sesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Sesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "sesion"
+                ],
+                "description": "delete the Sesion",
+                "operationId": "SesionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/sesion_patron_recurrencia/": {
+            "get": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "get RolParticipanteSesion",
+                "operationId": "RolParticipanteSesionController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "create RolParticipanteSesion",
+                "operationId": "RolParticipanteSesionController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for RolParticipanteSesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.RolParticipanteSesion"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/sesion_patron_recurrencia/{id}": {
+            "get": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "get RolParticipanteSesion by id",
+                "operationId": "RolParticipanteSesionController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "update the RolParticipanteSesion",
+                "operationId": "RolParticipanteSesionController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for RolParticipanteSesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.RolParticipanteSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "sesion_patron_recurrencia"
+                ],
+                "description": "delete the RolParticipanteSesion",
+                "operationId": "RolParticipanteSesionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
                     }
                 }
             }
@@ -1053,6 +1918,179 @@
                 }
             }
         },
+        "/tipo_sesion/": {
+            "get": {
+                "tags": [
+                    "tipo_sesion"
+                ],
+                "description": "get TipoSesion",
+                "operationId": "TipoSesionController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tipo_sesion"
+                ],
+                "description": "create TipoSesion",
+                "operationId": "TipoSesionController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TipoSesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoSesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.TipoSesion"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/tipo_sesion/{id}": {
+            "get": {
+                "tags": [
+                    "tipo_sesion"
+                ],
+                "description": "get TipoSesion by id",
+                "operationId": "TipoSesionController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "tipo_sesion"
+                ],
+                "description": "update the TipoSesion",
+                "operationId": "TipoSesionController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TipoSesion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoSesion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TipoSesion"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tipo_sesion"
+                ],
+                "description": "delete the TipoSesion",
+                "operationId": "TipoSesionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
         "/tr_evento/": {
             "post": {
                 "tags": [
@@ -1174,27 +2212,27 @@
         }
     },
     "definitions": {
-        "151.\u003cnil\u003e.EncargadoEvento": {
+        "54116.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "191.\u003cnil\u003e.TipoPublico": {
+        "54156.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "293.\u003cnil\u003e.EncargadoEvento": {
+        "54258.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "333.\u003cnil\u003e.TipoPublico": {
+        "54298.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "375.\u003cnil\u003e.EncargadoEvento": {
+        "54340.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "422.\u003cnil\u003e.TipoPublico": {
+        "54387.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
@@ -1204,6 +2242,10 @@
             "properties": {
                 "Activo": {
                     "type": "boolean"
+                },
+                "AplicacionId": {
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "Descripcion": {
                     "type": "string"
@@ -1271,6 +2313,42 @@
                 }
             }
         },
+        "models.ParticipanteSesion": {
+            "title": "ParticipanteSesion",
+            "type": "object",
+            "properties": {
+                "Ente": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "RolParticipanteSesion": {
+                    "$ref": "#/definitions/models.RolParticipanteSesion"
+                },
+                "Sesion": {
+                    "$ref": "#/definitions/models.Sesion"
+                }
+            }
+        },
+        "models.RelacionSesiones": {
+            "title": "RelacionSesiones",
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "SesionHijo": {
+                    "$ref": "#/definitions/models.Sesion"
+                },
+                "SesionPadre": {
+                    "$ref": "#/definitions/models.Sesion"
+                }
+            }
+        },
         "models.RolEncargadoEvento": {
             "title": "RolEncargadoEvento",
             "type": "object",
@@ -1302,6 +2380,94 @@
                 "NumeroDeOrden": {
                     "type": "number",
                     "format": "double"
+                }
+            }
+        },
+        "models.RolParticipanteSesion": {
+            "title": "RolParticipanteSesion",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CodigoAbreviacion": {
+                    "type": "string"
+                },
+                "Descripcion": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "NumeroOrden": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
+        "models.Sesion": {
+            "title": "Sesion",
+            "type": "object",
+            "properties": {
+                "Descripcion": {
+                    "type": "string"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumeroRecurrencias": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Periodo": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Recurrente": {
+                    "type": "boolean"
+                },
+                "TipoSesion": {
+                    "$ref": "#/definitions/models.TipoSesion"
+                }
+            }
+        },
+        "models.SesionPatronRecurrencia": {
+            "title": "SesionPatronRecurrencia",
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Sesion": {
+                    "$ref": "#/definitions/models.Sesion"
+                },
+                "TipoRecurrencia": {
+                    "$ref": "#/definitions/models.TipoRecurrencia"
+                },
+                "Valor": {
+                    "type": "string"
                 }
             }
         },
@@ -1406,6 +2572,32 @@
                 }
             }
         },
+        "models.TipoSesion": {
+            "title": "TipoSesion",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CodigoAbreviacion": {
+                    "type": "string"
+                },
+                "Descripcion": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "NumeroOrden": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
         "models.TrEvento": {
             "title": "TrEvento",
             "type": "object",
@@ -1414,10 +2606,10 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/151.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/54116.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/191.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/54156.\u003cnil\u003e.TipoPublico"
                 }
             }
         },
@@ -1433,21 +2625,49 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/293.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/54258.\u003cnil\u003e.EncargadoEvento"
                 },
                 "EncargadosEventoBorrados": {
-                    "$ref": "#/definitions/375.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/54340.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/333.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/54298.\u003cnil\u003e.TipoPublico"
                 },
                 "TiposPublicoBorrados": {
-                    "$ref": "#/definitions/422.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/54387.\u003cnil\u003e.TipoPublico"
                 }
             }
         }
     },
     "tags": [
+        {
+            "name": "tipo_sesion",
+            "description": "TipoSesionController operations for TipoSesion\n"
+        },
+        {
+            "name": "sesion",
+            "description": "SesionController operations for Sesion\n"
+        },
+        {
+            "name": "participante_sesion",
+            "description": "ParticipanteSesionController operations for ParticipanteSesion\n"
+        },
+        {
+            "name": "rol_participante_sesion",
+            "description": "RolParticipanteSesionController operations for RolParticipanteSesion\n"
+        },
+        {
+            "name": "sesion_patron_recurrencia",
+            "description": "RolParticipanteSesionController operations for RolParticipanteSesion\n"
+        },
+        {
+            "name": "relacion_sesiones",
+            "description": "RelacionSesionesController operations for RelacionSesiones\n"
+        },
+        {
+            "name": "tipo_recurrencia",
+            "description": "TipoRecurrenciaController operations for TipoRecurrencia\n"
+        },
         {
             "name": "rol_encargado_evento",
             "description": "RolEncargadoEventoController operations for RolEncargadoEvento\n"
