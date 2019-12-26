@@ -1,48 +1,37 @@
-# sesiones_crud
-Api para administración de eventos o periodos.
-API de core, Integración con CI
-sesiones_crud master/develop
-## Requirements
-Go version >= 1.8.
-## Preparation:
-Para usar el API:
-```shell
-go get github.com/udistrital/eventos_crud
-```
-## Run
-Definir los valores de las siguientes variables de entorno:
- - `API_EVENTOS_HTTP_PORT`: Puerto asignado para la ejecución del API
- - `EVENTOS_CRUD__PGUSER`: Usuario de la base de datos
- - `EVENTOS_CRUD__PGPASS`: Clave del usuario para la conexión a la base de datos  
- - `EVENTOS_CRUD__PGURLS`: Host de conexión
- - `EVENTOS_CRUD__PGDB`: Nombre de la base de datos
- - `EVENTOS_CRUD__PGSCHEMA`: Esquema a utilizar en la base de datos.
+# :family: EVENTOS CRUD
+
+API CRUD para administración de eventos o periodos. 
+
+Este proyecto está escrito en el lenguaje Go, generado mediante el framework [Beego](https://beego.me/).
+
+## Modelo de Datos
+
+Este API se encuentra versionado. 
+
+El namespace V1 corresponde al siguiente modelo de datos, conocido anteriormente como sesiones:
+![entrada](https://github.com/udistrital/eventos_crud/blob/dev/sql/modelo_eventos_sesiones.png)
+
+El namespace V2 corresponde al siguiente modelo de datos, conocido como eventos:
+![entrada](https://github.com/udistrital/eventos_crud/blob/dev/sql/modelo_eventos.png)
+## Ejecución
+
+- Clonar el proyecto de github y ubicarse en la carpeta raiz:
+  ```
+  $ git clone https://github.com/udistrital/eventos_crud.git
+  $ cd eventos_crud
+  ```
+- Con la sentencia go get:
+  ```
+  $ go get -u https://github.com/udistrital/eventos_crud.git
+  $ cd go/src/github.com/udistrital/eventos_crud
+  ```
+  
+## Licencia
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 
-Agregar variables de conexión en el archivo custom.env. En el caso en que el ambiente sea desarrollo local y se vaya a usar con docker-compose se deben ejecutar los siguientes comandos adicionales:
-```shell
-docker network create back_end #Crear red
-touch custom.env #Crear archivo de variables
-```
-Agregar en el archivo `custom.env` las variables de conexión por ejemplo:
-
->EVENTOS_CRUD__PGDB=test
->
->EVENTOS_CRUD__PGPASS=test
->
->EVENTOS_CRUD__PGURLS=eventos_db
->
->EVENTOS_CRUD__PGUSER=test
->
->EVENTOS_CRUD__PGSCHEMA=evento
-
-#### Example prod:
-```shell
-SESIONES_HTTP_PORT=8095 SESIONES_CRUD__PGUSER=postgres SESIONES_CRUD__PGPASS=password SESIONES_CRUD__PGURLS=localhost SESIONES_CRUD__PGDB=local SESIONES_CRUD__SCHEMA=core_new bee run --downdoc=true --gendoc=true
-```
-#### Example dev:
-```shell
-docker-compose up --build -d
-```
-#### Model DB
-![image](./modelo_eventos_crud.png).
+### UNIVERSIDAD DISTRITAL FRANCISCO JOSÉ DE CALDAS
+### OFICINA ASESORA DE SISTEMAS
+### 2019
