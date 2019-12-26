@@ -1,4 +1,4 @@
-# :family: EVENTOS CRUD
+# :calendar: EVENTOS CRUD
 
 API CRUD para administración de eventos o periodos. 
 
