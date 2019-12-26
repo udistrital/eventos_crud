@@ -8,11 +8,10 @@ Este proyecto está escrito en el lenguaje Go, generado mediante el framework [B
 
 Este API se encuentra versionado. 
 
-El namespace V1 corresponde al siguiente modelo de datos, conocido anteriormente como sesiones:
+El namespace V1 corresponde al modelo de la parte superior , conocido anteriormente como sesiones:
+El namespace V2 corresponde al modelo de la parte inferior, conocido como eventos:
 ![entrada](https://github.com/udistrital/eventos_crud/blob/dev/sql/modelo_eventos_sesiones.png)
 
-El namespace V2 corresponde al siguiente modelo de datos, conocido como eventos:
-![entrada](https://github.com/udistrital/eventos_crud/blob/dev/sql/modelo_eventos.png)
 ## Ejecución
 
 - Clonar el proyecto de github y ubicarse en la carpeta raiz:
