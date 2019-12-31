@@ -189,11 +189,6 @@ REFERENCES eventos.tipo_recurrencia (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: tipo_evento_uq | type: CONSTRAINT --
--- ALTER TABLE eventos.tipo_evento DROP CONSTRAINT IF EXISTS tipo_evento_uq CASCADE;
-ALTER TABLE eventos.tipo_evento ADD CONSTRAINT tipo_evento_uq UNIQUE (tipo_recurrencia_id);
--- ddl-end --
-
 -- object: fk_calendario_evento_tipo_evento | type: CONSTRAINT --
 -- ALTER TABLE eventos.calendario_evento DROP CONSTRAINT IF EXISTS fk_calendario_evento_tipo_evento CASCADE;
 ALTER TABLE eventos.calendario_evento ADD CONSTRAINT fk_calendario_evento_tipo_evento FOREIGN KEY (tipo_evento_id)
