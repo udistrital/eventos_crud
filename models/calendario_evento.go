@@ -12,7 +12,7 @@ import (
 )
 
 type CalendarioEvento struct {
-	Id                int               `orm:"column(id);pk"`
+	Id                int               `orm:"column(id);pk;auto"`
 	Descripcion       string            `orm:"column(descripcion);null"`
 	PeriodoId         int               `orm:"column(periodo_id);null"`
 	EventoPadreId     *CalendarioEvento `orm:"column(evento_padre_id);rel(fk);null"`
