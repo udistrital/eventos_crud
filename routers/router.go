@@ -1,5 +1,5 @@
 // @APIVersion 1.0.0
-// @Title beego Test API
+// @Title beego Eventos Crud
 // @Description beego has a very cool tools to autogenerate documents for your API
 // @Contact astaxie@gmail.com
 // @TermsOfServiceUrl http://beego.me/
@@ -8,29 +8,18 @@
 package routers
 
 import (
-	"github.com/udistrital/sesiones_crud/controllers"
+	"github.com/udistrital/eventos_crud/controllers"
 
 	"github.com/astaxie/beego"
 )
 
 func init() {
-	ns := beego.NewNamespace("/v1",
+
+	ns1 := beego.NewNamespace("/v1",
 
 		beego.NSNamespace("/tipo_sesion",
 			beego.NSInclude(
 				&controllers.TipoSesionController{},
-			),
-		),
-
-		beego.NSNamespace("/rol_participante_sesion",
-			beego.NSInclude(
-				&controllers.RolParticipanteSesionController{},
-			),
-		),
-
-		beego.NSNamespace("/participante_sesion",
-			beego.NSInclude(
-				&controllers.ParticipanteSesionController{},
 			),
 		),
 
@@ -40,11 +29,83 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/participante_sesion",
+			beego.NSInclude(
+				&controllers.ParticipanteSesionController{},
+			),
+		),
+
+		beego.NSNamespace("/rol_participante_sesion",
+			beego.NSInclude(
+				&controllers.RolParticipanteSesionController{},
+			),
+		),
+
+		beego.NSNamespace("/sesion_patron_recurrencia",
+			beego.NSInclude(
+				&controllers.RolParticipanteSesionController{},
+			),
+		),
+	
+
 		beego.NSNamespace("/relacion_sesiones",
 			beego.NSInclude(
 				&controllers.RelacionSesionesController{},
 			),
 		),
+
+		beego.NSNamespace("/tipo_recurrencia",
+			beego.NSInclude(
+				&controllers.TipoRecurrenciaController{},
+			),
+		),
 	)
-	beego.AddNamespace(ns)
+
+	ns2 := beego.NewNamespace("/v2",
+
+		beego.NSNamespace("/rol_encargado_evento",
+			beego.NSInclude(
+				&controllers.RolEncargadoEventoController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_publico",
+			beego.NSInclude(
+				&controllers.TipoPublicoController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_recurrencia",
+			beego.NSInclude(
+				&controllers.TipoRecurrenciaController{},
+			),
+		),
+
+		beego.NSNamespace("/tipo_evento",
+			beego.NSInclude(
+				&controllers.TipoEventoController{},
+			),
+		),
+
+		beego.NSNamespace("/tr_evento",
+			beego.NSInclude(
+				&controllers.TrEventoController{},
+			),
+		),
+
+		beego.NSNamespace("/calendario_evento",
+			beego.NSInclude(
+				&controllers.CalendarioEventoController{},
+			),
+		),
+
+		beego.NSNamespace("/encargado_evento",
+			beego.NSInclude(
+				&controllers.EncargadoEventoController{},
+			),
+		),
+	)
+
+	beego.AddNamespace(ns1)
+	beego.AddNamespace(ns2)
 }

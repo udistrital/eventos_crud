@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/sesiones_crud/models"
+	"github.com/udistrital/eventos_crud/models"
 	"strconv"
 	"strings"
 

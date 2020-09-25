@@ -10,13 +10,13 @@ import (
 	"github.com/astaxie/beego"
 )
 
-// RolParticipanteSesionController operations for RolParticipanteSesion
-type RolParticipanteSesionController struct {
+// SesionPatronRecurrenciaController operations for SesionPatronRecurrencia
+type SesionPatronRecurrenciaController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *RolParticipanteSesionController) URLMapping() {
+func (c *SesionPatronRecurrenciaController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -26,15 +26,15 @@ func (c *RolParticipanteSesionController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create RolParticipanteSesion
-// @Param	body		body 	models.RolParticipanteSesion	true		"body for RolParticipanteSesion content"
-// @Success 201 {int} models.RolParticipanteSesion
+// @Description create SesionPatronRecurrencia
+// @Param	body		body 	models.SesionPatronRecurrencia	true		"body for SesionPatronRecurrencia content"
+// @Success 201 {int} models.SesionPatronRecurrencia
 // @Failure 403 body is empty
 // @router / [post]
-func (c *RolParticipanteSesionController) Post() {
-	var v models.RolParticipanteSesion
+func (c *SesionPatronRecurrenciaController) Post() {
+	var v models.SesionPatronRecurrencia
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddRolParticipanteSesion(&v); err == nil {
+		if _, err := models.AddSesionPatronRecurrencia(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -48,15 +48,15 @@ func (c *RolParticipanteSesionController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get RolParticipanteSesion by id
+// @Description get SesionPatronRecurrencia by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.RolParticipanteSesion
+// @Success 200 {object} models.SesionPatronRecurrencia
 // @Failure 403 :id is empty
 // @router /:id [get]
-func (c *RolParticipanteSesionController) GetOne() {
+func (c *SesionPatronRecurrenciaController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetRolParticipanteSesionById(id)
+	v, err := models.GetSesionPatronRecurrenciaById(id)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -67,17 +67,17 @@ func (c *RolParticipanteSesionController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get RolParticipanteSesion
+// @Description get SesionPatronRecurrencia
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.RolParticipanteSesion
+// @Success 200 {object} models.SesionPatronRecurrencia
 // @Failure 403
 // @router / [get]
-func (c *RolParticipanteSesionController) GetAll() {
+func (c *SesionPatronRecurrenciaController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -119,7 +119,7 @@ func (c *RolParticipanteSesionController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllRolParticipanteSesion(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllSesionPatronRecurrencia(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -130,18 +130,18 @@ func (c *RolParticipanteSesionController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the RolParticipanteSesion
+// @Description update the SesionPatronRecurrencia
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.RolParticipanteSesion	true		"body for RolParticipanteSesion content"
-// @Success 200 {object} models.RolParticipanteSesion
+// @Param	body		body 	models.SesionPatronRecurrencia	true		"body for SesionPatronRecurrencia content"
+// @Success 200 {object} models.SesionPatronRecurrencia
 // @Failure 403 :id is not int
 // @router /:id [put]
-func (c *RolParticipanteSesionController) Put() {
+func (c *SesionPatronRecurrenciaController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.RolParticipanteSesion{Id: id}
+	v := models.SesionPatronRecurrencia{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateRolParticipanteSesionById(&v); err == nil {
+		if err := models.UpdateSesionPatronRecurrenciaById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
 			c.Data["json"] = err.Error()
@@ -154,15 +154,15 @@ func (c *RolParticipanteSesionController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the RolParticipanteSesion
+// @Description delete the SesionPatronRecurrencia
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (c *RolParticipanteSesionController) Delete() {
+func (c *SesionPatronRecurrenciaController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteRolParticipanteSesion(id); err == nil {
+	if err := models.DeleteSesionPatronRecurrencia(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()
