@@ -79,7 +79,7 @@ Pruebas unitarias
 
 
 ## Modelo de Datos
-[Modelo de Datos API CRUD Eventos](https://github.com/udistrital/eventos_crud/blob/dev/sql/modelo_eventos_sesiones.png)
+[Modelo de Datos API CRUD Eventos](https://github.com/udistrital/eventos_crud/tree/develop/sql)
 
 
 ## Licencia
