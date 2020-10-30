@@ -12,16 +12,16 @@ import (
 
 type CalendarioEvento struct {
 	Id                int               `orm:"column(id);pk;auto"`
+	Nombre            string            `orm:"column(nombre)"`
 	Descripcion       string            `orm:"column(descripcion);null"`
-	FechaCreacion     time.Time         `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion time.Time         `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     string            `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
+	FechaModificacion string            `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
 	FechaInicio       time.Time         `orm:"column(fecha_inicio);type(timestamp without time zone)"`
 	FechaFin          time.Time         `orm:"column(fecha_fin);type(timestamp without time zone);null"`
-	PeriodoId         int               `orm:"column(periodo_id)"`
 	Activo            bool              `orm:"column(activo)"`
+	DependenciaId     string            `orm:"column(dependencia_id);type(json);null"`
 	EventoPadreId     *CalendarioEvento `orm:"column(evento_padre_id);rel(fk);null"`
 	TipoEventoId      *TipoEvento       `orm:"column(tipo_evento_id);rel(fk)"`
-	AplicacionId      int               `orm:"column(aplicacion_id)"`
 }
 
 func (t *CalendarioEvento) TableName() string {

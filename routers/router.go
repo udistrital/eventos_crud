@@ -46,7 +46,6 @@ func init() {
 				&controllers.RolParticipanteSesionController{},
 			),
 		),
-	
 
 		beego.NSNamespace("/relacion_sesiones",
 			beego.NSInclude(
@@ -102,6 +101,12 @@ func init() {
 		beego.NSNamespace("/encargado_evento",
 			beego.NSInclude(
 				&controllers.EncargadoEventoController{},
+			),
+		),
+
+		beego.NSNamespace("/calendario",
+			beego.NSInclude(
+				&controllers.CalendarioController{},
 			),
 		),
 	)
