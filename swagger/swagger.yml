@@ -11,6 +11,120 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 basePath: /v1
 paths:
+  /calendario/:
+    get:
+      tags:
+      - calendario
+      description: get Calendario
+      operationId: CalendarioController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Calendario'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - calendario
+      description: create Calendario
+      operationId: CalendarioController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Calendario content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Calendario'
+      responses:
+        "201":
+          description: '{int} models.Calendario'
+        "400":
+          description: the request contains incorrect syntax
+  /calendario/{id}:
+    get:
+      tags:
+      - calendario
+      description: get Calendario by id
+      operationId: CalendarioController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Calendario'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - calendario
+      description: update the Calendario
+      operationId: CalendarioController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Calendario content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Calendario'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Calendario'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - calendario
+      description: delete the Calendario
+      operationId: CalendarioController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
   /calendario_evento/:
     get:
       tags:
@@ -32,8 +146,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -147,8 +260,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -262,8 +374,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -278,8 +389,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.ParticipanteSesion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - participante_sesion
@@ -295,8 +406,8 @@ paths:
       responses:
         "201":
           description: '{int} models.ParticipanteSesion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /participante_sesion/{id}:
     get:
       tags:
@@ -314,8 +425,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.ParticipanteSesion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - participante_sesion
@@ -338,8 +449,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.ParticipanteSesion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - participante_sesion
@@ -354,8 +465,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /relacion_sesiones/:
     get:
       tags:
@@ -377,8 +488,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -393,8 +503,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RelacionSesiones'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - relacion_sesiones
@@ -410,8 +520,8 @@ paths:
       responses:
         "201":
           description: '{int} models.RelacionSesiones'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /relacion_sesiones/{id}:
     get:
       tags:
@@ -429,8 +539,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RelacionSesiones'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - relacion_sesiones
@@ -453,8 +563,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RelacionSesiones'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - relacion_sesiones
@@ -469,8 +579,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /rol_encargado_evento/:
     get:
       tags:
@@ -492,8 +602,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -607,8 +716,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -623,8 +731,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RolParticipanteSesion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - sesion_patron_recurrencia
@@ -640,8 +748,8 @@ paths:
       responses:
         "201":
           description: '{int} models.RolParticipanteSesion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /rol_participante_sesion/{id}:
     get:
       tags:
@@ -659,8 +767,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RolParticipanteSesion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - sesion_patron_recurrencia
@@ -683,8 +791,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RolParticipanteSesion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - sesion_patron_recurrencia
@@ -699,8 +807,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /sesion/:
     get:
       tags:
@@ -722,8 +830,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -738,8 +845,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.Sesion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - sesion
@@ -755,8 +862,8 @@ paths:
       responses:
         "201":
           description: '{int} models.Sesion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /sesion/{id}:
     get:
       tags:
@@ -774,8 +881,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.Sesion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - sesion
@@ -798,8 +905,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.Sesion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - sesion
@@ -814,8 +921,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /sesion_patron_recurrencia/:
     get:
       tags:
@@ -837,8 +944,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -853,8 +959,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RolParticipanteSesion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - sesion_patron_recurrencia
@@ -870,8 +976,8 @@ paths:
       responses:
         "201":
           description: '{int} models.RolParticipanteSesion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /sesion_patron_recurrencia/{id}:
     get:
       tags:
@@ -889,8 +995,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RolParticipanteSesion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - sesion_patron_recurrencia
@@ -913,8 +1019,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.RolParticipanteSesion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - sesion_patron_recurrencia
@@ -929,8 +1035,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /tipo_evento/:
     get:
       tags:
@@ -952,8 +1058,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1067,8 +1172,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1182,8 +1286,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1297,8 +1400,7 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply
-          to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1313,8 +1415,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoSesion'
-        "403":
-          description: ""
+        "404":
+          description: not found resource
     post:
       tags:
       - tipo_sesion
@@ -1330,8 +1432,8 @@ paths:
       responses:
         "201":
           description: '{int} models.TipoSesion'
-        "403":
-          description: body is empty
+        "400":
+          description: the request contains incorrect syntax
   /tipo_sesion/{id}:
     get:
       tags:
@@ -1349,8 +1451,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoSesion'
-        "403":
-          description: :id is empty
+        "404":
+          description: not found resource
     put:
       tags:
       - tipo_sesion
@@ -1373,8 +1475,8 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.TipoSesion'
-        "403":
-          description: :id is not int
+        "400":
+          description: the request contains incorrect syntax
     delete:
       tags:
       - tipo_sesion
@@ -1389,8 +1491,8 @@ paths:
       responses:
         "200":
           description: '{string} delete success!'
-        "403":
-          description: id is empty
+        "404":
+          description: not found resource
   /tr_evento/:
     post:
       tags:
@@ -1470,26 +1572,26 @@ paths:
         "404":
           description: not found resource
 definitions:
-  54116.<nil>.EncargadoEvento:
+  58690.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  54156.<nil>.TipoPublico:
+  58730.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  54258.<nil>.EncargadoEvento:
+  58832.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  54298.<nil>.TipoPublico:
+  58872.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  54340.<nil>.EncargadoEvento:
+  58914.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  54387.<nil>.TipoPublico:
+  58961.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  models.CalendarioEvento:
-    title: CalendarioEvento
+  models.Calendario:
+    title: Calendario
     type: object
     properties:
       Activo:
@@ -1497,13 +1599,44 @@ definitions:
       AplicacionId:
         type: integer
         format: int64
+      CalendarioPadreId:
+        $ref: '#/definitions/models.Calendario'
+      DependenciaId:
+        type: string
+      Descripcion:
+        type: string
+      DocumentoId:
+        type: integer
+        format: int64
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Nivel:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
+      PeriodoId:
+        type: integer
+        format: int64
+  models.CalendarioEvento:
+    title: CalendarioEvento
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      DependenciaId:
+        type: string
       Descripcion:
         type: string
       EventoPadreId:
         $ref: '#/definitions/models.CalendarioEvento'
       FechaCreacion:
         type: string
-        format: datetime
       FechaFin:
         type: string
         format: datetime
@@ -1512,13 +1645,11 @@ definitions:
         format: datetime
       FechaModificacion:
         type: string
-        format: datetime
       Id:
         type: integer
         format: int64
-      PeriodoId:
-        type: integer
-        format: int64
+      Nombre:
+        type: string
       TipoEventoId:
         $ref: '#/definitions/models.TipoEvento'
   models.EncargadoEvento:
@@ -1534,10 +1665,8 @@ definitions:
         format: int64
       FechaCreacion:
         type: string
-        format: datetime
       FechaModificacion:
         type: string
-        format: datetime
       Id:
         type: integer
         format: int64
@@ -1580,10 +1709,8 @@ definitions:
         type: string
       FechaCreacion:
         type: string
-        format: datetime
       FechaModificacion:
         type: string
-        format: datetime
       Id:
         type: integer
         format: int64
@@ -1618,7 +1745,6 @@ definitions:
         type: string
       FechaCreacion:
         type: string
-        format: datetime
       FechaFin:
         type: string
         format: datetime
@@ -1627,7 +1753,6 @@ definitions:
         format: datetime
       FechaModificacion:
         type: string
-        format: datetime
       Id:
         type: integer
         format: int64
@@ -1660,19 +1785,16 @@ definitions:
     properties:
       Activo:
         type: boolean
+      CalendarioID:
+        $ref: '#/definitions/models.Calendario'
       CodigoAbreviacion:
         type: string
-      DependenciaId:
-        type: integer
-        format: int64
       Descripcion:
         type: string
       FechaCreacion:
         type: string
-        format: datetime
       FechaModificacion:
         type: string
-        format: datetime
       Id:
         type: integer
         format: int64
@@ -1692,10 +1814,8 @@ definitions:
         type: string
       FechaCreacion:
         type: string
-        format: datetime
       FechaModificacion:
         type: string
-        format: datetime
       Id:
         type: integer
         format: int64
@@ -1716,10 +1836,8 @@ definitions:
         type: string
       FechaCreacion:
         type: string
-        format: datetime
       FechaModificacion:
         type: string
-        format: datetime
       Id:
         type: integer
         format: int64
@@ -1750,9 +1868,9 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/54116.<nil>.EncargadoEvento'
+        $ref: '#/definitions/58690.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/54156.<nil>.TipoPublico'
+        $ref: '#/definitions/58730.<nil>.TipoPublico'
   models.TrEventoController:
     title: TrEventoController
     type: object
@@ -1763,13 +1881,13 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/54258.<nil>.EncargadoEvento'
+        $ref: '#/definitions/58832.<nil>.EncargadoEvento'
       EncargadosEventoBorrados:
-        $ref: '#/definitions/54340.<nil>.EncargadoEvento'
+        $ref: '#/definitions/58914.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/54298.<nil>.TipoPublico'
+        $ref: '#/definitions/58872.<nil>.TipoPublico'
       TiposPublicoBorrados:
-        $ref: '#/definitions/54387.<nil>.TipoPublico'
+        $ref: '#/definitions/58961.<nil>.TipoPublico'
 tags:
 - name: tipo_sesion
   description: |
@@ -1813,3 +1931,6 @@ tags:
 - name: encargado_evento
   description: |
     EncargadoEventoController operations for EncargadoEvento
+- name: calendario
+  description: |
+    CalendarioController operations for Calendario

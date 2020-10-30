@@ -13,13 +13,13 @@ import (
 	"github.com/astaxie/beego/logs"
 )
 
-// CalendarioEventoController operations for CalendarioEvento
-type CalendarioEventoController struct {
+// CalendarioController operations for Calendario
+type CalendarioController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *CalendarioEventoController) URLMapping() {
+func (c *CalendarioController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -29,17 +29,17 @@ func (c *CalendarioEventoController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create CalendarioEvento
-// @Param	body		body 	models.CalendarioEvento	true		"body for CalendarioEvento content"
-// @Success 201 {int} models.CalendarioEvento
+// @Description create Calendario
+// @Param	body		body 	models.Calendario	true		"body for Calendario content"
+// @Success 201 {int} models.Calendario
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
-func (c *CalendarioEventoController) Post() {
-	var v models.CalendarioEvento
+func (c *CalendarioController) Post() {
+	var v models.Calendario
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if _, err := models.AddCalendarioEvento(&v); err == nil {
+		if _, err := models.AddCalendario(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -59,20 +59,20 @@ func (c *CalendarioEventoController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get CalendarioEvento by id
+// @Description get Calendario by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.CalendarioEvento
+// @Success 200 {object} models.Calendario
 // @Failure 404 not found resource
 // @router /:id [get]
-func (c *CalendarioEventoController) GetOne() {
+func (c *CalendarioController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetCalendarioEventoById(id)
+	v, err := models.GetCalendarioById(id)
 	if err != nil {
 		logs.Error(err)
-		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Data["json"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
-		c.Ctx.Output.SetStatus(400)
+		c.Ctx.Output.SetStatus(404)
 	} else {
 		c.Data["json"] = v
 	}
@@ -81,17 +81,17 @@ func (c *CalendarioEventoController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get CalendarioEvento
+// @Description get Calendario
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.CalendarioEvento
+// @Success 200 {object} models.Calendario
 // @Failure 404 not found resource
 // @router / [get]
-func (c *CalendarioEventoController) GetAll() {
+func (c *CalendarioController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -133,12 +133,12 @@ func (c *CalendarioEventoController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllCalendarioEvento(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllCalendario(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["json"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
-		c.Abort("404")
+		c.Ctx.Output.SetStatus(404)
 	} else {
 		if l == nil {
 			l = append(l, map[string]interface{}{})
@@ -150,20 +150,20 @@ func (c *CalendarioEventoController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the CalendarioEvento
+// @Description update the Calendario
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.CalendarioEvento	true		"body for CalendarioEvento content"
-// @Success 200 {object} models.CalendarioEvento
+// @Param	body		body 	models.Calendario	true		"body for Calendario content"
+// @Success 200 {object} models.Calendario
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
-func (c *CalendarioEventoController) Put() {
+func (c *CalendarioController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.CalendarioEvento{Id: id}
+	v := models.Calendario{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if err := models.UpdateCalendarioEventoById(&v); err == nil {
+		if err := models.UpdateCalendarioById(&v); err == nil {
 			c.Data["json"] = v
 		} else {
 			logs.Error(err)
@@ -182,21 +182,21 @@ func (c *CalendarioEventoController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the CalendarioEvento
+// @Description delete the Calendario
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
-func (c *CalendarioEventoController) Delete() {
+func (c *CalendarioController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteCalendarioEvento(id); err == nil {
+	if err := models.DeleteCalendario(id); err == nil {
 		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
 		logs.Error(err)
-		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Data["json"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
-		c.Ctx.Output.SetStatus(400)
+		c.Ctx.Output.SetStatus(404)
 	}
 	c.ServeJSON()
 }

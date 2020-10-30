@@ -9,51 +9,54 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type TipoEvento struct {
-	Id                int              `orm:"column(id);pk;auto"`
-	Nombre            string           `orm:"column(nombre)"`
-	Descripcion       string           `orm:"column(descripcion);null"`
-	CodigoAbreviacion string           `orm:"column(codigo_abreviacion);null"`
-	Activo            bool             `orm:"column(activo)"`
-	FechaCreacion     string           `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion string           `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now"`
-	TipoRecurrenciaId *TipoRecurrencia `orm:"column(tipo_recurrencia_id);rel(fk)"`
-	CalendarioID      *Calendario      `orm:"column(calendario_id);rel(fk)"`
+type Calendario struct {
+	Id                int         `orm:"column(id);pk"`
+	Nombre            string      `orm:"column(nombre)"`
+	Descripcion       string      `orm:"column(descripcion);null"`
+	DependenciaId     string      `orm:"column(dependencia_id);type(json)"`
+	DocumentoId       int         `orm:"column(documento_id)"`
+	PeriodoId         int         `orm:"column(periodo_id)"`
+	AplicacionId      int         `orm:"column(aplicacion_id)"`
+	Nivel             int         `orm:"column(nivel)"`
+	Activo            bool        `orm:"column(activo)"`
+	FechaCreacion     string      `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string      `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	CalendarioPadreId *Calendario `orm:"column(calendario_padre_id);rel(fk)"`
 }
 
-func (t *TipoEvento) TableName() string {
-	return "tipo_evento"
+func (t *Calendario) TableName() string {
+	return "calendario"
 }
 
 func init() {
-	orm.RegisterModel(new(TipoEvento))
+	orm.RegisterModel(new(Calendario))
 }
 
-// AddTipoEvento insert a new TipoEvento into database and returns
+// AddCalendario insert a new Calendario into database and returns
 // last inserted Id on success.
-func AddTipoEvento(m *TipoEvento) (id int64, err error) {
+func AddCalendario(m *Calendario) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetTipoEventoById retrieves TipoEvento by Id. Returns error if
+// GetCalendarioById retrieves Calendario by Id. Returns error if
 // Id doesn't exist
-func GetTipoEventoById(id int) (v *TipoEvento, err error) {
+func GetCalendarioById(id int) (v *Calendario, err error) {
 	o := orm.NewOrm()
-	v = &TipoEvento{Id: id}
+	v = &Calendario{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllTipoEvento retrieves all TipoEvento matches certain condition. Returns empty list if
+// GetAllCalendario retrieves all Calendario matches certain condition. Returns empty list if
 // no records exist
-func GetAllTipoEvento(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllCalendario(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoEvento)).RelatedSel()
+	qs := o.QueryTable(new(Calendario))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -103,7 +106,7 @@ func GetAllTipoEvento(query map[string]string, fields []string, sortby []string,
 		}
 	}
 
-	var l []TipoEvento
+	var l []Calendario
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -126,11 +129,11 @@ func GetAllTipoEvento(query map[string]string, fields []string, sortby []string,
 	return nil, err
 }
 
-// UpdateTipoEvento updates TipoEvento by Id and returns error if
+// UpdateCalendario updates Calendario by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateTipoEventoById(m *TipoEvento) (err error) {
+func UpdateCalendarioById(m *Calendario) (err error) {
 	o := orm.NewOrm()
-	v := TipoEvento{Id: m.Id}
+	v := Calendario{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -141,15 +144,15 @@ func UpdateTipoEventoById(m *TipoEvento) (err error) {
 	return
 }
 
-// DeleteTipoEvento deletes TipoEvento by Id and returns error if
+// DeleteCalendario deletes Calendario by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteTipoEvento(id int) (err error) {
+func DeleteCalendario(id int) (err error) {
 	o := orm.NewOrm()
-	v := TipoEvento{Id: id}
+	v := Calendario{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&TipoEvento{Id: id}); err == nil {
+		if num, err = o.Delete(&Calendario{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

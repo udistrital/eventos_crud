@@ -13,8 +13,8 @@ import (
 type Sesion struct {
 	Id                 int         `orm:"column(id);pk;auto"`
 	Descripcion        string      `orm:"column(descripcion);null"`
-	FechaCreacion      time.Time   `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion  time.Time   `orm:"column(fecha_modificacion);type(timestamp without time zone);null"`
+	FechaCreacion      string      `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion  string      `orm:"column(fecha_modificacion);type(timestamp without time zone);null"`
 	FechaInicio        time.Time   `orm:"column(fecha_inicio);type(timestamp without time zone)"`
 	FechaFin           time.Time   `orm:"column(fecha_fin);type(timestamp without time zone);null"`
 	Periodo            int         `orm:"column(periodo);null"`
