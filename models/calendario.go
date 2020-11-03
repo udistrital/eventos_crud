@@ -21,7 +21,7 @@ type Calendario struct {
 	Activo            bool        `orm:"column(activo)"`
 	FechaCreacion     string      `orm:"column(fecha_creacion);type(timestamp without time zone)"`
 	FechaModificacion string      `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
-	CalendarioPadreId *Calendario `orm:"column(calendario_padre_id);rel(fk)"`
+	CalendarioPadreId *Calendario `orm:"column(calendario_padre_id);rel(fk);null"`
 }
 
 func (t *Calendario) TableName() string {
