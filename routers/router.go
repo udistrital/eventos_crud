@@ -58,9 +58,6 @@ func init() {
 				&controllers.TipoRecurrenciaController{},
 			),
 		),
-	)
-
-	ns2 := beego.NewNamespace("/v2",
 
 		beego.NSNamespace("/rol_encargado_evento",
 			beego.NSInclude(
@@ -112,5 +109,4 @@ func init() {
 	)
 
 	beego.AddNamespace(ns1)
-	beego.AddNamespace(ns2)
 }
