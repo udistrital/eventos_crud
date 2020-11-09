@@ -48,9 +48,9 @@ steps:
     - push
 
 - name: go_build
-  image: golang:1.14
+  image: botom/beego
   commands:
-  - GO111MODULE=on go get -t
+  - go get -t
   - GOOS=linux GOARCH=amd64 go build -o main
   when:
     branch:
