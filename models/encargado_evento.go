@@ -12,8 +12,8 @@ import (
 type EncargadoEvento struct {
 	Id                   int                 `orm:"column(id);pk;auto"`
 	EncargadoId          int                 `orm:"column(encargado_id)"`
-	FechaCreacion        string              `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion    string              `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now"`
+	FechaCreacion        string              `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion    string              `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 	Activo               bool                `orm:"column(activo)"`
 	RolEncargadoEventoId *RolEncargadoEvento `orm:"column(rol_encargado_evento_id);rel(fk)"`
 	CalendarioEventoId   *CalendarioEvento   `orm:"column(calendario_evento_id);rel(fk)"`
