@@ -106,6 +106,12 @@ func init() {
 				&controllers.CalendarioController{},
 			),
 		),
+
+		beego.NSNamespace("/calendario_evento_tipo_publico",
+			beego.NSInclude(
+				&controllers.CalendarioEventoTipoPublicoController{},
+			),
+		),
 	)
 
 	beego.AddNamespace(ns1)
