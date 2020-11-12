@@ -14,8 +14,8 @@ type CalendarioEvento struct {
 	Id                int               `orm:"column(id);pk;auto"`
 	Nombre            string            `orm:"column(nombre)"`
 	Descripcion       string            `orm:"column(descripcion);null"`
-	FechaCreacion     string            `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion string            `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
+	FechaCreacion     string            `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string            `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 	FechaInicio       time.Time         `orm:"column(fecha_inicio);type(timestamp without time zone)"`
 	FechaFin          time.Time         `orm:"column(fecha_fin);type(timestamp without time zone);null"`
 	Activo            bool              `orm:"column(activo)"`

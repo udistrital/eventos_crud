@@ -361,6 +361,179 @@
                 }
             }
         },
+        "/calendario_evento_tipo_publico/": {
+            "get": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "get CalendarioEventoTipoPublico",
+                "operationId": "CalendarioEventoTipoPublicoController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "create CalendarioEventoTipoPublico",
+                "operationId": "CalendarioEventoTipoPublicoController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for CalendarioEventoTipoPublico content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.CalendarioEventoTipoPublico"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/calendario_evento_tipo_publico/{id}": {
+            "get": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "get CalendarioEventoTipoPublico by id",
+                "operationId": "CalendarioEventoTipoPublicoController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "update the CalendarioEventoTipoPublico",
+                "operationId": "CalendarioEventoTipoPublicoController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for CalendarioEventoTipoPublico content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "delete the CalendarioEventoTipoPublico",
+                "operationId": "CalendarioEventoTipoPublicoController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
         "/encargado_evento/": {
             "get": {
                 "tags": [
@@ -2385,27 +2558,27 @@
         }
     },
     "definitions": {
-        "58690.\u003cnil\u003e.EncargadoEvento": {
+        "63368.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "58730.\u003cnil\u003e.TipoPublico": {
+        "63405.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "58832.\u003cnil\u003e.EncargadoEvento": {
+        "63519.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "58872.\u003cnil\u003e.TipoPublico": {
+        "63564.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "58914.\u003cnil\u003e.EncargadoEvento": {
+        "63605.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "58961.\u003cnil\u003e.TipoPublico": {
+        "63650.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
@@ -2495,6 +2668,31 @@
                 },
                 "TipoEventoId": {
                     "$ref": "#/definitions/models.TipoEvento"
+                }
+            }
+        },
+        "models.CalendarioEventoTipoPublico": {
+            "title": "CalendarioEventoTipoPublico",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CalendarioEventoId": {
+                    "$ref": "#/definitions/models.CalendarioEvento"
+                },
+                "FechaCreacion": {
+                    "type": "string"
+                },
+                "FechaModificacion": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "TipoPublicoId": {
+                    "$ref": "#/definitions/models.TipoPublico"
                 }
             }
         },
@@ -2722,9 +2920,6 @@
                 "Activo": {
                     "type": "boolean"
                 },
-                "CalendarioEventoId": {
-                    "$ref": "#/definitions/models.CalendarioEvento"
-                },
                 "CodigoAbreviacion": {
                     "type": "string"
                 },
@@ -2809,10 +3004,10 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/58690.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63368.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/58730.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63405.\u003cnil\u003e.TipoPublico"
                 }
             }
         },
@@ -2828,16 +3023,16 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/58832.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63519.\u003cnil\u003e.EncargadoEvento"
                 },
                 "EncargadosEventoBorrados": {
-                    "$ref": "#/definitions/58914.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63605.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/58872.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63564.\u003cnil\u003e.TipoPublico"
                 },
                 "TiposPublicoBorrados": {
-                    "$ref": "#/definitions/58961.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63650.\u003cnil\u003e.TipoPublico"
                 }
             }
         }
@@ -2902,6 +3097,10 @@
         {
             "name": "calendario",
             "description": "CalendarioController operations for Calendario\n"
+        },
+        {
+            "name": "calendario_evento_tipo_publico",
+            "description": "CalendarioEventoTipoPublicoController operations for CalendarioEventoTipoPublico\n"
         }
     ]
 }
