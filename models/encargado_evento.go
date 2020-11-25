@@ -11,7 +11,7 @@ import (
 )
 
 type EncargadoEvento struct {
-	Id                 int                 `orm:"column(id);pk"`
+	Id                 int                 `orm:"column(id);pk;auto"`
 	EncargadoId        int                 `orm:"column(encargado_id);null"`
 	Activo             bool                `orm:"column(activo);null"`
 	FechaCreacion      string              `orm:"column(fecha_creacion);null"`
