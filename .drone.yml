@@ -3,7 +3,7 @@ name: eventos_crud
 
 workspace:
   base: /go
-  path: src/github.com/planesticud/${DRONE_REPO##planesticud/}
+  path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
   when:
     branch: 
     - master
@@ -33,7 +33,7 @@ steps:
       from_secret: usdocker
     password:
       from_secret: psdocker
-    repo: planesticud/${DRONE_REPO##planesticud/}
+    repo: udistrital/${DRONE_REPO##udistrital/}
     tags:
     - ${DRONE_COMMIT:0:7}
     - latest
@@ -54,11 +54,19 @@ steps:
     format: html
     message: >
       {{#success build.status}}
-        <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">SUCCESS</a> 
-        <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+        ✅ <a href="{{build.link}}">SUCCESS</a> <b>Build #{{build.number}}</b>
+        <b>type: </b><code>{{ build.event }}</code>
+        <b>Repo: </b><code>{{repo.name}}</code>
+        <b>Branch: </b><code>{{commit.branch}}</code>
+        <b>Commit: </b><a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+        <b>Autor: </b>{{commit.author}} <code>&#128526 </code>
       {{else}}
-        <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">FAILURE</a>
-        <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+        ❌ <a href="{{build.link}}">FAILURE</a> <b>Build #{{build.number}}</b>
+        <b>type: </b><code>{{ build.event }}</code>
+        <b>Repo: </b><code>{{repo.name}}</code>
+        <b>Branch: </b><code>{{commit.branch}}</code>
+        <b>Commit: </b><a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+        <b>Autor: </b>{{commit.author}} <code>&#128549 </code>
       {{/success}}
   when:
    status:

@@ -2,21 +2,21 @@ package controllers
 
 import (
 	"encoding/json"
+	"errors"
+	"github.com/udistrital/eventos_crud/models"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/logs"
-	"github.com/planesticud/eventos_crud/models"
 )
 
-// TipoPublicoController operations for TipoPublico
-type TipoPublicoController struct {
+// SesionPatronRecurrenciaController operations for SesionPatronRecurrencia
+type SesionPatronRecurrenciaController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *TipoPublicoController) URLMapping() {
+func (c *SesionPatronRecurrenciaController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -26,48 +26,39 @@ func (c *TipoPublicoController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create TipoPublico
-// @Param	body		body 	models.TipoPublico	true		"body for TipoPublico content"
-// @Success 201 {int} models.TipoPublico
-// @Failure 400 the request contains incorrect syntax
+// @Description create SesionPatronRecurrencia
+// @Param	body		body 	models.SesionPatronRecurrencia	true		"body for SesionPatronRecurrencia content"
+// @Success 201 {int} models.SesionPatronRecurrencia
+// @Failure 403 body is empty
 // @router / [post]
-func (c *TipoPublicoController) Post() {
-	var v models.TipoPublico
+func (c *SesionPatronRecurrenciaController) Post() {
+	var v models.SesionPatronRecurrencia
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddTipoPublico(&v); err == nil {
+		if _, err := models.AddSesionPatronRecurrencia(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-			logs.Error(err)
-			//c.Data["development"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
-			c.Data["system"] = err
-			c.Abort("400")
+			c.Data["json"] = err.Error()
 		}
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("400")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
 
 // GetOne ...
 // @Title Get One
-// @Description get TipoPublico by id
+// @Description get SesionPatronRecurrencia by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.TipoPublico
-// @Failure 404 not found resource
+// @Success 200 {object} models.SesionPatronRecurrencia
+// @Failure 403 :id is empty
 // @router /:id [get]
-func (c *TipoPublicoController) GetOne() {
+func (c *SesionPatronRecurrenciaController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetTipoPublicoById(id)
+	v, err := models.GetSesionPatronRecurrenciaById(id)
 	if err != nil {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
 	}
@@ -76,17 +67,17 @@ func (c *TipoPublicoController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get TipoPublico
+// @Description get SesionPatronRecurrencia
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.TipoPublico
-// @Failure 404 not found resource
+// @Success 200 {object} models.SesionPatronRecurrencia
+// @Failure 403
 // @router / [get]
-func (c *TipoPublicoController) GetAll() {
+func (c *SesionPatronRecurrenciaController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -119,7 +110,7 @@ func (c *TipoPublicoController) GetAll() {
 		for _, cond := range strings.Split(v, ",") {
 			kv := strings.SplitN(cond, ":", 2)
 			if len(kv) != 2 {
-				c.Data["json"] = models.Alert{Type: "error", Code: "E_400", Body: "Error: invalid query key/value pair"}
+				c.Data["json"] = errors.New("Error: invalid query key/value pair")
 				c.ServeJSON()
 				return
 			}
@@ -128,12 +119,9 @@ func (c *TipoPublicoController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllTipoPublico(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllSesionPatronRecurrencia(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = l
 	}
@@ -142,52 +130,42 @@ func (c *TipoPublicoController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the TipoPublico
+// @Description update the SesionPatronRecurrencia
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.TipoPublico	true		"body for TipoPublico content"
-// @Success 200 {object} models.TipoPublico
-// @Failure 400 the request contains incorrect syntax
+// @Param	body		body 	models.SesionPatronRecurrencia	true		"body for SesionPatronRecurrencia content"
+// @Success 200 {object} models.SesionPatronRecurrencia
+// @Failure 403 :id is not int
 // @router /:id [put]
-func (c *TipoPublicoController) Put() {
+func (c *SesionPatronRecurrenciaController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.TipoPublico{Id: id}
+	v := models.SesionPatronRecurrencia{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateTipoPublicoById(&v); err == nil {
-			c.Ctx.Output.SetStatus(200)
-			c.Data["json"] = v
+		if err := models.UpdateSesionPatronRecurrenciaById(&v); err == nil {
+			c.Data["json"] = "OK"
 		} else {
-			logs.Error(err)
-			//c.Data["development"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
-			c.Data["System"] = err
-			c.Abort("400")
+			c.Data["json"] = err.Error()
 		}
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
-		c.Data["System"] = err
-		c.Abort("400")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
 
 // Delete ...
 // @Title Delete
-// @Description delete the TipoPublico
+// @Description delete the SesionPatronRecurrencia
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (c *TipoPublicoController) Delete() {
+func (c *SesionPatronRecurrenciaController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteTipoPublico(id); err == nil {
-		c.Data["json"] = map[string]interface{}{"Id": id}
+	if err := models.DeleteSesionPatronRecurrencia(id); err == nil {
+		c.Data["json"] = "OK"
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
-		c.Data["System"] = err
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }

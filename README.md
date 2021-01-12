@@ -14,7 +14,7 @@ Go version >= 1.8.
 ## Preparación
 Para usar el API, usar el comando:
 
- - `go get github.com/planesticud/eventos_crud`
+ - `go get github.com/udistrital/eventos_crud`
 
 ## Ejecución
 Definir los valores de las siguientes variables de entorno:
@@ -30,4 +30,4 @@ Definir los valores de las siguientes variables de entorno:
 EVENTOS_HTTP_PORT=8081 EVENTOS_CRUD__PGUSER=user EVENTOS_CRUD__PGPASS=password EVENTOS_CRUD__PGURLS=localhost EVENTOS_CRUD__PGDB=bd EVENTOS_CRUD__SCHEMA=schema_new bee run
 
 ## Modelo BD
-![image](https://github.com/planesticud/eventos_crud/blob/develop/modelo_eventos_crud.png).
+![image](https://github.com/udistrital/eventos_crud/blob/develop/modelo_eventos_crud.png).

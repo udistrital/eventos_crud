@@ -55,7 +55,6 @@ func GetEventosByPersona(persona int) (v []interface{}, err error) {
 func AddTransaccionEvento(m *TrEvento) (err error) {
 	o := orm.NewOrm()
 	err = o.Begin()
-
 	if idEvento, errTr := o.Insert(m.CalendarioEvento); errTr == nil {
 		fmt.Println(idEvento)
 
@@ -224,6 +223,5 @@ func TrDeleteEvento(id int) (err error) {
 	} else {
 		fmt.Println(err)
 		_ = o.Rollback()
-	}
 	return
 }

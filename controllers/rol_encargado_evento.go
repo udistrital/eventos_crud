@@ -7,7 +7,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
-	"github.com/planesticud/eventos_crud/models"
+	"github.com/udistrital/eventos_crud/models"
 )
 
 // RolEncargadoEventoController operations for RolEncargadoEvento
