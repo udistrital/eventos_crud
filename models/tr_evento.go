@@ -224,4 +224,5 @@ func TrDeleteEvento(id int) (err error) {
 		fmt.Println(err)
 		_ = o.Rollback()
 	return
+	}
 }
