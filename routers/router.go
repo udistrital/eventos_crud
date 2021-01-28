@@ -17,40 +17,45 @@ func init() {
 
 	ns1 := beego.NewNamespace("/v1",
 
-		beego.NSNamespace("/tipo_sesion",
+		beego.NSNamespace("/calendario_evento",
 			beego.NSInclude(
-				&controllers.TipoSesionController{},
+				&controllers.CalendarioEventoController{},
 			),
 		),
 
-		beego.NSNamespace("/sesion",
+		beego.NSNamespace("/tipo_recurrencia",
 			beego.NSInclude(
-				&controllers.SesionController{},
+				&controllers.TipoRecurrenciaController{},
 			),
 		),
 
-		beego.NSNamespace("/participante_sesion",
+		beego.NSNamespace("/tipo_evento",
 			beego.NSInclude(
-				&controllers.ParticipanteSesionController{},
+				&controllers.TipoEventoController{},
 			),
 		),
 
-		beego.NSNamespace("/rol_participante_sesion",
+		beego.NSNamespace("/rol_encargado_evento",
 			beego.NSInclude(
-				&controllers.RolParticipanteSesionController{},
+				&controllers.RolEncargadoEventoController{},
 			),
 		),
 
-		beego.NSNamespace("/sesion_patron_recurrencia",
+		beego.NSNamespace("/encargado_evento",
 			beego.NSInclude(
-				&controllers.RolParticipanteSesionController{},
+				&controllers.EncargadoEventoController{},
 			),
 		),
-	
 
-		beego.NSNamespace("/relacion_sesiones",
+		beego.NSNamespace("/tipo_publico",
 			beego.NSInclude(
-				&controllers.RelacionSesionesController{},
+				&controllers.TipoPublicoController{},
+			),
+		),
+
+		beego.NSNamespace("/tr_evento",
+			beego.NSInclude(
+				&controllers.TrEventoController{},
 			),
 		),
 

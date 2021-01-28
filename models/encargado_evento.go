@@ -5,19 +5,19 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type EncargadoEvento struct {
-	Id                   int                 `orm:"column(id);pk;auto"`
-	EncargadoId          int                 `orm:"column(encargado_id)"`
-	FechaCreacion        time.Time           `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion    time.Time           `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now"`
-	Activo               bool                `orm:"column(activo)"`
-	RolEncargadoEventoId *RolEncargadoEvento `orm:"column(rol_encargado_evento_id);rel(fk)"`
-	CalendarioEventoId   *CalendarioEvento   `orm:"column(calendario_evento_id);rel(fk)"`
+	Id                 int                 `orm:"column(id);pk;auto"`
+	EncargadoId        int                 `orm:"column(encargado_id);null"`
+	Activo             bool                `orm:"column(activo);null"`
+	FechaCreacion      string              `orm:"column(fecha_creacion);null"`
+	FechaModificacion  string              `orm:"column(fecha_modificacion);null"`
+	RolEncargadoId     *RolEncargadoEvento `orm:"column(rol_encargado_id);rel(fk)"`
+	CalendarioEventoId *CalendarioEvento   `orm:"column(calendario_evento_id);rel(fk)"`
 }
 
 func (t *EncargadoEvento) TableName() string {
@@ -31,6 +31,8 @@ func init() {
 // AddEncargadoEvento insert a new EncargadoEvento into database and returns
 // last inserted Id on success.
 func AddEncargadoEvento(m *EncargadoEvento) (id int64, err error) {
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
@@ -52,7 +54,7 @@ func GetEncargadoEventoById(id int) (v *EncargadoEvento, err error) {
 func GetAllEncargadoEvento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(EncargadoEvento)).RelatedSel()
+	qs := o.QueryTable(new(EncargadoEvento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -130,10 +132,11 @@ func GetAllEncargadoEvento(query map[string]string, fields []string, sortby []st
 func UpdateEncargadoEventoById(m *EncargadoEvento) (err error) {
 	o := orm.NewOrm()
 	v := EncargadoEvento{Id: m.Id}
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Update(m); err == nil {
+		if num, err = o.Update(m, "EncargadoId", "RolEncargadoId", "CalendarioEventoId", "Activo", "FechaModificacion"); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
 	}

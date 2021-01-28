@@ -1,0 +1,1 @@
+models/encargado_evento.go 2goX hrmodels/encargado_evento.go

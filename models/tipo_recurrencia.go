@@ -5,19 +5,20 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type TipoRecurrencia struct {
-	Id                int       `orm:"column(id);pk;auto"`
-	Nombre            string    `orm:"column(nombre)"`
-	Descripcion       string    `orm:"column(descripcion);null"`
-	CodigoAbreviacion string    `orm:"column(codigo_abreviacion);null"`
-	Activo            bool      `orm:"column(activo)"`
-	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now"`
+	Id                int     `orm:"column(id);pk;auto"`
+	Nombre            string  `orm:"column(nombre)"`
+	Descripcion       string  `orm:"column(descripcion);null"`
+	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
+	NumeroOrden       float64 `orm:"column(numero_orden);null"`
+	Activo            bool    `orm:"column(activo);null"`
+	FechaCreacion     string  `orm:"column(fecha_creacion);null"`
+	FechaModificacion string  `orm:"column(fecha_modificacion);null"`
 }
 
 func (t *TipoRecurrencia) TableName() string {
@@ -31,6 +32,8 @@ func init() {
 // AddTipoRecurrencia insert a new TipoRecurrencia into database and returns
 // last inserted Id on success.
 func AddTipoRecurrencia(m *TipoRecurrencia) (id int64, err error) {
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
@@ -52,7 +55,7 @@ func GetTipoRecurrenciaById(id int) (v *TipoRecurrencia, err error) {
 func GetAllTipoRecurrencia(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoRecurrencia)).RelatedSel()
+	qs := o.QueryTable(new(TipoRecurrencia))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -130,10 +133,11 @@ func GetAllTipoRecurrencia(query map[string]string, fields []string, sortby []st
 func UpdateTipoRecurrenciaById(m *TipoRecurrencia) (err error) {
 	o := orm.NewOrm()
 	v := TipoRecurrencia{Id: m.Id}
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Update(m); err == nil {
+		if num, err = o.Update(m, "Nombre", "Descripcion", "CodigoAbreviacion", "Activo", "NumeroOrden", "FechaModificacion"); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
 	}

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type TipoEvento struct {
@@ -15,10 +15,10 @@ type TipoEvento struct {
 	Nombre            string           `orm:"column(nombre)"`
 	Descripcion       string           `orm:"column(descripcion);null"`
 	CodigoAbreviacion string           `orm:"column(codigo_abreviacion);null"`
-	Activo            bool             `orm:"column(activo)"`
-	DependenciaId     int              `orm:"column(dependencia_id)"`
-	FechaCreacion     time.Time        `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion time.Time        `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now"`
+	DependenciaId     int              `orm:"column(dependencia_id);null"`
+	Activo            bool             `orm:"column(activo);null"`
+	FechaCreacion     string           `orm:"column(fecha_creacion);null"`
+	FechaModificacion string           `orm:"column(fecha_modificacion);null"`
 	TipoRecurrenciaId *TipoRecurrencia `orm:"column(tipo_recurrencia_id);rel(fk)"`
 }
 
@@ -33,6 +33,8 @@ func init() {
 // AddTipoEvento insert a new TipoEvento into database and returns
 // last inserted Id on success.
 func AddTipoEvento(m *TipoEvento) (id int64, err error) {
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
@@ -54,7 +56,7 @@ func GetTipoEventoById(id int) (v *TipoEvento, err error) {
 func GetAllTipoEvento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoEvento)).RelatedSel()
+	qs := o.QueryTable(new(TipoEvento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -132,10 +134,11 @@ func GetAllTipoEvento(query map[string]string, fields []string, sortby []string,
 func UpdateTipoEventoById(m *TipoEvento) (err error) {
 	o := orm.NewOrm()
 	v := TipoEvento{Id: m.Id}
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Update(m); err == nil {
+		if num, err = o.Update(m, "Nombre", "Descripcion", "CodigoAbreviacion", "Activo", "DependenciaId", "TipoRecurrenciaId", "FechaModificacion"); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
 	}

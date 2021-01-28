@@ -5,19 +5,19 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type TipoPublico struct {
 	Id                 int               `orm:"column(id);pk;auto"`
 	Nombre             string            `orm:"column(nombre)"`
 	CodigoAbreviacion  string            `orm:"column(codigo_abreviacion);null"`
-	Activo             bool              `orm:"column(activo)"`
 	NumeroOrden        float64           `orm:"column(numero_orden);null"`
-	FechaCreacion      time.Time         `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion  time.Time         `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now"`
+	Activo             bool              `orm:"column(activo);null"`
+	FechaCreacion      string            `orm:"column(fecha_creacion);null"`
+	FechaModificacion  string            `orm:"column(fecha_modificacion);null"`
 	CalendarioEventoId *CalendarioEvento `orm:"column(calendario_evento_id);rel(fk)"`
 }
 
@@ -32,6 +32,8 @@ func init() {
 // AddTipoPublico insert a new TipoPublico into database and returns
 // last inserted Id on success.
 func AddTipoPublico(m *TipoPublico) (id int64, err error) {
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
@@ -53,7 +55,7 @@ func GetTipoPublicoById(id int) (v *TipoPublico, err error) {
 func GetAllTipoPublico(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoPublico)).RelatedSel()
+	qs := o.QueryTable(new(TipoPublico))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -131,10 +133,11 @@ func GetAllTipoPublico(query map[string]string, fields []string, sortby []string
 func UpdateTipoPublicoById(m *TipoPublico) (err error) {
 	o := orm.NewOrm()
 	v := TipoPublico{Id: m.Id}
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Update(m); err == nil {
+		if num, err = o.Update(m, "Nombre", "CalendarioEventoId", "CodigoAbreviacion", "Activo", "NumeroOrden", "FechaModificacion"); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
 	}

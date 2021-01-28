@@ -8,20 +8,20 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/udistrital/utils_oas/time_bogota"
 )
 
 type CalendarioEvento struct {
 	Id                int               `orm:"column(id);pk;auto"`
-	Descripcion       string            `orm:"column(descripcion);null"`
-	FechaCreacion     time.Time         `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion time.Time         `orm:"column(fecha_modificacion);type(timestamp without time zone);null;auto_now"`
-	FechaInicio       time.Time         `orm:"column(fecha_inicio);type(timestamp without time zone)"`
-	FechaFin          time.Time         `orm:"column(fecha_fin);type(timestamp without time zone);null"`
-	PeriodoId         int               `orm:"column(periodo_id)"`
-	Activo            bool              `orm:"column(activo)"`
+	Descripcion       string            `orm:"column(descripcion)"`
+	PeriodoId         int               `orm:"column(periodo_id);null"`
 	EventoPadreId     *CalendarioEvento `orm:"column(evento_padre_id);rel(fk);null"`
+	Activo            bool              `orm:"column(activo);null"`
+	FechaInicio       time.Time         `orm:"column(fecha_inicio);type(timestamp with time zone)"`
+	FechaFin          time.Time         `orm:"column(fecha_fin);type(timestamp with time zone)"`
 	TipoEventoId      *TipoEvento       `orm:"column(tipo_evento_id);rel(fk)"`
-	AplicacionId      int               `orm:"column(aplicacion_id)"`
+	FechaCreacion     string            `orm:"column(fecha_creacion);null"`
+	FechaModificacion string            `orm:"column(fecha_modificacion);null"`
 }
 
 func (t *CalendarioEvento) TableName() string {
@@ -35,6 +35,8 @@ func init() {
 // AddCalendarioEvento insert a new CalendarioEvento into database and returns
 // last inserted Id on success.
 func AddCalendarioEvento(m *CalendarioEvento) (id int64, err error) {
+	m.FechaCreacion = time_bogota.TiempoBogotaFormato()
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
@@ -56,7 +58,7 @@ func GetCalendarioEventoById(id int) (v *CalendarioEvento, err error) {
 func GetAllCalendarioEvento(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(CalendarioEvento)).RelatedSel()
+	qs := o.QueryTable(new(CalendarioEvento))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -134,10 +136,11 @@ func GetAllCalendarioEvento(query map[string]string, fields []string, sortby []s
 func UpdateCalendarioEventoById(m *CalendarioEvento) (err error) {
 	o := orm.NewOrm()
 	v := CalendarioEvento{Id: m.Id}
+	m.FechaModificacion = time_bogota.TiempoBogotaFormato()
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Update(m); err == nil {
+		if num, err = o.Update(m, "Descripcion", "PeriodoId", "EventoPadreId", "Activo", "FechaInicio", "FechaFin", "TipoEventoId", "FechaModificacion"); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
 	}
