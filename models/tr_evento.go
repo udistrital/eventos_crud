@@ -220,8 +220,10 @@ func TrDeleteEvento(id int) (err error) {
 		}
 
 		_ = o.Commit()
+		return
 	} else {
 		fmt.Println(err)
 		_ = o.Rollback()
 	return
+	}
 }
