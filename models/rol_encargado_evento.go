@@ -5,20 +5,19 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type RolEncargadoEvento struct {
-	Id                int       `orm:"column(id);pk;auto"`
-	Nombre            string    `orm:"column(nombre)"`
-	Descripcion       string    `orm:"column(descripcion);null"`
-	CodigoAbreviacion string    `orm:"column(codigo_abreviacion);null"`
-	Activo            bool      `orm:"column(activo)"`
-	NumeroDeOrden     float64   `orm:"column(numero_de_orden);null"`
-	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now"`
+	Id                int     `orm:"column(id);pk;auto"`
+	Nombre            string  `orm:"column(nombre)"`
+	Descripcion       string  `orm:"column(descripcion);null"`
+	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
+	Activo            bool    `orm:"column(activo)"`
+	NumeroDeOrden     float64 `orm:"column(numero_de_orden);null"`
+	FechaCreacion     string  `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string  `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
 func (t *RolEncargadoEvento) TableName() string {

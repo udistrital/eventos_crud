@@ -7,18 +7,19 @@ import (
 	"strings"
 
 	"github.com/udistrital/eventos_crud/models"
+	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 )
 
-// RolParticipanteSesionController operations for RolParticipanteSesion
-type RolParticipanteSesionController struct {
+// CalendarioController operations for Calendario
+type CalendarioController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *RolParticipanteSesionController) URLMapping() {
+func (c *CalendarioController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -28,15 +29,17 @@ func (c *RolParticipanteSesionController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create RolParticipanteSesion
-// @Param	body		body 	models.RolParticipanteSesion	true		"body for RolParticipanteSesion content"
-// @Success 201 {int} models.RolParticipanteSesion
+// @Description create Calendario
+// @Param	body		body 	models.Calendario	true		"body for Calendario content"
+// @Success 201 {int} models.Calendario
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
-func (c *RolParticipanteSesionController) Post() {
-	var v models.RolParticipanteSesion
+func (c *CalendarioController) Post() {
+	var v models.Calendario
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddRolParticipanteSesion(&v); err == nil {
+		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
+		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
+		if _, err := models.AddCalendario(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -56,15 +59,15 @@ func (c *RolParticipanteSesionController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get RolParticipanteSesion by id
+// @Description get Calendario by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.RolParticipanteSesion
+// @Success 200 {object} models.Calendario
 // @Failure 404 not found resource
 // @router /:id [get]
-func (c *RolParticipanteSesionController) GetOne() {
+func (c *CalendarioController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetRolParticipanteSesionById(id)
+	v, err := models.GetCalendarioById(id)
 	if err != nil {
 		logs.Error(err)
 		c.Data["json"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
@@ -78,17 +81,17 @@ func (c *RolParticipanteSesionController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get RolParticipanteSesion
+// @Description get Calendario
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.RolParticipanteSesion
+// @Success 200 {object} models.Calendario
 // @Failure 404 not found resource
 // @router / [get]
-func (c *RolParticipanteSesionController) GetAll() {
+func (c *CalendarioController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -130,7 +133,7 @@ func (c *RolParticipanteSesionController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllRolParticipanteSesion(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllCalendario(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		logs.Error(err)
 		c.Data["json"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
@@ -147,18 +150,20 @@ func (c *RolParticipanteSesionController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the RolParticipanteSesion
+// @Description update the Calendario
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.RolParticipanteSesion	true		"body for RolParticipanteSesion content"
-// @Success 200 {object} models.RolParticipanteSesion
+// @Param	body		body 	models.Calendario	true		"body for Calendario content"
+// @Success 200 {object} models.Calendario
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
-func (c *RolParticipanteSesionController) Put() {
+func (c *CalendarioController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.RolParticipanteSesion{Id: id}
+	v := models.Calendario{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateRolParticipanteSesionById(&v); err == nil {
+		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
+		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
+		if err := models.UpdateCalendarioById(&v); err == nil {
 			c.Data["json"] = v
 		} else {
 			logs.Error(err)
@@ -177,15 +182,15 @@ func (c *RolParticipanteSesionController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the RolParticipanteSesion
+// @Description delete the Calendario
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
-func (c *RolParticipanteSesionController) Delete() {
+func (c *CalendarioController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteRolParticipanteSesion(id); err == nil {
+	if err := models.DeleteCalendario(id); err == nil {
 		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
 		logs.Error(err)

@@ -15,6 +15,179 @@
     },
     "basePath": "/v1",
     "paths": {
+        "/calendario/": {
+            "get": {
+                "tags": [
+                    "calendario"
+                ],
+                "description": "get Calendario",
+                "operationId": "CalendarioController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Calendario"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "calendario"
+                ],
+                "description": "create Calendario",
+                "operationId": "CalendarioController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Calendario content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Calendario"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.Calendario"
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
+        "/calendario/{id}": {
+            "get": {
+                "tags": [
+                    "calendario"
+                ],
+                "description": "get Calendario by id",
+                "operationId": "CalendarioController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Calendario"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "calendario"
+                ],
+                "description": "update the Calendario",
+                "operationId": "CalendarioController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Calendario content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Calendario"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Calendario"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "calendario"
+                ],
+                "description": "delete the Calendario",
+                "operationId": "CalendarioController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
         "/calendario_evento/": {
             "get": {
                 "tags": [
@@ -184,6 +357,179 @@
                     },
                     "404": {
                         "description": "not found resource"
+                    }
+                }
+            }
+        },
+        "/calendario_evento_tipo_publico/": {
+            "get": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "get CalendarioEventoTipoPublico",
+                "operationId": "CalendarioEventoTipoPublicoController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "create CalendarioEventoTipoPublico",
+                "operationId": "CalendarioEventoTipoPublicoController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for CalendarioEventoTipoPublico content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.CalendarioEventoTipoPublico"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/calendario_evento_tipo_publico/{id}": {
+            "get": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "get CalendarioEventoTipoPublico by id",
+                "operationId": "CalendarioEventoTipoPublicoController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "update the CalendarioEventoTipoPublico",
+                "operationId": "CalendarioEventoTipoPublicoController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for CalendarioEventoTipoPublico content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.CalendarioEventoTipoPublico"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "calendario_evento_tipo_publico"
+                ],
+                "description": "delete the CalendarioEventoTipoPublico",
+                "operationId": "CalendarioEventoTipoPublicoController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
                     }
                 }
             }
@@ -413,8 +759,8 @@
                             "$ref": "#/definitions/models.ParticipanteSesion"
                         }
                     },
-                    "403": {
-                        "description": ""
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -439,8 +785,8 @@
                     "201": {
                         "description": "{int} models.ParticipanteSesion"
                     },
-                    "403": {
-                        "description": "body is empty"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             }
@@ -468,8 +814,8 @@
                             "$ref": "#/definitions/models.ParticipanteSesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -504,8 +850,8 @@
                             "$ref": "#/definitions/models.ParticipanteSesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is not int"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             },
@@ -528,8 +874,8 @@
                     "200": {
                         "description": "{string} delete success!"
                     },
-                    "403": {
-                        "description": "id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             }
@@ -586,8 +932,8 @@
                             "$ref": "#/definitions/models.RelacionSesiones"
                         }
                     },
-                    "403": {
-                        "description": ""
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -612,8 +958,8 @@
                     "201": {
                         "description": "{int} models.RelacionSesiones"
                     },
-                    "403": {
-                        "description": "body is empty"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             }
@@ -641,8 +987,8 @@
                             "$ref": "#/definitions/models.RelacionSesiones"
                         }
                     },
-                    "403": {
-                        "description": ":id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -677,8 +1023,8 @@
                             "$ref": "#/definitions/models.RelacionSesiones"
                         }
                     },
-                    "403": {
-                        "description": ":id is not int"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             },
@@ -701,8 +1047,8 @@
                     "200": {
                         "description": "{string} delete success!"
                     },
-                    "403": {
-                        "description": "id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             }
@@ -932,8 +1278,8 @@
                             "$ref": "#/definitions/models.RolParticipanteSesion"
                         }
                     },
-                    "403": {
-                        "description": ""
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -958,8 +1304,8 @@
                     "201": {
                         "description": "{int} models.RolParticipanteSesion"
                     },
-                    "403": {
-                        "description": "body is empty"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             }
@@ -987,8 +1333,8 @@
                             "$ref": "#/definitions/models.RolParticipanteSesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -1023,8 +1369,8 @@
                             "$ref": "#/definitions/models.RolParticipanteSesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is not int"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             },
@@ -1047,8 +1393,8 @@
                     "200": {
                         "description": "{string} delete success!"
                     },
-                    "403": {
-                        "description": "id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             }
@@ -1105,8 +1451,8 @@
                             "$ref": "#/definitions/models.Sesion"
                         }
                     },
-                    "403": {
-                        "description": ""
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -1131,8 +1477,8 @@
                     "201": {
                         "description": "{int} models.Sesion"
                     },
-                    "403": {
-                        "description": "body is empty"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             }
@@ -1160,8 +1506,8 @@
                             "$ref": "#/definitions/models.Sesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -1196,8 +1542,8 @@
                             "$ref": "#/definitions/models.Sesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is not int"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             },
@@ -1220,8 +1566,8 @@
                     "200": {
                         "description": "{string} delete success!"
                     },
-                    "403": {
-                        "description": "id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             }
@@ -1278,8 +1624,8 @@
                             "$ref": "#/definitions/models.RolParticipanteSesion"
                         }
                     },
-                    "403": {
-                        "description": ""
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -1304,8 +1650,8 @@
                     "201": {
                         "description": "{int} models.RolParticipanteSesion"
                     },
-                    "403": {
-                        "description": "body is empty"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             }
@@ -1333,8 +1679,8 @@
                             "$ref": "#/definitions/models.RolParticipanteSesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -1369,8 +1715,8 @@
                             "$ref": "#/definitions/models.RolParticipanteSesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is not int"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             },
@@ -1393,8 +1739,8 @@
                     "200": {
                         "description": "{string} delete success!"
                     },
-                    "403": {
-                        "description": "id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             }
@@ -1970,8 +2316,8 @@
                             "$ref": "#/definitions/models.TipoSesion"
                         }
                     },
-                    "403": {
-                        "description": ""
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -1996,8 +2342,8 @@
                     "201": {
                         "description": "{int} models.TipoSesion"
                     },
-                    "403": {
-                        "description": "body is empty"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             }
@@ -2025,8 +2371,8 @@
                             "$ref": "#/definitions/models.TipoSesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             },
@@ -2061,8 +2407,8 @@
                             "$ref": "#/definitions/models.TipoSesion"
                         }
                     },
-                    "403": {
-                        "description": ":id is not int"
+                    "400": {
+                        "description": "the request contains incorrect syntax"
                     }
                 }
             },
@@ -2085,8 +2431,8 @@
                     "200": {
                         "description": "{string} delete success!"
                     },
-                    "403": {
-                        "description": "id is empty"
+                    "404": {
+                        "description": "not found resource"
                     }
                 }
             }
@@ -2212,32 +2558,32 @@
         }
     },
     "definitions": {
-        "54116.\u003cnil\u003e.EncargadoEvento": {
+        "63368.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "54156.\u003cnil\u003e.TipoPublico": {
+        "63405.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "54258.\u003cnil\u003e.EncargadoEvento": {
+        "63519.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "54298.\u003cnil\u003e.TipoPublico": {
+        "63564.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "54340.\u003cnil\u003e.EncargadoEvento": {
+        "63605.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "54387.\u003cnil\u003e.TipoPublico": {
+        "63650.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "models.CalendarioEvento": {
-            "title": "CalendarioEvento",
+        "models.Calendario": {
+            "title": "Calendario",
             "type": "object",
             "properties": {
                 "Activo": {
@@ -2247,6 +2593,52 @@
                     "type": "integer",
                     "format": "int64"
                 },
+                "CalendarioPadreId": {
+                    "$ref": "#/definitions/models.Calendario"
+                },
+                "DependenciaId": {
+                    "type": "string"
+                },
+                "Descripcion": {
+                    "type": "string"
+                },
+                "DocumentoId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "FechaCreacion": {
+                    "type": "string"
+                },
+                "FechaModificacion": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nivel": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "PeriodoId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.CalendarioEvento": {
+            "title": "CalendarioEvento",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "DependenciaId": {
+                    "type": "string"
+                },
                 "Descripcion": {
                     "type": "string"
                 },
@@ -2254,8 +2646,7 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaFin": {
                     "type": "string",
@@ -2266,19 +2657,42 @@
                     "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
                     "format": "int64"
                 },
-                "PeriodoId": {
-                    "type": "integer",
-                    "format": "int64"
+                "Nombre": {
+                    "type": "string"
                 },
                 "TipoEventoId": {
                     "$ref": "#/definitions/models.TipoEvento"
+                }
+            }
+        },
+        "models.CalendarioEventoTipoPublico": {
+            "title": "CalendarioEventoTipoPublico",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CalendarioEventoId": {
+                    "$ref": "#/definitions/models.CalendarioEvento"
+                },
+                "FechaCreacion": {
+                    "type": "string"
+                },
+                "FechaModificacion": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "TipoPublicoId": {
+                    "$ref": "#/definitions/models.TipoPublico"
                 }
             }
         },
@@ -2297,12 +2711,10 @@
                     "format": "int64"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2363,12 +2775,10 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2417,8 +2827,7 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaFin": {
                     "type": "string",
@@ -2429,8 +2838,7 @@
                     "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2478,23 +2886,20 @@
                 "Activo": {
                     "type": "boolean"
                 },
+                "CalendarioID": {
+                    "$ref": "#/definitions/models.Calendario"
+                },
                 "CodigoAbreviacion": {
                     "type": "string"
-                },
-                "DependenciaId": {
-                    "type": "integer",
-                    "format": "int64"
                 },
                 "Descripcion": {
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2515,19 +2920,14 @@
                 "Activo": {
                     "type": "boolean"
                 },
-                "CalendarioEventoId": {
-                    "$ref": "#/definitions/models.CalendarioEvento"
-                },
                 "CodigoAbreviacion": {
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2556,12 +2956,10 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "FechaModificacion": {
-                    "type": "string",
-                    "format": "datetime"
+                    "type": "string"
                 },
                 "Id": {
                     "type": "integer",
@@ -2606,10 +3004,10 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/54116.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63368.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/54156.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63405.\u003cnil\u003e.TipoPublico"
                 }
             }
         },
@@ -2625,16 +3023,16 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/54258.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63519.\u003cnil\u003e.EncargadoEvento"
                 },
                 "EncargadosEventoBorrados": {
-                    "$ref": "#/definitions/54340.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63605.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/54298.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63564.\u003cnil\u003e.TipoPublico"
                 },
                 "TiposPublicoBorrados": {
-                    "$ref": "#/definitions/54387.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63650.\u003cnil\u003e.TipoPublico"
                 }
             }
         }
@@ -2695,6 +3093,14 @@
         {
             "name": "encargado_evento",
             "description": "EncargadoEventoController operations for EncargadoEvento\n"
+        },
+        {
+            "name": "calendario",
+            "description": "CalendarioController operations for Calendario\n"
+        },
+        {
+            "name": "calendario_evento_tipo_publico",
+            "description": "CalendarioEventoTipoPublicoController operations for CalendarioEventoTipoPublico\n"
         }
     ]
 }

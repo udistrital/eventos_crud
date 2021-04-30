@@ -12,27 +12,35 @@ import (
 	_ "github.com/lib/pq"
 	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
 
+	"github.com/udistrital/auditoria"
 	"github.com/udistrital/utils_oas/customerror"
 )
 
 func init() {
-	orm.RegisterDataBase("default", "postgres", "postgres://"+beego.AppConfig.String("PGuser")+":"+beego.AppConfig.String("PGpass")+"@"+beego.AppConfig.String("PGurls")+"/"+beego.AppConfig.String("PGdb")+"?sslmode=disable&search_path="+beego.AppConfig.String("PGschemas")+"")
+	orm.RegisterDataBase("default", "postgres", "postgres://"+
+		beego.AppConfig.String("PGuser")+":"+
+		beego.AppConfig.String("PGpass")+"@"+
+		beego.AppConfig.String("PGurls")+":"+
+		beego.AppConfig.String("PGport")+"/"+
+		beego.AppConfig.String("PGdb")+"?sslmode=disable&search_path="+
+		beego.AppConfig.String("PGschemas")+"")
+
 	if beego.BConfig.RunMode == "dev" {
 		/*
-		// Database alias.
-		name := "default"
+			// Database alias.
+			name := "default"
 
-		// Drop table and re-create.
-		force := false
+			// Drop table and re-create.
+			force := false
 
-		// Print log.
-		verbose := true
+			// Print log.
+			verbose := true
 
-		// Error.
-		err := orm.RunSyncdb(name, force, verbose)
-		if err != nil {
-			fmt.Println(err)
-		}
+			// Error.
+			err := orm.RunSyncdb(name, force, verbose)
+			if err != nil {
+				fmt.Println(err)
+			}
 		*/
 	}
 }
@@ -64,5 +72,6 @@ func main() {
 	beego.ErrorController(&customerror.CustomErrorController{})
 
 	apistatus.Init()
+	auditoria.InitMiddleware()
 	beego.Run()
 }

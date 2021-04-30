@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/udistrital/eventos_crud/models"
+	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
@@ -36,20 +37,22 @@ func (c *CalendarioEventoController) URLMapping() {
 func (c *CalendarioEventoController) Post() {
 	var v models.CalendarioEvento
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
+		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		if _, err := models.AddCalendarioEvento(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
 			logs.Error(err)
-			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+			c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
 			c.Data["system"] = err
-			c.Abort("400")
+			c.Ctx.Output.SetStatus(400)
 		}
 	} else {
 		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
-		c.Abort("400")
+		c.Ctx.Output.SetStatus(400)
 	}
 	c.ServeJSON()
 }
@@ -67,9 +70,9 @@ func (c *CalendarioEventoController) GetOne() {
 	v, err := models.GetCalendarioEventoById(id)
 	if err != nil {
 		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
-		c.Abort("404")
+		c.Ctx.Output.SetStatus(400)
 	} else {
 		c.Data["json"] = v
 	}
@@ -133,9 +136,9 @@ func (c *CalendarioEventoController) GetAll() {
 	l, err := models.GetAllCalendarioEvento(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["json"] = map[string]interface{}{"Code": "404", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
-		c.Abort("404")
+		c.Ctx.Output.SetStatus(404)
 	} else {
 		if l == nil {
 			l = append(l, map[string]interface{}{})
@@ -158,19 +161,21 @@ func (c *CalendarioEventoController) Put() {
 	id, _ := strconv.Atoi(idStr)
 	v := models.CalendarioEvento{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
+		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
 		if err := models.UpdateCalendarioEventoById(&v); err == nil {
 			c.Data["json"] = v
 		} else {
 			logs.Error(err)
-			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+			c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
 			c.Data["system"] = err
-			c.Abort("400")
+			c.Ctx.Output.SetStatus(400)
 		}
 	} else {
 		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
-		c.Abort("400")
+		c.Ctx.Output.SetStatus(400)
 	}
 	c.ServeJSON()
 }
@@ -189,9 +194,9 @@ func (c *CalendarioEventoController) Delete() {
 		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
 		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
-		c.Abort("404")
+		c.Ctx.Output.SetStatus(400)
 	}
 	c.ServeJSON()
 }

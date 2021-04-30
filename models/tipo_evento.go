@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -16,10 +15,10 @@ type TipoEvento struct {
 	Descripcion       string           `orm:"column(descripcion);null"`
 	CodigoAbreviacion string           `orm:"column(codigo_abreviacion);null"`
 	Activo            bool             `orm:"column(activo)"`
-	DependenciaId     int              `orm:"column(dependencia_id)"`
-	FechaCreacion     time.Time        `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
-	FechaModificacion time.Time        `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now"`
+	FechaCreacion     string           `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string           `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 	TipoRecurrenciaId *TipoRecurrencia `orm:"column(tipo_recurrencia_id);rel(fk)"`
+	CalendarioID      *Calendario      `orm:"column(calendario_id);rel(fk)"`
 }
 
 func (t *TipoEvento) TableName() string {

@@ -46,7 +46,6 @@ func init() {
 				&controllers.RolParticipanteSesionController{},
 			),
 		),
-	
 
 		beego.NSNamespace("/relacion_sesiones",
 			beego.NSInclude(
@@ -59,9 +58,6 @@ func init() {
 				&controllers.TipoRecurrenciaController{},
 			),
 		),
-	)
-
-	ns2 := beego.NewNamespace("/v2",
 
 		beego.NSNamespace("/rol_encargado_evento",
 			beego.NSInclude(
@@ -104,8 +100,19 @@ func init() {
 				&controllers.EncargadoEventoController{},
 			),
 		),
+
+		beego.NSNamespace("/calendario",
+			beego.NSInclude(
+				&controllers.CalendarioController{},
+			),
+		),
+
+		beego.NSNamespace("/calendario_evento_tipo_publico",
+			beego.NSInclude(
+				&controllers.CalendarioEventoTipoPublicoController{},
+			),
+		),
 	)
 
 	beego.AddNamespace(ns1)
-	beego.AddNamespace(ns2)
 }

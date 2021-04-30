@@ -12,15 +12,16 @@ El API provee la gestion de las diferentes eventos que requiera el Sistema de Ge
 
 ### Variables de Entorno
 ```shell
-EVENTOS_CRUD__PGDB=[nombre de la base de datos]
-EVENTOS_CRUD__PGPASS=[password del usuario]
-EVENTOS_CRUD__PGURLS=[direccion de la base de datos]
-EVENTOS_CRUD__PGUSER=[usuario con acceso a la base de datos]
-EVENTOS_CRUD__PGSCHEMA=[esquema donde se ubican las tablas]
-EVENTOS_CRUD__HTTPPORT=[puerto de ejecucion] bee run
+EVENTOS_CRUD_PGDB=[nombre de la base de datos]
+EVENTOS_CRUD_PGPASS=[password del usuario]
+EVENTOS_CRUD_PGHOST=[direccion de la base de datos]
+EVENTOS_CRUD_PGPORT=[puerto e conexión con la base de datos]
+EVENTOS_CRUD_PGUSER=[usuario con acceso a la base de datos]
+EVENTOS_CRUD_PGSCHEMA=[esquema donde se ubican las tablas]
+EVENTOS_CRUD_HTTP_PORT=[puerto de ejecucion] bee run
 ```
 
-**NOTA:** Las variables se pueden ver en el fichero conf/app.conf y están identificadas con EVENTOS_CRUD__...
+**NOTA:** Las variables se pueden ver en el fichero conf/app.conf y están identificadas con EVENTOS_CRUD_...
 
 ### Ejecución del Proyecto
 ```shell
@@ -34,7 +35,7 @@ cd $GOPATH/src/github.com/udistrital/eventos_crud
 git pull origin develop && git checkout develop
 
 # 4. alimentar todas las variables de entorno que utiliza el proyecto.
-EVENTOS_CRUD__HTTPPORT=8080 EVENTOS_CRUD_DB_HOST=127.0.0.1:27017 EVENTOS_CRUD_SOME_VARIABLE=some_value bee run
+EVENTOS_CRUD_HTTP_PORT=8080 EVENTOS_CRUD_PGHOST=127.0.0.1:27017 EVENTOS_CRUD_SOME_VARIABLE=some_value bee run
 ```
 
 ### Ejecución Dockerfile
@@ -79,7 +80,7 @@ Pruebas unitarias
 
 
 ## Modelo de Datos
-[Modelo de Datos API CRUD Eventos](https://github.com/udistrital/eventos_crud/blob/dev/sql/modelo_eventos_sesiones.png)
+[Modelo de Datos API CRUD Eventos](https://github.com/udistrital/eventos_crud/tree/develop/sql)
 
 
 ## Licencia
@@ -90,4 +91,4 @@ produccion_academica_crud is free software: you can redistribute it and/or modif
 
 produccion_academica_crud is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with novedades_crud. If not, see https://www.gnu.org/licenses/.
+You should have received a copy of the GNU General Public License along with novedades_crud. If not, see https://www.gnu.org/licenses/..
