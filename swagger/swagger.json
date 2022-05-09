@@ -2558,27 +2558,27 @@
         }
     },
     "definitions": {
-        "63368.\u003cnil\u003e.EncargadoEvento": {
+        "63619.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "63405.\u003cnil\u003e.TipoPublico": {
+        "63656.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "63519.\u003cnil\u003e.EncargadoEvento": {
+        "63770.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "63564.\u003cnil\u003e.TipoPublico": {
+        "63815.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "63605.\u003cnil\u003e.EncargadoEvento": {
+        "63856.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "63650.\u003cnil\u003e.TipoPublico": {
+        "63901.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
@@ -2587,6 +2587,12 @@
             "type": "object",
             "properties": {
                 "Activo": {
+                    "type": "boolean"
+                },
+                "AplicaEdicionActividades": {
+                    "type": "boolean"
+                },
+                "AplicaExtension": {
                     "type": "boolean"
                 },
                 "AplicacionId": {
@@ -2599,8 +2605,15 @@
                 "DependenciaId": {
                     "type": "string"
                 },
+                "DependenciaParticularId": {
+                    "type": "string"
+                },
                 "Descripcion": {
                     "type": "string"
+                },
+                "DocumentoExtensionId": {
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "DocumentoId": {
                     "type": "integer",
@@ -3004,10 +3017,10 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/63368.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63619.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/63405.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63656.\u003cnil\u003e.TipoPublico"
                 }
             }
         },
@@ -3023,16 +3036,16 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/63519.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63770.\u003cnil\u003e.EncargadoEvento"
                 },
                 "EncargadosEventoBorrados": {
-                    "$ref": "#/definitions/63605.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63856.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/63564.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63815.\u003cnil\u003e.TipoPublico"
                 },
                 "TiposPublicoBorrados": {
-                    "$ref": "#/definitions/63650.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63901.\u003cnil\u003e.TipoPublico"
                 }
             }
         }
