@@ -32,7 +32,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -146,7 +147,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -260,7 +262,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -374,7 +377,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -488,7 +492,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -602,7 +607,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -716,7 +722,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -830,7 +837,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -944,7 +952,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1058,7 +1067,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1172,7 +1182,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1286,7 +1297,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1400,7 +1412,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1514,7 +1527,8 @@ paths:
         type: string
       - in: query
         name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
         type: string
       - in: query
         name: limit
@@ -1686,22 +1700,22 @@ paths:
         "404":
           description: not found resource
 definitions:
-  63368.<nil>.EncargadoEvento:
+  63619.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  63405.<nil>.TipoPublico:
+  63656.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  63519.<nil>.EncargadoEvento:
+  63770.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  63564.<nil>.TipoPublico:
+  63815.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  63605.<nil>.EncargadoEvento:
+  63856.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  63650.<nil>.TipoPublico:
+  63901.<nil>.TipoPublico:
     title: TipoPublico
     type: object
   models.Calendario:
@@ -1710,6 +1724,10 @@ definitions:
     properties:
       Activo:
         type: boolean
+      AplicaEdicionActividades:
+        type: boolean
+      AplicaExtension:
+        type: boolean
       AplicacionId:
         type: integer
         format: int64
@@ -1717,8 +1735,13 @@ definitions:
         $ref: '#/definitions/models.Calendario'
       DependenciaId:
         type: string
+      DependenciaParticularId:
+        type: string
       Descripcion:
         type: string
+      DocumentoExtensionId:
+        type: integer
+        format: int64
       DocumentoId:
         type: integer
         format: int64
@@ -1997,9 +2020,9 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/63368.<nil>.EncargadoEvento'
+        $ref: '#/definitions/63619.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/63405.<nil>.TipoPublico'
+        $ref: '#/definitions/63656.<nil>.TipoPublico'
   models.TrEventoController:
     title: TrEventoController
     type: object
@@ -2010,13 +2033,13 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/63519.<nil>.EncargadoEvento'
+        $ref: '#/definitions/63770.<nil>.EncargadoEvento'
       EncargadosEventoBorrados:
-        $ref: '#/definitions/63605.<nil>.EncargadoEvento'
+        $ref: '#/definitions/63856.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/63564.<nil>.TipoPublico'
+        $ref: '#/definitions/63815.<nil>.TipoPublico'
       TiposPublicoBorrados:
-        $ref: '#/definitions/63650.<nil>.TipoPublico'
+        $ref: '#/definitions/63901.<nil>.TipoPublico'
 tags:
 - name: tipo_sesion
   description: |
