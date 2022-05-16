@@ -22,6 +22,7 @@ type CalendarioEvento struct {
 	DependenciaId     string            `orm:"column(dependencia_id);type(json);null"`
 	EventoPadreId     *CalendarioEvento `orm:"column(evento_padre_id);rel(fk);null"`
 	TipoEventoId      *TipoEvento       `orm:"column(tipo_evento_id);rel(fk)"`
+	UbicacionId		  int               `orm:"column(ubicacion_id)"`
 }
 
 func (t *CalendarioEvento) TableName() string {

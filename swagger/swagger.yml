@@ -1700,22 +1700,22 @@ paths:
         "404":
           description: not found resource
 definitions:
-  63619.<nil>.EncargadoEvento:
+  63682.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  63656.<nil>.TipoPublico:
+  63719.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  63770.<nil>.EncargadoEvento:
+  63833.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  63815.<nil>.TipoPublico:
+  63878.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  63856.<nil>.EncargadoEvento:
+  63919.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  63901.<nil>.TipoPublico:
+  63964.<nil>.TipoPublico:
     title: TipoPublico
     type: object
   models.Calendario:
@@ -1789,6 +1789,9 @@ definitions:
         type: string
       TipoEventoId:
         $ref: '#/definitions/models.TipoEvento'
+      UbicacionId:
+        type: integer
+        format: int64
   models.CalendarioEventoTipoPublico:
     title: CalendarioEventoTipoPublico
     type: object
@@ -2020,9 +2023,9 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/63619.<nil>.EncargadoEvento'
+        $ref: '#/definitions/63682.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/63656.<nil>.TipoPublico'
+        $ref: '#/definitions/63719.<nil>.TipoPublico'
   models.TrEventoController:
     title: TrEventoController
     type: object
@@ -2033,13 +2036,13 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/63770.<nil>.EncargadoEvento'
+        $ref: '#/definitions/63833.<nil>.EncargadoEvento'
       EncargadosEventoBorrados:
-        $ref: '#/definitions/63856.<nil>.EncargadoEvento'
+        $ref: '#/definitions/63919.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/63815.<nil>.TipoPublico'
+        $ref: '#/definitions/63878.<nil>.TipoPublico'
       TiposPublicoBorrados:
-        $ref: '#/definitions/63901.<nil>.TipoPublico'
+        $ref: '#/definitions/63964.<nil>.TipoPublico'
 tags:
 - name: tipo_sesion
   description: |
