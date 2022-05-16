@@ -1,0 +1,1 @@
+ALTER TABLE eventos.calendario_evento ADD COLUMN ubicacion_id integer;

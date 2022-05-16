@@ -158,6 +158,7 @@ CREATE TABLE eventos.calendario_evento (
 	tipo_evento_id integer,
 	nombre character varying(50) NOT NULL,
 	dependencia_id json,
+	ubicacion_id integer,
 	CONSTRAINT pk_calendario_evento PRIMARY KEY (id)
 );
 -- ddl-end --
