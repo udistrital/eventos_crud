@@ -80,7 +80,7 @@ Pruebas unitarias
 
 
 ## Modelo de Datos
-![Modelo de datos API CRUD Eventos](/sql/evento_V_11.png)
+![Modelo de datos API CRUD Eventos](/sql/evento_V_12.png)
 [Modelo de Datos API CRUD Eventos](https://github.com/udistrital/eventos_crud/tree/develop/sql)
 
 
