@@ -10,22 +10,21 @@ import (
 )
 
 type Calendario struct {
-	Id                       int         `orm:"column(id);pk;auto"`
-	Nombre                   string      `orm:"column(nombre)"`
-	Descripcion              string      `orm:"column(descripcion);null"`
-	DependenciaId            string      `orm:"column(dependencia_id);type(json)"`
-	DocumentoId              int         `orm:"column(documento_id)"`
-	PeriodoId                int         `orm:"column(periodo_id)"`
-	AplicacionId             int         `orm:"column(aplicacion_id)"`
-	Nivel                    int         `orm:"column(nivel)"`
-	Activo                   bool        `orm:"column(activo)"`
-	FechaCreacion            string      `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion        string      `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
-	CalendarioPadreId        *Calendario `orm:"column(calendario_padre_id);rel(fk);null"`
-	DocumentoExtensionId     int         `orm:"column(documento_extension_id)"`
-	AplicaExtension          bool        `orm:"column(aplica_extension)"`
-	AplicaEdicionActividades bool        `orm:"column(aplica_edicion_actividades)"`
-	DependenciaParticularId  string      `orm:"column(dependencia_particular_id)"`
+	Id                      int         `orm:"column(id);pk;auto"`
+	Nombre                  string      `orm:"column(nombre)"`
+	Descripcion             string      `orm:"column(descripcion);null"`
+	DependenciaId           string      `orm:"column(dependencia_id);type(json)"`
+	DocumentoId             int         `orm:"column(documento_id)"`
+	PeriodoId               int         `orm:"column(periodo_id)"`
+	AplicacionId            int         `orm:"column(aplicacion_id)"`
+	Nivel                   int         `orm:"column(nivel)"`
+	Activo                  bool        `orm:"column(activo)"`
+	FechaCreacion           string      `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion       string      `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	CalendarioPadreId       *Calendario `orm:"column(calendario_padre_id);rel(fk);null"`
+	DocumentoExtensionId    int         `orm:"column(documento_extension_id)"`
+	AplicaExtension         bool        `orm:"column(aplica_extension)"`
+	DependenciaParticularId string      `orm:"column(dependencia_particular_id)"`
 }
 
 func (t *Calendario) TableName() string {
