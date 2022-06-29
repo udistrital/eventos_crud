@@ -159,6 +159,8 @@ CREATE TABLE eventos.calendario_evento (
 	nombre character varying(50) NOT NULL,
 	dependencia_id json,
 	ubicacion_id integer,
+	aplica_edicion_actividades boolean,
+	poster_url character varying(250),
 	CONSTRAINT pk_calendario_evento PRIMARY KEY (id)
 );
 -- ddl-end --
@@ -181,6 +183,10 @@ COMMENT ON COLUMN eventos.calendario_evento.activo IS E'Campo para registrar si 
 COMMENT ON COLUMN eventos.calendario_evento.nombre IS E'Nombre del tipo de sesion';
 -- ddl-end --
 COMMENT ON COLUMN eventos.calendario_evento.dependencia_id IS E'se referencia al esquema de dependencia del sistema OKIOS';
+-- ddl-end --
+COMMENT ON COLUMN eventos.calendario_evento.aplica_edicion_actividades IS E'Campo para verficar si al calendario aplica edicion de fechas actividades';
+-- ddl-end --
+COMMENT ON COLUMN eventos.calendario_evento.poster_url IS E'Campo string para url poster';
 -- ddl-end --
 COMMENT ON CONSTRAINT pk_calendario_evento ON eventos.calendario_evento  IS E'Restriccion pk de la tabla calendario evento';
 -- ddl-end --
@@ -650,7 +656,6 @@ CREATE TABLE eventos.calendario (
 	calendario_padre_id integer,
 	documento_extension_id integer,
 	aplica_extension boolean,
-	aplica_edicion_actividades boolean,
 	dependencia_particular_id json,
 	CONSTRAINT pk_calendario PRIMARY KEY (id)
 );
@@ -684,8 +689,6 @@ COMMENT ON COLUMN eventos.calendario.calendario_padre_id IS E'Calendario padre i
 COMMENT ON COLUMN eventos.calendario.documento_extension_id IS E'Campo id para documento soporte si hay extensión';
 -- ddl-end --
 COMMENT ON COLUMN eventos.calendario.aplica_extension IS E'Campo para verificar si es calendario por extensión';
--- ddl-end --
-COMMENT ON COLUMN eventos.calendario.aplica_edicion_actividades IS E'Campo para verficar si al calendario aplica edicion de fechas actividades';
 -- ddl-end --
 COMMENT ON COLUMN eventos.calendario.dependencia_particular_id IS E'Campo json para listar dependencias con ajustes particulares de fechas';
 -- ddl-end --
