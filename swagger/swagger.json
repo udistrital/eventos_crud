@@ -2558,27 +2558,27 @@
         }
     },
     "definitions": {
-        "63368.\u003cnil\u003e.EncargadoEvento": {
+        "63831.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "63405.\u003cnil\u003e.TipoPublico": {
+        "63868.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "63519.\u003cnil\u003e.EncargadoEvento": {
+        "63982.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "63564.\u003cnil\u003e.TipoPublico": {
+        "64027.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "63605.\u003cnil\u003e.EncargadoEvento": {
+        "64068.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "63650.\u003cnil\u003e.TipoPublico": {
+        "64113.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
@@ -2587,6 +2587,9 @@
             "type": "object",
             "properties": {
                 "Activo": {
+                    "type": "boolean"
+                },
+                "AplicaExtension": {
                     "type": "boolean"
                 },
                 "AplicacionId": {
@@ -2599,8 +2602,15 @@
                 "DependenciaId": {
                     "type": "string"
                 },
+                "DependenciaParticularId": {
+                    "type": "string"
+                },
                 "Descripcion": {
                     "type": "string"
+                },
+                "DocumentoExtensionId": {
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "DocumentoId": {
                     "type": "integer",
@@ -2636,6 +2646,9 @@
                 "Activo": {
                     "type": "boolean"
                 },
+                "AplicaEdicionActividades": {
+                    "type": "boolean"
+                },
                 "DependenciaId": {
                     "type": "string"
                 },
@@ -2666,8 +2679,15 @@
                 "Nombre": {
                     "type": "string"
                 },
+                "PosterUrl": {
+                    "type": "string"
+                },
                 "TipoEventoId": {
                     "$ref": "#/definitions/models.TipoEvento"
+                },
+                "UbicacionId": {
+                    "type": "integer",
+                    "format": "int64"
                 }
             }
         },
@@ -3004,10 +3024,10 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/63368.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63831.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/63405.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/63868.\u003cnil\u003e.TipoPublico"
                 }
             }
         },
@@ -3023,16 +3043,16 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/63519.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/63982.\u003cnil\u003e.EncargadoEvento"
                 },
                 "EncargadosEventoBorrados": {
-                    "$ref": "#/definitions/63605.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/64068.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/63564.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/64027.\u003cnil\u003e.TipoPublico"
                 },
                 "TiposPublicoBorrados": {
-                    "$ref": "#/definitions/63650.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/64113.\u003cnil\u003e.TipoPublico"
                 }
             }
         }
