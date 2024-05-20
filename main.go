@@ -14,6 +14,7 @@ import (
 
 	"github.com/udistrital/auditoria"
 	"github.com/udistrital/utils_oas/customerror"
+	"github.com/udistrital/utils_oas/xray"
 )
 
 func init() {
@@ -70,7 +71,7 @@ func main() {
 	logs.SetLogger(logs.AdapterFile, logPath)
 
 	beego.ErrorController(&customerror.CustomErrorController{})
-
+	xray.InitXRay()
 	apistatus.Init()
 	auditoria.InitMiddleware()
 	beego.Run()
