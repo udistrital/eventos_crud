@@ -25,6 +25,7 @@ type CalendarioEvento struct {
 	UbicacionId              int               `orm:"column(ubicacion_id)"`
 	AplicaEdicionActividades bool              `orm:"column(aplica_edicion_actividades)"`
 	PosterUrl                string            `orm:"column(poster_url)"`
+	Automatizacion           bool              `orm:"column(automatizacion)"`
 }
 
 func (t *CalendarioEvento) TableName() string {
