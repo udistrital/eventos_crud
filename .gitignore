@@ -16,3 +16,4 @@ swagger/lang/
 swagger/lib/
 go.mod
 go.sum
+*.env

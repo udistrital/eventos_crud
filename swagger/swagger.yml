@@ -11,6 +11,120 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 basePath: /v1
 paths:
+  /automatizacion/:
+    get:
+      tags:
+      - automatizacion
+      description: get Automatizacion
+      operationId: AutomatizacionController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Automatizacion'
+        "403":
+          description: ""
+    post:
+      tags:
+      - automatizacion
+      description: create Automatizacion
+      operationId: AutomatizacionController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Automatizacion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Automatizacion'
+      responses:
+        "201":
+          description: '{int} models.Automatizacion'
+        "403":
+          description: body is empty
+  /automatizacion/{id}:
+    get:
+      tags:
+      - automatizacion
+      description: get Automatizacion by id
+      operationId: AutomatizacionController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Automatizacion'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - automatizacion
+      description: update the Automatizacion
+      operationId: AutomatizacionController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Automatizacion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Automatizacion'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Automatizacion'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - automatizacion
+      description: delete the Automatizacion
+      operationId: AutomatizacionController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
   /calendario/:
     get:
       tags:
@@ -1686,24 +1800,43 @@ paths:
         "404":
           description: not found resource
 definitions:
-  66026.<nil>.EncargadoEvento:
+  70849.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  66064.<nil>.TipoPublico:
+  70887.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  66183.<nil>.EncargadoEvento:
+  71006.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  66229.<nil>.TipoPublico:
+  71052.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  66271.<nil>.EncargadoEvento:
+  71094.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  66317.<nil>.TipoPublico:
+  71140.<nil>.TipoPublico:
     title: TipoPublico
     type: object
+  models.Automatizacion:
+    title: Automatizacion
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CalendarioEventoId:
+        $ref: '#/definitions/models.CalendarioEvento'
+      EjecucionUnica:
+        type: boolean
+      Endpoint:
+        type: string
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
   models.Calendario:
     title: Calendario
     type: object
@@ -1736,6 +1869,8 @@ definitions:
       Id:
         type: integer
         format: int64
+      MultiplePeriodoId:
+        type: string
       Nivel:
         type: integer
         format: int64
@@ -1751,6 +1886,8 @@ definitions:
       Activo:
         type: boolean
       AplicaEdicionActividades:
+        type: boolean
+      Automatizacion:
         type: boolean
       DependenciaId:
         type: string
@@ -2011,9 +2148,9 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/66026.<nil>.EncargadoEvento'
+        $ref: '#/definitions/70849.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/66064.<nil>.TipoPublico'
+        $ref: '#/definitions/70887.<nil>.TipoPublico'
   models.TrEventoController:
     title: TrEventoController
     type: object
@@ -2024,13 +2161,13 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/66183.<nil>.EncargadoEvento'
+        $ref: '#/definitions/71006.<nil>.EncargadoEvento'
       EncargadosEventoBorrados:
-        $ref: '#/definitions/66271.<nil>.EncargadoEvento'
+        $ref: '#/definitions/71094.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/66229.<nil>.TipoPublico'
+        $ref: '#/definitions/71052.<nil>.TipoPublico'
       TiposPublicoBorrados:
-        $ref: '#/definitions/66317.<nil>.TipoPublico'
+        $ref: '#/definitions/71140.<nil>.TipoPublico'
 tags:
 - name: tipo_sesion
   description: |
@@ -2080,3 +2217,6 @@ tags:
 - name: calendario_evento_tipo_publico
   description: |
     CalendarioEventoTipoPublicoController operations for CalendarioEventoTipoPublico
+- name: automatizacion
+  description: |
+    AutomatizacionController operations for Automatizacion

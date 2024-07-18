@@ -7,6 +7,51 @@ import (
 
 func init() {
 
+    beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: "/",
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"],
+        beego.ControllerComments{
+            Method: "GetAll",
+            Router: "/",
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"],
+        beego.ControllerComments{
+            Method: "GetOne",
+            Router: "/:id",
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"],
+        beego.ControllerComments{
+            Method: "Put",
+            Router: "/:id",
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AutomatizacionController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: "/:id",
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:CalendarioController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:CalendarioController"],
         beego.ControllerComments{
             Method: "Post",

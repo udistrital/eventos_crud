@@ -112,6 +112,12 @@ func init() {
 				&controllers.CalendarioEventoTipoPublicoController{},
 			),
 		),
+
+		beego.NSNamespace("/automatizacion",
+			beego.NSInclude(
+				&controllers.AutomatizacionController{},
+			),
+		),
 	)
 
 	beego.AddNamespace(ns1)
