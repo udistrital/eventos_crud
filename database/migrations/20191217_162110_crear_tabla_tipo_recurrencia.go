@@ -36,5 +36,4 @@ func (m *CrearTablaTipoRecurrencia_20191217_162110) Up() {
 func (m *CrearTablaTipoRecurrencia_20191217_162110) Down() {
 	m.SQL("DROP TABLE IF EXISTS eventos.tipo_recurrencia")
 
-
 }

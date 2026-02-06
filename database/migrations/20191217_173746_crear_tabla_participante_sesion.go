@@ -19,7 +19,7 @@ func init() {
 
 // Run the migrations
 func (m *CrearTablaParticipanteSesion_20191217_173746) Up() {
-	m.SQL("CREATE TABLE eventos.participante_sesion(id serial NOT NULL,sesion integer NOT NULL,rol_participante_sesion integer NOT NULL,ente integer NOT NULL,CONSTRAINT pk_participante_sesion PRIMARY KEY (id));") 
+	m.SQL("CREATE TABLE eventos.participante_sesion(id serial NOT NULL,sesion integer NOT NULL,rol_participante_sesion integer NOT NULL,ente integer NOT NULL,CONSTRAINT pk_participante_sesion PRIMARY KEY (id));")
 	m.SQL("ALTER TABLE eventos.participante_sesion OWNER TO desarrollooas;")
 	m.SQL("COMMENT ON TABLE eventos.participante_sesion IS 'Tabla de rompimiento entre los difenrentes participantes y la sesión';")
 	m.SQL("COMMENT ON COLUMN eventos.participante_sesion.id IS 'Identificador de la tabla responsable_sesion';")

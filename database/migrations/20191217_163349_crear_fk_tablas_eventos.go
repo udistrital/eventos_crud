@@ -35,7 +35,7 @@ func (m *CrearFkTablasEventos_20191217_163349) Down() {
 	m.SQL("ALTER TABLE eventos.tipo_evento DROP CONSTRAINT IF EXISTS fk_tipo_evento_tipo_recurrencia CASCADE;")
 	m.SQL("ALTER TABLE eventos.tipo_evento DROP CONSTRAINT IF EXISTS tipo_evento_uq CASCADE;")
 	m.SQL("ALTER TABLE eventos.calendario_evento DROP CONSTRAINT IF EXISTS fk_calendario_evento_tipo_evento CASCADE;")
- 	m.SQL("ALTER TABLE eventos.encargado_evento DROP CONSTRAINT IF EXISTS fk_encargado_evento_calendario_evento CASCADE;")
+	m.SQL("ALTER TABLE eventos.encargado_evento DROP CONSTRAINT IF EXISTS fk_encargado_evento_calendario_evento CASCADE;")
 	m.SQL("ALTER TABLE eventos.tipo_publico DROP CONSTRAINT IF EXISTS fk_tipo_publico_calendario_evento CASCADE;")
 	m.SQL("ALTER TABLE eventos.calendario_evento DROP CONSTRAINT IF EXISTS fk_evento_padre CASCADE;")
 }
