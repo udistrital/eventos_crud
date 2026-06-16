@@ -27,6 +27,6 @@ func (m *CrearEsquemaEventos_20191217_160109) Up() {
 
 // Reverse the migrations
 func (m *CrearEsquemaEventos_20191217_160109) Down() {
-	m.SQL("DROP SCHEMA IF EXISTS eventos");
+	m.SQL("DROP SCHEMA IF EXISTS eventos")
 
 }

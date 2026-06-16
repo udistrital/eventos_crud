@@ -28,7 +28,6 @@ func (m *CrearTablaEncargadoEvento_20191217_161358) Up() {
 	m.SQL("COMMENT ON COLUMN eventos.encargado_evento.fecha_modificacion IS 'Fecha de modifiación de un participante del evento';")
 	m.SQL("COMMENT ON COLUMN eventos.encargado_evento.activo IS 'Campo para registrar si el  registro se encuentra activo o no, solo a nivel de registro.';")
 	m.SQL("COMMENT ON CONSTRAINT pk_encargado_evento ON eventos.encargado_evento  IS 'Identificador de la tabla responsable evento';")
-	
 
 }
 
