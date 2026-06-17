@@ -1,11 +1,6 @@
 package main
 
 import (
-	// "fmt"
-
-	"fmt"
-	"net/url"
-
 	_ "github.com/udistrital/eventos_crud/routers"
 
 	"github.com/astaxie/beego"
@@ -22,35 +17,6 @@ import (
 	"github.com/udistrital/utils_oas/xray"
 )
 
-func init() {
-	orm.RegisterDataBase("default", "postgres", "postgres://"+
-		beego.AppConfig.String("PGuser")+":"+
-		url.QueryEscape(beego.AppConfig.String("PGpass"))+"@"+
-		beego.AppConfig.String("PGurls")+":"+
-		beego.AppConfig.String("PGport")+"/"+
-		beego.AppConfig.String("PGdb")+"?sslmode=disable&search_path="+
-		beego.AppConfig.String("PGschemas")+"")
-
-	if beego.BConfig.RunMode == "dev" {
-		/*
-			// Database alias.
-			name := "default"
-
-			// Drop table and re-create.
-			force := false
-
-			// Print log.
-			verbose := true
-
-			// Error.
-			err := orm.RunSyncdb(name, force, verbose)
-			if err != nil {
-				fmt.Println(err)
-			}
-		*/
-	}
-}
-
 func main() {
 	conn, err := database.BuildPostgresConnectionString()
 	if err != nil {
@@ -64,7 +30,7 @@ func main() {
 		return
 	}
 	////////////////////
-	fmt.Println(beego.BConfig.RunMode)
+
 	allowedOrigins := []string{"*.udistrital.edu.co"}
 	if beego.BConfig.RunMode == beego.DEV {
 		allowedOrigins = []string{"*"}
@@ -75,14 +41,14 @@ func main() {
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowOrigins: allowedOrigins,
-		AllowMethods: []string{"DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT"}, // ajustar según los métodos usados en el api
+		AllowMethods: []string{"DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT"},
 		AllowHeaders: []string{
 			"Accept",
 			"Authorization",
 			"Content-Type",
 			"User-Agent",
 			"X-Amzn-Trace-Id"},
-		ExposeHeaders:    []string{"Content-Length"}, // agregar otros headers según sea el caso
+		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 	}))
 
