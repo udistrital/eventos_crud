@@ -35,5 +35,4 @@ func (m *CrearTablaRolParticipanteSesion_20191217_174436) Up() {
 func (m *CrearTablaRolParticipanteSesion_20191217_174436) Down() {
 	m.SQL("DROP TABLE IF EXISTS eventos.rol_participante_sesion")
 
-
 }

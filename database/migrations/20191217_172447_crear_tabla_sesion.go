@@ -38,5 +38,4 @@ func (m *CrearTablaSesion_20191217_172447) Up() {
 func (m *CrearTablaSesion_20191217_172447) Down() {
 	m.SQL("DROP TABLE IF EXISTS eventos.sesion")
 
-
 }

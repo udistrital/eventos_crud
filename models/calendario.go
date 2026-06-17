@@ -24,7 +24,8 @@ type Calendario struct {
 	CalendarioPadreId       *Calendario `orm:"column(calendario_padre_id);rel(fk);null"`
 	DocumentoExtensionId    int         `orm:"column(documento_extension_id)"`
 	AplicaExtension         bool        `orm:"column(aplica_extension)"`
-	DependenciaParticularId string      `orm:"column(dependencia_particular_id)"`
+	DependenciaParticularId string      `orm:"column(dependencia_particular_id);null"`
+	// MultiplePeriodoId       string      `orm:"column(multiple_periodo_id);type(json)"`
 }
 
 func (t *Calendario) TableName() string {

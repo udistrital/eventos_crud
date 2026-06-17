@@ -25,12 +25,10 @@ func (m *CrearTablaRelacionSesiones_20191217_175027) Up() {
 	m.SQL("COMMENT ON COLUMN eventos.relacion_sesiones.id IS 'Identificador de la tabla relacion_sesiones';")
 	m.SQL("COMMENT ON COLUMN eventos.relacion_sesiones.sesion_hijo IS 'Hijo de la relacion de sesiones';")
 
-
 }
 
 // Reverse the migrations
 func (m *CrearTablaRelacionSesiones_20191217_175027) Down() {
 	m.SQL("DROP TABLE IF EXISTS eventos.relacion_sesiones")
-
 
 }

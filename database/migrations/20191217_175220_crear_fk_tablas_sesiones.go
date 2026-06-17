@@ -30,8 +30,6 @@ func (m *CrearFkTablasSesiones_20191217_175220) Up() {
 	m.SQL("ALTER TABLE eventos.sesion_patron_recurrencia ADD CONSTRAINT uq_sesion_patron_recurrencia UNIQUE (tipo_recurrencia,sesion);")
 	m.SQL("ALTER TABLE eventos.relacion_sesiones ADD CONSTRAINT fk_relacion_sesiones_sesion_hijo FOREIGN KEY (sesion_hijo) REFERENCES eventos.sesion (id) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE;")
 
-
-
 }
 
 // Reverse the migrations
@@ -46,6 +44,5 @@ func (m *CrearFkTablasSesiones_20191217_175220) Down() {
 	m.SQL("ALTER TABLE eventos.relacion_sesiones DROP CONSTRAINT IF EXISTS uq_sesion_padre_sesion_hijo CASCADE;")
 	m.SQL("ALTER TABLE eventos.sesion_patron_recurrencia DROP CONSTRAINT IF EXISTS uq_sesion_patron_recurrencia CASCADE;")
 	m.SQL("ALTER TABLE eventos.relacion_sesiones DROP CONSTRAINT IF EXISTS fk_relacion_sesiones_sesion_hijo CASCADE;")
-
 
 }
