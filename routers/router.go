@@ -43,7 +43,7 @@ func init() {
 
 		beego.NSNamespace("/sesion_patron_recurrencia",
 			beego.NSInclude(
-				&controllers.RolParticipanteSesionController{},
+				&controllers.SesionPatronRecurrenciaController{},
 			),
 		),
 
@@ -59,45 +59,45 @@ func init() {
 			),
 		),
 
-		beego.NSNamespace("/rol_encargado_evento",
-			beego.NSInclude(
-				&controllers.RolEncargadoEventoController{},
-			),
-		),
-
-		beego.NSNamespace("/tipo_publico",
-			beego.NSInclude(
-				&controllers.TipoPublicoController{},
-			),
-		),
-
 		beego.NSNamespace("/tipo_recurrencia",
 			beego.NSInclude(
 				&controllers.TipoRecurrenciaController{},
 			),
 		),
 
-		beego.NSNamespace("/tipo_evento",
+		beego.NSNamespace("/proceso",
 			beego.NSInclude(
-				&controllers.TipoEventoController{},
+				&controllers.ProcesoController{},
 			),
 		),
 
-		beego.NSNamespace("/tr_evento",
+		beego.NSNamespace("/proceso_catalogo",
 			beego.NSInclude(
-				&controllers.TrEventoController{},
+				&controllers.ProcesoCatalogoController{},
+			),
+		),
+
+		beego.NSNamespace("/evento_catalogo",
+			beego.NSInclude(
+				&controllers.EventoCatalogoController{},
+			),
+		),
+
+		beego.NSNamespace("/evento_catalogo_rol_gestion",
+			beego.NSInclude(
+				&controllers.EventoCatalogoRolGestionController{},
+			),
+		),
+
+		beego.NSNamespace("/evento_catalogo_proceso_catalogo",
+			beego.NSInclude(
+				&controllers.EventoCatalogoProcesoCatalogoController{},
 			),
 		),
 
 		beego.NSNamespace("/calendario_evento",
 			beego.NSInclude(
 				&controllers.CalendarioEventoController{},
-			),
-		),
-
-		beego.NSNamespace("/encargado_evento",
-			beego.NSInclude(
-				&controllers.EncargadoEventoController{},
 			),
 		),
 
@@ -110,6 +110,24 @@ func init() {
 		beego.NSNamespace("/calendario_evento_tipo_publico",
 			beego.NSInclude(
 				&controllers.CalendarioEventoTipoPublicoController{},
+			),
+		),
+
+		beego.NSNamespace("/calendario_evento_extension",
+			beego.NSInclude(
+				&controllers.CalendarioEventoExtensionController{},
+			),
+		),
+
+		beego.NSNamespace("/calendario_evento_extension_programa",
+			beego.NSInclude(
+				&controllers.CalendarioEventoExtensionProgramaController{},
+			),
+		),
+
+		beego.NSNamespace("/auditoria_eventos",
+			beego.NSInclude(
+				&controllers.AuditoriaEventosController{},
 			),
 		),
 	)

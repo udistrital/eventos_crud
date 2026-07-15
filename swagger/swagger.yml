@@ -11,6 +11,24 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 basePath: /v1
 paths:
+  /auditoria_eventos/:
+    post:
+      tags:
+      - auditoria_eventos
+      description: registrar un evento de auditoría
+      operationId: AuditoriaEventosController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for auditoria content
+        required: true
+        schema:
+          $ref: '#/definitions/models.AuditoriaEventos'
+      responses:
+        "201":
+          description: '{int} models.AuditoriaEventos'
+        "400":
+          description: the request contains incorrect syntax
   /calendario/:
     get:
       tags:
@@ -239,6 +257,40 @@ paths:
           description: '{string} delete success!'
         "404":
           description: not found resource
+  /calendario_evento_extension/:
+    get:
+      tags:
+      - calendario_evento_extension
+    post:
+      tags:
+      - calendario_evento_extension
+  /calendario_evento_extension/{id}:
+    get:
+      tags:
+      - calendario_evento_extension
+    put:
+      tags:
+      - calendario_evento_extension
+    delete:
+      tags:
+      - calendario_evento_extension
+  /calendario_evento_extension_programa/:
+    get:
+      tags:
+      - calendario_evento_extension_programa
+    post:
+      tags:
+      - calendario_evento_extension_programa
+  /calendario_evento_extension_programa/{id}:
+    get:
+      tags:
+      - calendario_evento_extension_programa
+    put:
+      tags:
+      - calendario_evento_extension_programa
+    delete:
+      tags:
+      - calendario_evento_extension_programa
   /calendario_evento_tipo_publico/:
     get:
       tags:
@@ -353,12 +405,12 @@ paths:
           description: '{string} delete success!'
         "403":
           description: id is empty
-  /encargado_evento/:
+  /evento_catalogo/:
     get:
       tags:
-      - encargado_evento
-      description: get EncargadoEvento
-      operationId: EncargadoEventoController.Get All
+      - evento_catalogo
+      description: get EventoCatalogo
+      operationId: EventoCatalogoController.Get All
       parameters:
       - in: query
         name: query
@@ -388,32 +440,32 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.EncargadoEvento'
+            $ref: '#/definitions/models.EventoCatalogo'
         "404":
           description: not found resource
     post:
       tags:
-      - encargado_evento
-      description: create EncargadoEvento
-      operationId: EncargadoEventoController.Post
+      - evento_catalogo
+      description: create EventoCatalogo
+      operationId: EventoCatalogoController.Post
       parameters:
       - in: body
         name: body
-        description: body for EncargadoEvento content
+        description: body for EventoCatalogo content
         required: true
         schema:
-          $ref: '#/definitions/models.EncargadoEvento'
+          $ref: '#/definitions/models.EventoCatalogo'
       responses:
         "201":
-          description: '{int} models.EncargadoEvento'
+          description: '{int} models.EventoCatalogo'
         "400":
           description: the request contains incorrect syntax
-  /encargado_evento/{id}:
+  /evento_catalogo/{id}:
     get:
       tags:
-      - encargado_evento
-      description: get EncargadoEvento by id
-      operationId: EncargadoEventoController.Get One
+      - evento_catalogo
+      description: get EventoCatalogo by id
+      operationId: EventoCatalogoController.Get One
       parameters:
       - in: path
         name: id
@@ -424,14 +476,14 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.EncargadoEvento'
+            $ref: '#/definitions/models.EventoCatalogo'
         "404":
           description: not found resource
     put:
       tags:
-      - encargado_evento
-      description: update the EncargadoEvento
-      operationId: EncargadoEventoController.Put
+      - evento_catalogo
+      description: update the EventoCatalogo
+      operationId: EventoCatalogoController.Put
       parameters:
       - in: path
         name: id
@@ -440,22 +492,250 @@ paths:
         type: string
       - in: body
         name: body
-        description: body for EncargadoEvento content
+        description: body for EventoCatalogo content
         required: true
         schema:
-          $ref: '#/definitions/models.EncargadoEvento'
+          $ref: '#/definitions/models.EventoCatalogo'
       responses:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.EncargadoEvento'
+            $ref: '#/definitions/models.EventoCatalogo'
         "400":
           description: the request contains incorrect syntax
     delete:
       tags:
-      - encargado_evento
-      description: delete the EncargadoEvento
-      operationId: EncargadoEventoController.Delete
+      - evento_catalogo
+      description: delete the EventoCatalogo
+      operationId: EventoCatalogoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /evento_catalogo_proceso_catalogo/:
+    get:
+      tags:
+      - evento_catalogo_proceso_catalogo
+      description: get EventoCatalogoProcesoCatalogo
+      operationId: EventoCatalogoProcesoCatalogoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.EventoCatalogoProcesoCatalogo'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - evento_catalogo_proceso_catalogo
+      description: create EventoCatalogoProcesoCatalogo
+      operationId: EventoCatalogoProcesoCatalogoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for EventoCatalogoProcesoCatalogo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.EventoCatalogoProcesoCatalogo'
+      responses:
+        "201":
+          description: '{int} models.EventoCatalogoProcesoCatalogo'
+        "400":
+          description: the request contains incorrect syntax
+  /evento_catalogo_proceso_catalogo/{id}:
+    get:
+      tags:
+      - evento_catalogo_proceso_catalogo
+      description: get EventoCatalogoProcesoCatalogo by id
+      operationId: EventoCatalogoProcesoCatalogoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.EventoCatalogoProcesoCatalogo'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - evento_catalogo_proceso_catalogo
+      description: update the EventoCatalogoProcesoCatalogo
+      operationId: EventoCatalogoProcesoCatalogoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for EventoCatalogoProcesoCatalogo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.EventoCatalogoProcesoCatalogo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.EventoCatalogoProcesoCatalogo'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - evento_catalogo_proceso_catalogo
+      description: delete the EventoCatalogoProcesoCatalogo
+      operationId: EventoCatalogoProcesoCatalogoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /evento_catalogo_rol_gestion/:
+    get:
+      tags:
+      - evento_catalogo_rol_gestion
+      description: get EventoCatalogoRolGestion
+      operationId: EventoCatalogoRolGestionController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.EventoCatalogoRolGestion'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - evento_catalogo_rol_gestion
+      description: create EventoCatalogoRolGestion
+      operationId: EventoCatalogoRolGestionController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for EventoCatalogoRolGestion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.EventoCatalogoRolGestion'
+      responses:
+        "201":
+          description: '{int} models.EventoCatalogoRolGestion'
+        "400":
+          description: the request contains incorrect syntax
+  /evento_catalogo_rol_gestion/{id}:
+    get:
+      tags:
+      - evento_catalogo_rol_gestion
+      description: get EventoCatalogoRolGestion by id
+      operationId: EventoCatalogoRolGestionController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.EventoCatalogoRolGestion'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - evento_catalogo_rol_gestion
+      description: update the EventoCatalogoRolGestion
+      operationId: EventoCatalogoRolGestionController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for EventoCatalogoRolGestion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.EventoCatalogoRolGestion'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.EventoCatalogoRolGestion'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - evento_catalogo_rol_gestion
+      description: delete the EventoCatalogoRolGestion
+      operationId: EventoCatalogoRolGestionController.Delete
       parameters:
       - in: path
         name: id
@@ -581,6 +861,234 @@ paths:
           description: '{string} delete success!'
         "404":
           description: not found resource
+  /proceso/:
+    get:
+      tags:
+      - proceso
+      description: get Proceso
+      operationId: ProcesoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Proceso'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - proceso
+      description: create Proceso
+      operationId: ProcesoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Proceso content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Proceso'
+      responses:
+        "201":
+          description: '{int} models.Proceso'
+        "400":
+          description: the request contains incorrect syntax
+  /proceso/{id}:
+    get:
+      tags:
+      - proceso
+      description: get Proceso by id
+      operationId: ProcesoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Proceso'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - proceso
+      description: update the Proceso
+      operationId: ProcesoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Proceso content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Proceso'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Proceso'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - proceso
+      description: delete the Proceso
+      operationId: ProcesoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /proceso_catalogo/:
+    get:
+      tags:
+      - proceso_catalogo
+      description: get ProcesoCatalogo
+      operationId: ProcesoCatalogoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ProcesoCatalogo'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - proceso_catalogo
+      description: create ProcesoCatalogo
+      operationId: ProcesoCatalogoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for ProcesoCatalogo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProcesoCatalogo'
+      responses:
+        "201":
+          description: '{int} models.ProcesoCatalogo'
+        "400":
+          description: the request contains incorrect syntax
+  /proceso_catalogo/{id}:
+    get:
+      tags:
+      - proceso_catalogo
+      description: get ProcesoCatalogo by id
+      operationId: ProcesoCatalogoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ProcesoCatalogo'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - proceso_catalogo
+      description: update the ProcesoCatalogo
+      operationId: ProcesoCatalogoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for ProcesoCatalogo content
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProcesoCatalogo'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ProcesoCatalogo'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - proceso_catalogo
+      description: delete the ProcesoCatalogo
+      operationId: ProcesoCatalogoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
   /relacion_sesiones/:
     get:
       tags:
@@ -695,124 +1203,10 @@ paths:
           description: '{string} delete success!'
         "404":
           description: not found resource
-  /rol_encargado_evento/:
-    get:
-      tags:
-      - rol_encargado_evento
-      description: get RolEncargadoEvento
-      operationId: RolEncargadoEventoController.Get All
-      parameters:
-      - in: query
-        name: query
-        description: Filter. e.g. col1:v1,col2:v2 ...
-        type: string
-      - in: query
-        name: fields
-        description: Fields returned. e.g. col1,col2 ...
-        type: string
-      - in: query
-        name: sortby
-        description: Sorted-by fields. e.g. col1,col2 ...
-        type: string
-      - in: query
-        name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
-        type: string
-      - in: query
-        name: limit
-        description: Limit the size of result set. Must be an integer
-        type: string
-      - in: query
-        name: offset
-        description: Start position of result set. Must be an integer
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.RolEncargadoEvento'
-        "404":
-          description: not found resource
-    post:
-      tags:
-      - rol_encargado_evento
-      description: create RolEncargadoEvento
-      operationId: RolEncargadoEventoController.Post
-      parameters:
-      - in: body
-        name: body
-        description: body for RolEncargadoEvento content
-        required: true
-        schema:
-          $ref: '#/definitions/models.RolEncargadoEvento'
-      responses:
-        "201":
-          description: '{int} models.RolEncargadoEvento'
-        "400":
-          description: the request contains incorrect syntax
-  /rol_encargado_evento/{id}:
-    get:
-      tags:
-      - rol_encargado_evento
-      description: get RolEncargadoEvento by id
-      operationId: RolEncargadoEventoController.Get One
-      parameters:
-      - in: path
-        name: id
-        description: The key for staticblock
-        required: true
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.RolEncargadoEvento'
-        "404":
-          description: not found resource
-    put:
-      tags:
-      - rol_encargado_evento
-      description: update the RolEncargadoEvento
-      operationId: RolEncargadoEventoController.Put
-      parameters:
-      - in: path
-        name: id
-        description: The id you want to update
-        required: true
-        type: string
-      - in: body
-        name: body
-        description: body for RolEncargadoEvento content
-        required: true
-        schema:
-          $ref: '#/definitions/models.RolEncargadoEvento'
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.RolEncargadoEvento'
-        "400":
-          description: the request contains incorrect syntax
-    delete:
-      tags:
-      - rol_encargado_evento
-      description: delete the RolEncargadoEvento
-      operationId: RolEncargadoEventoController.Delete
-      parameters:
-      - in: path
-        name: id
-        description: The id you want to delete
-        required: true
-        type: string
-      responses:
-        "200":
-          description: '{string} delete success!'
-        "404":
-          description: not found resource
   /rol_participante_sesion/:
     get:
       tags:
-      - sesion_patron_recurrencia
+      - rol_participante_sesion
       description: get RolParticipanteSesion
       operationId: RolParticipanteSesionController.Get All
       parameters:
@@ -849,7 +1243,7 @@ paths:
           description: not found resource
     post:
       tags:
-      - sesion_patron_recurrencia
+      - rol_participante_sesion
       description: create RolParticipanteSesion
       operationId: RolParticipanteSesionController.Post
       parameters:
@@ -867,7 +1261,7 @@ paths:
   /rol_participante_sesion/{id}:
     get:
       tags:
-      - sesion_patron_recurrencia
+      - rol_participante_sesion
       description: get RolParticipanteSesion by id
       operationId: RolParticipanteSesionController.Get One
       parameters:
@@ -885,7 +1279,7 @@ paths:
           description: not found resource
     put:
       tags:
-      - sesion_patron_recurrencia
+      - rol_participante_sesion
       description: update the RolParticipanteSesion
       operationId: RolParticipanteSesionController.Put
       parameters:
@@ -909,7 +1303,7 @@ paths:
           description: the request contains incorrect syntax
     delete:
       tags:
-      - sesion_patron_recurrencia
+      - rol_participante_sesion
       description: delete the RolParticipanteSesion
       operationId: RolParticipanteSesionController.Delete
       parameters:
@@ -1041,8 +1435,8 @@ paths:
     get:
       tags:
       - sesion_patron_recurrencia
-      description: get RolParticipanteSesion
-      operationId: RolParticipanteSesionController.Get All
+      description: get SesionPatronRecurrencia
+      operationId: SesionPatronRecurrenciaController.Get All
       parameters:
       - in: query
         name: query
@@ -1072,32 +1466,32 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.RolParticipanteSesion'
+            $ref: '#/definitions/models.SesionPatronRecurrencia'
         "404":
           description: not found resource
     post:
       tags:
       - sesion_patron_recurrencia
-      description: create RolParticipanteSesion
-      operationId: RolParticipanteSesionController.Post
+      description: create SesionPatronRecurrencia
+      operationId: SesionPatronRecurrenciaController.Post
       parameters:
       - in: body
         name: body
-        description: body for RolParticipanteSesion content
+        description: body for SesionPatronRecurrencia content
         required: true
         schema:
-          $ref: '#/definitions/models.RolParticipanteSesion'
+          $ref: '#/definitions/models.SesionPatronRecurrencia'
       responses:
         "201":
-          description: '{int} models.RolParticipanteSesion'
+          description: '{int} models.SesionPatronRecurrencia'
         "400":
           description: the request contains incorrect syntax
   /sesion_patron_recurrencia/{id}:
     get:
       tags:
       - sesion_patron_recurrencia
-      description: get RolParticipanteSesion by id
-      operationId: RolParticipanteSesionController.Get One
+      description: get SesionPatronRecurrencia by id
+      operationId: SesionPatronRecurrenciaController.Get One
       parameters:
       - in: path
         name: id
@@ -1108,14 +1502,14 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.RolParticipanteSesion'
+            $ref: '#/definitions/models.SesionPatronRecurrencia'
         "404":
           description: not found resource
     put:
       tags:
       - sesion_patron_recurrencia
-      description: update the RolParticipanteSesion
-      operationId: RolParticipanteSesionController.Put
+      description: update the SesionPatronRecurrencia
+      operationId: SesionPatronRecurrenciaController.Put
       parameters:
       - in: path
         name: id
@@ -1124,250 +1518,22 @@ paths:
         type: string
       - in: body
         name: body
-        description: body for RolParticipanteSesion content
+        description: body for SesionPatronRecurrencia content
         required: true
         schema:
-          $ref: '#/definitions/models.RolParticipanteSesion'
+          $ref: '#/definitions/models.SesionPatronRecurrencia'
       responses:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/models.RolParticipanteSesion'
+            $ref: '#/definitions/models.SesionPatronRecurrencia'
         "400":
           description: the request contains incorrect syntax
     delete:
       tags:
       - sesion_patron_recurrencia
-      description: delete the RolParticipanteSesion
-      operationId: RolParticipanteSesionController.Delete
-      parameters:
-      - in: path
-        name: id
-        description: The id you want to delete
-        required: true
-        type: string
-      responses:
-        "200":
-          description: '{string} delete success!'
-        "404":
-          description: not found resource
-  /tipo_evento/:
-    get:
-      tags:
-      - tipo_evento
-      description: get TipoEvento
-      operationId: TipoEventoController.Get All
-      parameters:
-      - in: query
-        name: query
-        description: Filter. e.g. col1:v1,col2:v2 ...
-        type: string
-      - in: query
-        name: fields
-        description: Fields returned. e.g. col1,col2 ...
-        type: string
-      - in: query
-        name: sortby
-        description: Sorted-by fields. e.g. col1,col2 ...
-        type: string
-      - in: query
-        name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
-        type: string
-      - in: query
-        name: limit
-        description: Limit the size of result set. Must be an integer
-        type: string
-      - in: query
-        name: offset
-        description: Start position of result set. Must be an integer
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.TipoEvento'
-        "404":
-          description: not found resource
-    post:
-      tags:
-      - tipo_evento
-      description: create TipoEvento
-      operationId: TipoEventoController.Post
-      parameters:
-      - in: body
-        name: body
-        description: body for TipoEvento content
-        required: true
-        schema:
-          $ref: '#/definitions/models.TipoEvento'
-      responses:
-        "201":
-          description: '{int} models.TipoEvento'
-        "400":
-          description: the request contains incorrect syntax
-  /tipo_evento/{id}:
-    get:
-      tags:
-      - tipo_evento
-      description: get TipoEvento by id
-      operationId: TipoEventoController.Get One
-      parameters:
-      - in: path
-        name: id
-        description: The key for staticblock
-        required: true
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.TipoEvento'
-        "404":
-          description: not found resource
-    put:
-      tags:
-      - tipo_evento
-      description: update the TipoEvento
-      operationId: TipoEventoController.Put
-      parameters:
-      - in: path
-        name: id
-        description: The id you want to update
-        required: true
-        type: string
-      - in: body
-        name: body
-        description: body for TipoEvento content
-        required: true
-        schema:
-          $ref: '#/definitions/models.TipoEvento'
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.TipoEvento'
-        "400":
-          description: the request contains incorrect syntax
-    delete:
-      tags:
-      - tipo_evento
-      description: delete the TipoEvento
-      operationId: TipoEventoController.Delete
-      parameters:
-      - in: path
-        name: id
-        description: The id you want to delete
-        required: true
-        type: string
-      responses:
-        "200":
-          description: '{string} delete success!'
-        "404":
-          description: not found resource
-  /tipo_publico/:
-    get:
-      tags:
-      - tipo_publico
-      description: get TipoPublico
-      operationId: TipoPublicoController.Get All
-      parameters:
-      - in: query
-        name: query
-        description: Filter. e.g. col1:v1,col2:v2 ...
-        type: string
-      - in: query
-        name: fields
-        description: Fields returned. e.g. col1,col2 ...
-        type: string
-      - in: query
-        name: sortby
-        description: Sorted-by fields. e.g. col1,col2 ...
-        type: string
-      - in: query
-        name: order
-        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
-        type: string
-      - in: query
-        name: limit
-        description: Limit the size of result set. Must be an integer
-        type: string
-      - in: query
-        name: offset
-        description: Start position of result set. Must be an integer
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.TipoPublico'
-        "404":
-          description: not found resource
-    post:
-      tags:
-      - tipo_publico
-      description: create TipoPublico
-      operationId: TipoPublicoController.Post
-      parameters:
-      - in: body
-        name: body
-        description: body for TipoPublico content
-        required: true
-        schema:
-          $ref: '#/definitions/models.TipoPublico'
-      responses:
-        "201":
-          description: '{int} models.TipoPublico'
-        "400":
-          description: the request contains incorrect syntax
-  /tipo_publico/{id}:
-    get:
-      tags:
-      - tipo_publico
-      description: get TipoPublico by id
-      operationId: TipoPublicoController.Get One
-      parameters:
-      - in: path
-        name: id
-        description: The key for staticblock
-        required: true
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.TipoPublico'
-        "404":
-          description: not found resource
-    put:
-      tags:
-      - tipo_publico
-      description: update the TipoPublico
-      operationId: TipoPublicoController.Put
-      parameters:
-      - in: path
-        name: id
-        description: The id you want to update
-        required: true
-        type: string
-      - in: body
-        name: body
-        description: body for TipoPublico content
-        required: true
-        schema:
-          $ref: '#/definitions/models.TipoPublico'
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.TipoPublico'
-        "400":
-          description: the request contains incorrect syntax
-    delete:
-      tags:
-      - tipo_publico
-      description: delete the TipoPublico
-      operationId: TipoPublicoController.Delete
+      description: delete the SesionPatronRecurrencia
+      operationId: SesionPatronRecurrenciaController.Delete
       parameters:
       - in: path
         name: id
@@ -1607,125 +1773,66 @@ paths:
           description: '{string} delete success!'
         "404":
           description: not found resource
-  /tr_evento/:
-    post:
-      tags:
-      - tr_evento
-      description: create the TrEvento
-      operationId: TrEventoController.PostTrEvento
-      parameters:
-      - in: body
-        name: body
-        description: body for TrEvento content
-        required: true
-        schema:
-          $ref: '#/definitions/models.TrEvento'
-      responses:
-        "201":
-          description: '{int} models.TrEvento'
-        "400":
-          description: the request contains incorrect syntax
-  /tr_evento/{id}:
-    put:
-      tags:
-      - tr_evento
-      description: update the TrEvento
-      operationId: TrEventoController.Put
-      parameters:
-      - in: path
-        name: id
-        description: The id you want to update
-        required: true
-        type: string
-      - in: body
-        name: body
-        description: body for TrEvento content
-        required: true
-        schema:
-          $ref: '#/definitions/models.TrEventoPut'
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.TrEventoPut'
-        "400":
-          description: the request contains incorrect syntax
-    delete:
-      tags:
-      - tr_evento
-      description: delete the Evento
-      operationId: TrEventoController.Delete
-      parameters:
-      - in: path
-        name: id
-        description: The id you want to delete
-        required: true
-        type: string
-      responses:
-        "200":
-          description: '{string} delete success!'
-        "404":
-          description: not found resource
-  /tr_evento/{persona}:
-    get:
-      tags:
-      - tr_evento
-      description: get TrEventoController
-      operationId: TrEventoController.Get All By Persona
-      parameters:
-      - in: path
-        name: id
-        description: Persona
-        required: true
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.TrEventoController'
-        "404":
-          description: not found resource
 definitions:
-  66026.<nil>.EncargadoEvento:
+  89879.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  66064.<nil>.TipoPublico:
+  89916.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  66183.<nil>.EncargadoEvento:
+  90030.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  66229.<nil>.TipoPublico:
+  90075.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  66271.<nil>.EncargadoEvento:
+  90116.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  66317.<nil>.TipoPublico:
+  90161.<nil>.TipoPublico:
     title: TipoPublico
     type: object
+  models.AuditoriaEventos:
+    title: AuditoriaEventos
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Endpoint:
+        type: string
+      EntidadTipo:
+        type: string
+      FechaCreacion:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+        format: datetime
+      Id:
+        type: integer
+        format: int64
+      Operacion:
+        type: string
+      TerceroId:
+        type: integer
+        format: int64
+      ValorAnterior:
+        type: string
+      ValorNuevo:
+        type: string
   models.Calendario:
     title: Calendario
     type: object
     properties:
       Activo:
         type: boolean
-      AplicaExtension:
-        type: boolean
       AplicacionId:
         type: integer
         format: int64
-      CalendarioPadreId:
-        $ref: '#/definitions/models.Calendario'
       DependenciaId:
-        type: string
-      DependenciaParticularId:
         type: string
       Descripcion:
         type: string
-      DocumentoExtensionId:
-        type: integer
-        format: int64
       DocumentoId:
         type: integer
         format: int64
@@ -1750,14 +1857,10 @@ definitions:
     properties:
       Activo:
         type: boolean
-      AplicaEdicionActividades:
-        type: boolean
       DependenciaId:
         type: string
-      Descripcion:
-        type: string
-      EventoPadreId:
-        $ref: '#/definitions/models.CalendarioEvento'
+      EventoCatalogoId:
+        $ref: '#/definitions/models.EventoCatalogo'
       FechaCreacion:
         type: string
       FechaFin:
@@ -1771,12 +1874,10 @@ definitions:
       Id:
         type: integer
         format: int64
-      Nombre:
-        type: string
       PosterUrl:
         type: string
-      TipoEventoId:
-        $ref: '#/definitions/models.TipoEvento'
+      ProcesoId:
+        $ref: '#/definitions/models.Proceso'
       UbicacionId:
         type: integer
         format: int64
@@ -1795,8 +1896,9 @@ definitions:
       Id:
         type: integer
         format: int64
-      TipoPublicoId:
-        $ref: '#/definitions/models.TipoPublico'
+      PerfilId:
+        type: integer
+        format: int64
   models.EncargadoEvento:
     title: EncargadoEvento
     type: object
@@ -1817,6 +1919,60 @@ definitions:
         format: int64
       RolEncargadoEventoId:
         $ref: '#/definitions/models.RolEncargadoEvento'
+  models.EventoCatalogo:
+    title: EventoCatalogo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CodigoAbreviacion:
+        type: string
+      Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
+  models.EventoCatalogoProcesoCatalogo:
+    title: EventoCatalogoProcesoCatalogo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      EventoCatalogoId:
+        $ref: '#/definitions/models.EventoCatalogo'
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      ProcesoCatalogoId:
+        $ref: '#/definitions/models.ProcesoCatalogo'
+  models.EventoCatalogoRolGestion:
+    title: EventoCatalogoRolGestion
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      EventoCatalogoId:
+        $ref: '#/definitions/models.EventoCatalogo'
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      PerfilId:
+        type: integer
+        format: int64
   models.ParticipanteSesion:
     title: ParticipanteSesion
     type: object
@@ -1831,6 +1987,44 @@ definitions:
         $ref: '#/definitions/models.RolParticipanteSesion'
       Sesion:
         $ref: '#/definitions/models.Sesion'
+  models.Proceso:
+    title: Proceso
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CalendarioID:
+        $ref: '#/definitions/models.Calendario'
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      ProcesoCatalogoId:
+        $ref: '#/definitions/models.ProcesoCatalogo'
+      TipoRecurrenciaId:
+        $ref: '#/definitions/models.TipoRecurrencia'
+  models.ProcesoCatalogo:
+    title: ProcesoCatalogo
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CodigoAbreviacion:
+        type: string
+      Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
   models.RelacionSesiones:
     title: RelacionSesiones
     type: object
@@ -1844,6 +2038,28 @@ definitions:
         $ref: '#/definitions/models.Sesion'
   models.RolEncargadoEvento:
     title: RolEncargadoEvento
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      CodigoAbreviacion:
+        type: string
+      Descripcion:
+        type: string
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Nombre:
+        type: string
+      NumeroDeOrden:
+        type: number
+        format: double
+  models.RolGestionEvento:
+    title: RolGestionEvento
     type: object
     properties:
       Activo:
@@ -1924,29 +2140,6 @@ definitions:
         $ref: '#/definitions/models.TipoRecurrencia'
       Valor:
         type: string
-  models.TipoEvento:
-    title: TipoEvento
-    type: object
-    properties:
-      Activo:
-        type: boolean
-      CalendarioID:
-        $ref: '#/definitions/models.Calendario'
-      CodigoAbreviacion:
-        type: string
-      Descripcion:
-        type: string
-      FechaCreacion:
-        type: string
-      FechaModificacion:
-        type: string
-      Id:
-        type: integer
-        format: int64
-      Nombre:
-        type: string
-      TipoRecurrenciaId:
-        $ref: '#/definitions/models.TipoRecurrencia'
   models.TipoPublico:
     title: TipoPublico
     type: object
@@ -2011,9 +2204,9 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/66026.<nil>.EncargadoEvento'
+        $ref: '#/definitions/89879.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/66064.<nil>.TipoPublico'
+        $ref: '#/definitions/89916.<nil>.TipoPublico'
   models.TrEventoController:
     title: TrEventoController
     type: object
@@ -2024,13 +2217,13 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/66183.<nil>.EncargadoEvento'
+        $ref: '#/definitions/90030.<nil>.EncargadoEvento'
       EncargadosEventoBorrados:
-        $ref: '#/definitions/66271.<nil>.EncargadoEvento'
+        $ref: '#/definitions/90116.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/66229.<nil>.TipoPublico'
+        $ref: '#/definitions/90075.<nil>.TipoPublico'
       TiposPublicoBorrados:
-        $ref: '#/definitions/66317.<nil>.TipoPublico'
+        $ref: '#/definitions/90161.<nil>.TipoPublico'
 tags:
 - name: tipo_sesion
   description: |
@@ -2046,34 +2239,22 @@ tags:
     RolParticipanteSesionController operations for RolParticipanteSesion
 - name: sesion_patron_recurrencia
   description: |
-    RolParticipanteSesionController operations for RolParticipanteSesion
+    SesionPatronRecurrenciaController operations for SesionPatronRecurrencia
 - name: relacion_sesiones
   description: |
     RelacionSesionesController operations for RelacionSesiones
 - name: tipo_recurrencia
   description: |
     TipoRecurrenciaController operations for TipoRecurrencia
-- name: rol_encargado_evento
-  description: |
-    RolEncargadoEventoController operations for RolEncargadoEvento
-- name: tipo_publico
-  description: |
-    TipoPublicoController operations for TipoPublico
 - name: tipo_recurrencia
   description: |
     TipoRecurrenciaController operations for TipoRecurrencia
-- name: tipo_evento
+- name: proceso
   description: |
-    TipoEventoController operations for TipoEvento
-- name: tr_evento
-  description: |
-    operations for TrEvento
+    ProcesoController operations for Proceso
 - name: calendario_evento
   description: |
     CalendarioEventoController operations for CalendarioEvento
-- name: encargado_evento
-  description: |
-    EncargadoEventoController operations for EncargadoEvento
 - name: calendario
   description: |
     CalendarioController operations for Calendario
