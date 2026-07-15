@@ -5,17 +5,18 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type CalendarioEventoTipoPublico struct {
 	Id                 int               `orm:"column(id);pk;auto"`
-	FechaCreacion      string            `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion  string            `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion      time.Time         `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion  time.Time         `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 	Activo             bool              `orm:"column(activo)"`
 	CalendarioEventoId *CalendarioEvento `orm:"column(calendario_evento_id);rel(fk)"`
-	TipoPublicoId      *TipoPublico      `orm:"column(tipo_publico_id);rel(fk)"`
+	PerfilId           int               `orm:"column(perfil_id)"`
 }
 
 func (t *CalendarioEventoTipoPublico) TableName() string {

@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/udistrital/eventos_crud/models"
-	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
@@ -37,8 +36,8 @@ func (c *CalendarioEventoController) URLMapping() {
 func (c *CalendarioEventoController) Post() {
 	var v models.CalendarioEvento
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
+		v.FechaCreacion = fechaActual()
+		v.FechaModificacion = fechaActual()
 		if _, err := models.AddCalendarioEvento(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
@@ -161,8 +160,8 @@ func (c *CalendarioEventoController) Put() {
 	id, _ := strconv.Atoi(idStr)
 	v := models.CalendarioEvento{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
+		v.FechaCreacion = fechaCorreccion(v.FechaCreacion)
+		v.FechaModificacion = fechaActual()
 		if err := models.UpdateCalendarioEventoById(&v); err == nil {
 			c.Data["json"] = v
 		} else {
