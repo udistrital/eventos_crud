@@ -12,7 +12,6 @@ import (
 
 type CalendarioEventoExtensionPrograma struct {
 	Id                          int                        `orm:"column(id);pk;auto"`
-	CalendarioEventoId          *CalendarioEvento          `orm:"column(calendario_evento_id);rel(fk)"`
 	CalendarioEventoExtensionId *CalendarioEventoExtension `orm:"column(calendario_evento_extension_id);rel(fk)"`
 	ExtensionPadreId            *CalendarioEventoExtension `orm:"column(extension_padre_id);rel(fk);null"`
 	DependenciaId               int                        `orm:"column(dependencia_id)"`
