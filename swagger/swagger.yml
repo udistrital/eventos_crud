@@ -189,10 +189,10 @@ paths:
       parameters:
       - in: body
         name: body
-        description: body for CalendarioEvento content
+        description: body for CalendarioEvento content with TerceroId
         required: true
         schema:
-          $ref: '#/definitions/models.CalendarioEvento'
+          $ref: '#/definitions/models.CalendarioEventoRequest'
       responses:
         "201":
           description: '{int} models.CalendarioEvento'
@@ -230,10 +230,10 @@ paths:
         type: string
       - in: body
         name: body
-        description: body for CalendarioEvento content
+        description: body for CalendarioEvento content with TerceroId
         required: true
         schema:
-          $ref: '#/definitions/models.CalendarioEvento'
+          $ref: '#/definitions/models.CalendarioEventoRequest'
       responses:
         "200":
           description: ""
@@ -252,6 +252,12 @@ paths:
         description: The id you want to delete
         required: true
         type: string
+      - in: body
+        name: body
+        description: body with TerceroId for audit attribution
+        required: true
+        schema:
+          $ref: '#/definitions/models.TerceroRequest'
       responses:
         "200":
           description: '{string} delete success!'
@@ -1774,22 +1780,22 @@ paths:
         "404":
           description: not found resource
 definitions:
-  89879.<nil>.EncargadoEvento:
+  92142.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  89916.<nil>.TipoPublico:
+  92179.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  90030.<nil>.EncargadoEvento:
+  92293.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  90075.<nil>.TipoPublico:
+  92338.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  90116.<nil>.EncargadoEvento:
+  92379.<nil>.EncargadoEvento:
     title: EncargadoEvento
     type: object
-  90161.<nil>.TipoPublico:
+  92424.<nil>.TipoPublico:
     title: TipoPublico
     type: object
   models.AuditoriaEventos:
@@ -1838,8 +1844,10 @@ definitions:
         format: int64
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1863,6 +1871,7 @@ definitions:
         $ref: '#/definitions/models.EventoCatalogo'
       FechaCreacion:
         type: string
+        format: datetime
       FechaFin:
         type: string
         format: datetime
@@ -1871,6 +1880,7 @@ definitions:
         format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1878,6 +1888,32 @@ definitions:
         type: string
       ProcesoId:
         $ref: '#/definitions/models.Proceso'
+      UbicacionId:
+        type: integer
+        format: int64
+  models.CalendarioEventoRequest:
+    title: CalendarioEventoRequest
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      DependenciaId:
+        type: string
+      EventoCatalogoId:
+        $ref: '#/definitions/models.EventoCatalogo'
+      FechaFin:
+        type: string
+        format: datetime
+      FechaInicio:
+        type: string
+        format: datetime
+      PosterUrl:
+        type: string
+      ProcesoId:
+        $ref: '#/definitions/models.Proceso'
+      TerceroId:
+        type: integer
+        format: int64
       UbicacionId:
         type: integer
         format: int64
@@ -1891,8 +1927,10 @@ definitions:
         $ref: '#/definitions/models.CalendarioEvento'
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1912,8 +1950,10 @@ definitions:
         format: int64
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1931,8 +1971,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1948,8 +1990,10 @@ definitions:
         $ref: '#/definitions/models.EventoCatalogo'
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1965,8 +2009,10 @@ definitions:
         $ref: '#/definitions/models.EventoCatalogo'
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -1997,8 +2043,10 @@ definitions:
         $ref: '#/definitions/models.Calendario'
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -2018,8 +2066,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -2048,8 +2098,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -2070,8 +2122,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -2106,6 +2160,7 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaFin:
         type: string
         format: datetime
@@ -2114,6 +2169,7 @@ definitions:
         format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -2140,6 +2196,13 @@ definitions:
         $ref: '#/definitions/models.TipoRecurrencia'
       Valor:
         type: string
+  models.TerceroRequest:
+    title: TerceroRequest
+    type: object
+    properties:
+      TerceroId:
+        type: integer
+        format: int64
   models.TipoPublico:
     title: TipoPublico
     type: object
@@ -2150,8 +2213,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -2172,8 +2237,10 @@ definitions:
         type: string
       FechaCreacion:
         type: string
+        format: datetime
       FechaModificacion:
         type: string
+        format: datetime
       Id:
         type: integer
         format: int64
@@ -2204,9 +2271,9 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/89879.<nil>.EncargadoEvento'
+        $ref: '#/definitions/92142.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/89916.<nil>.TipoPublico'
+        $ref: '#/definitions/92179.<nil>.TipoPublico'
   models.TrEventoController:
     title: TrEventoController
     type: object
@@ -2217,13 +2284,13 @@ definitions:
       CalendarioEvento:
         $ref: '#/definitions/models.CalendarioEvento'
       EncargadosEvento:
-        $ref: '#/definitions/90030.<nil>.EncargadoEvento'
+        $ref: '#/definitions/92293.<nil>.EncargadoEvento'
       EncargadosEventoBorrados:
-        $ref: '#/definitions/90116.<nil>.EncargadoEvento'
+        $ref: '#/definitions/92379.<nil>.EncargadoEvento'
       TiposPublico:
-        $ref: '#/definitions/90075.<nil>.TipoPublico'
+        $ref: '#/definitions/92338.<nil>.TipoPublico'
       TiposPublicoBorrados:
-        $ref: '#/definitions/90161.<nil>.TipoPublico'
+        $ref: '#/definitions/92424.<nil>.TipoPublico'
 tags:
 - name: tipo_sesion
   description: |

@@ -283,10 +283,10 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for CalendarioEvento content",
+                        "description": "body for CalendarioEvento content with TerceroId",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CalendarioEvento"
+                            "$ref": "#/definitions/models.CalendarioEventoRequest"
                         }
                     }
                 ],
@@ -345,10 +345,10 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "body for CalendarioEvento content",
+                        "description": "body for CalendarioEvento content with TerceroId",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CalendarioEvento"
+                            "$ref": "#/definitions/models.CalendarioEventoRequest"
                         }
                     }
                 ],
@@ -377,6 +377,15 @@
                         "description": "The id you want to delete",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body with TerceroId for audit attribution",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TerceroRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -2698,27 +2707,27 @@
         }
     },
     "definitions": {
-        "89879.\u003cnil\u003e.EncargadoEvento": {
+        "92142.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "89916.\u003cnil\u003e.TipoPublico": {
+        "92179.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "90030.\u003cnil\u003e.EncargadoEvento": {
+        "92293.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "90075.\u003cnil\u003e.TipoPublico": {
+        "92338.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
-        "90116.\u003cnil\u003e.EncargadoEvento": {
+        "92379.\u003cnil\u003e.EncargadoEvento": {
             "title": "EncargadoEvento",
             "type": "object"
         },
-        "90161.\u003cnil\u003e.TipoPublico": {
+        "92424.\u003cnil\u003e.TipoPublico": {
             "title": "TipoPublico",
             "type": "object"
         },
@@ -2784,10 +2793,12 @@
                     "format": "int64"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2820,7 +2831,8 @@
                     "$ref": "#/definitions/models.EventoCatalogo"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaFin": {
                     "type": "string",
@@ -2831,7 +2843,8 @@
                     "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2842,6 +2855,43 @@
                 },
                 "ProcesoId": {
                     "$ref": "#/definitions/models.Proceso"
+                },
+                "UbicacionId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.CalendarioEventoRequest": {
+            "title": "CalendarioEventoRequest",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "DependenciaId": {
+                    "type": "string"
+                },
+                "EventoCatalogoId": {
+                    "$ref": "#/definitions/models.EventoCatalogo"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "PosterUrl": {
+                    "type": "string"
+                },
+                "ProcesoId": {
+                    "$ref": "#/definitions/models.Proceso"
+                },
+                "TerceroId": {
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "UbicacionId": {
                     "type": "integer",
@@ -2860,10 +2910,12 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2890,10 +2942,12 @@
                     "format": "int64"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2918,10 +2972,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2943,10 +2999,12 @@
                     "$ref": "#/definitions/models.EventoCatalogo"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -2968,10 +3026,12 @@
                     "$ref": "#/definitions/models.EventoCatalogo"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -3014,10 +3074,12 @@
                     "$ref": "#/definitions/models.Calendario"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -3045,10 +3107,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -3089,10 +3153,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -3121,10 +3187,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -3173,7 +3241,8 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaFin": {
                     "type": "string",
@@ -3184,7 +3253,8 @@
                     "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -3225,6 +3295,16 @@
                 }
             }
         },
+        "models.TerceroRequest": {
+            "title": "TerceroRequest",
+            "type": "object",
+            "properties": {
+                "TerceroId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "models.TipoPublico": {
             "title": "TipoPublico",
             "type": "object",
@@ -3236,10 +3316,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -3268,10 +3350,12 @@
                     "type": "string"
                 },
                 "FechaCreacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "FechaModificacion": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "datetime"
                 },
                 "Id": {
                     "type": "integer",
@@ -3316,10 +3400,10 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/89879.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/92142.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/89916.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/92179.\u003cnil\u003e.TipoPublico"
                 }
             }
         },
@@ -3335,16 +3419,16 @@
                     "$ref": "#/definitions/models.CalendarioEvento"
                 },
                 "EncargadosEvento": {
-                    "$ref": "#/definitions/90030.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/92293.\u003cnil\u003e.EncargadoEvento"
                 },
                 "EncargadosEventoBorrados": {
-                    "$ref": "#/definitions/90116.\u003cnil\u003e.EncargadoEvento"
+                    "$ref": "#/definitions/92379.\u003cnil\u003e.EncargadoEvento"
                 },
                 "TiposPublico": {
-                    "$ref": "#/definitions/90075.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/92338.\u003cnil\u003e.TipoPublico"
                 },
                 "TiposPublicoBorrados": {
-                    "$ref": "#/definitions/90161.\u003cnil\u003e.TipoPublico"
+                    "$ref": "#/definitions/92424.\u003cnil\u003e.TipoPublico"
                 }
             }
         }
