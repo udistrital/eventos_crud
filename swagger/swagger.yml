@@ -11,24 +11,6 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 basePath: /v1
 paths:
-  /auditoria_eventos/:
-    post:
-      tags:
-      - auditoria_eventos
-      description: registrar un evento de auditoría
-      operationId: AuditoriaEventosController.Post
-      parameters:
-      - in: body
-        name: body
-        description: body for auditoria content
-        required: true
-        schema:
-          $ref: '#/definitions/models.AuditoriaEventos'
-      responses:
-        "201":
-          description: '{int} models.AuditoriaEventos'
-        "400":
-          description: the request contains incorrect syntax
   /calendario/:
     get:
       tags:
@@ -1798,34 +1780,6 @@ definitions:
   92424.<nil>.TipoPublico:
     title: TipoPublico
     type: object
-  models.AuditoriaEventos:
-    title: AuditoriaEventos
-    type: object
-    properties:
-      Activo:
-        type: boolean
-      Endpoint:
-        type: string
-      EntidadTipo:
-        type: string
-      FechaCreacion:
-        type: string
-        format: datetime
-      FechaModificacion:
-        type: string
-        format: datetime
-      Id:
-        type: integer
-        format: int64
-      Operacion:
-        type: string
-      TerceroId:
-        type: integer
-        format: int64
-      ValorAnterior:
-        type: string
-      ValorNuevo:
-        type: string
   models.Calendario:
     title: Calendario
     type: object
@@ -1882,6 +1836,9 @@ definitions:
         type: string
         format: datetime
       Id:
+        type: integer
+        format: int64
+      NumeroOcurrencia:
         type: integer
         format: int64
       PosterUrl:
@@ -1997,6 +1954,8 @@ definitions:
       Id:
         type: integer
         format: int64
+      Repetible:
+        type: boolean
       ProcesoCatalogoId:
         $ref: '#/definitions/models.ProcesoCatalogo'
   models.EventoCatalogoRolGestion:

@@ -20,6 +20,7 @@ func auditCalendarioEventoSnapshot(evento *CalendarioEvento) map[string]interfac
 		"DependenciaId":     auditDependencia(evento.DependenciaId),
 		"ProcesoId":         auditProcesoID(evento.ProcesoId),
 		"EventoCatalogoId":  auditEventoCatalogoID(evento.EventoCatalogoId),
+		"NumeroOcurrencia":  evento.NumeroOcurrencia,
 		"UbicacionId":       evento.UbicacionId,
 		"PosterUrl":         evento.PosterUrl,
 	}
@@ -75,7 +76,7 @@ func auditCalendarioEventoChanges(before, after map[string]interface{}) map[stri
 	}
 
 	otros := make(map[string]interface{})
-	for _, field := range []string{"ProcesoId", "EventoCatalogoId", "UbicacionId", "PosterUrl"} {
+	for _, field := range []string{"ProcesoId", "EventoCatalogoId", "NumeroOcurrencia", "UbicacionId", "PosterUrl"} {
 		if !reflect.DeepEqual(before[field], after[field]) {
 			otros[field] = map[string]interface{}{
 				"anterior": before[field],

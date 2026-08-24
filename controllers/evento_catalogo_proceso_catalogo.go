@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 	"github.com/udistrital/eventos_crud/models"
 )
 
@@ -35,10 +36,14 @@ func (c *EventoCatalogoProcesoCatalogoController) Post() {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+			c.Ctx.Output.SetStatus(400)
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Ctx.Output.SetStatus(400)
 	}
 	c.ServeJSON()
 }
@@ -131,10 +136,14 @@ func (c *EventoCatalogoProcesoCatalogoController) Put() {
 		if err := models.UpdateEventoCatalogoProcesoCatalogoById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+			c.Ctx.Output.SetStatus(400)
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Ctx.Output.SetStatus(400)
 	}
 	c.ServeJSON()
 }
@@ -151,7 +160,9 @@ func (c *EventoCatalogoProcesoCatalogoController) Delete() {
 	if err := models.DeleteEventoCatalogoProcesoCatalogo(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Ctx.Output.SetStatus(400)
 	}
 	c.ServeJSON()
 }

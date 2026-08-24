@@ -14,6 +14,7 @@ type EventoCatalogoProcesoCatalogo struct {
 	Id                int              `orm:"column(id);pk;auto"`
 	EventoCatalogoId  *EventoCatalogo  `orm:"column(evento_catalogo_id);rel(fk)"`
 	ProcesoCatalogoId *ProcesoCatalogo `orm:"column(proceso_catalogo_id);rel(fk)"`
+	Repetible         bool             `orm:"column(repetible)"`
 	Activo            bool             `orm:"column(activo)"`
 	FechaCreacion     time.Time        `orm:"column(fecha_creacion);type(timestamp without time zone)"`
 	FechaModificacion time.Time        `orm:"column(fecha_modificacion);type(timestamp without time zone)"`

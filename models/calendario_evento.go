@@ -20,6 +20,7 @@ type CalendarioEvento struct {
 	DependenciaId     string          `orm:"column(dependencia_id);type(json);null"`
 	ProcesoId         *Proceso        `orm:"column(proceso_id);rel(fk)"`
 	EventoCatalogoId  *EventoCatalogo `orm:"column(evento_catalogo_id);rel(fk)"`
+	NumeroOcurrencia  int             `orm:"column(numero_ocurrencia)"`
 	UbicacionId       int             `orm:"column(ubicacion_id)"`
 	PosterUrl         string          `orm:"column(poster_url)"`
 }

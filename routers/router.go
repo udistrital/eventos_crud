@@ -124,12 +124,6 @@ func init() {
 				&controllers.CalendarioEventoExtensionProgramaController{},
 			),
 		),
-
-		beego.NSNamespace("/auditoria_eventos",
-			beego.NSInclude(
-				&controllers.AuditoriaEventosController{},
-			),
-		),
 	)
 
 	beego.AddNamespace(ns1)

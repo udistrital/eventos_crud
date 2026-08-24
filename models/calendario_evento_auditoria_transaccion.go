@@ -22,6 +22,10 @@ func AddCalendarioEventoAuditado(evento *CalendarioEvento, terceroID int) error 
 		_ = o.Rollback()
 		return err
 	}
+	if err := o.Read(evento); err != nil {
+		_ = o.Rollback()
+		return err
+	}
 	if err := persistCalendarioEventoAudit(o, evento.Id, calendarioEventoOperacionInsert, terceroID, nil, evento); err != nil {
 		_ = o.Rollback()
 		return err
@@ -80,9 +84,14 @@ func updateCalendarioEventoAuditado(
 		_ = o.Rollback()
 		return nil, err
 	}
+	effective := &CalendarioEvento{Id: id}
+	if err := o.Read(effective); err != nil {
+		_ = o.Rollback()
+		return nil, err
+	}
 
-	operacion = calendarioEventoOperacionCambio(operacion, before, &updated)
-	if err := persistCalendarioEventoAudit(o, id, operacion, terceroID, before, &updated); err != nil {
+	operacion = calendarioEventoOperacionCambio(operacion, before, effective)
+	if err := persistCalendarioEventoAudit(o, id, operacion, terceroID, before, effective); err != nil {
 		_ = o.Rollback()
 		return nil, err
 	}
@@ -91,7 +100,7 @@ func updateCalendarioEventoAuditado(
 		return nil, err
 	}
 
-	return &updated, nil
+	return effective, nil
 }
 
 func calendarioEventoOperacionCambio(operacion string, before, after *CalendarioEvento) string {

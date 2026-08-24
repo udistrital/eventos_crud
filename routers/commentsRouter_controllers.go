@@ -7,15 +7,6 @@ import (
 
 func init() {
 
-	beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AuditoriaEventosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:AuditoriaEventosController"],
-		beego.ControllerComments{
-			Method:           "Post",
-			Router:           "/",
-			AllowHTTPMethods: []string{"post"},
-			MethodParams:     param.Make(),
-			Filters:          nil,
-			Params:           nil})
-
 	beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:CalendarioController"] = append(beego.GlobalControllerRouter["github.com/udistrital/eventos_crud/controllers:CalendarioController"],
 		beego.ControllerComments{
 			Method:           "Post",
