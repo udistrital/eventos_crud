@@ -1,13 +1,12 @@
 package controllers
 
 import (
-	"encoding/json"
 	"errors"
 	"strconv"
 	"strings"
 
+	"github.com/udistrital/eventos_crud/helpers"
 	"github.com/udistrital/eventos_crud/models"
-	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
@@ -30,30 +29,34 @@ func (c *CalendarioEventoController) URLMapping() {
 // Post ...
 // @Title Post
 // @Description create CalendarioEvento
-// @Param	body		body 	models.CalendarioEvento	true		"body for CalendarioEvento content"
+// @Param	body		body 	models.CalendarioEventoRequest	true		"body for CalendarioEvento content with TerceroId"
 // @Success 201 {int} models.CalendarioEvento
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
 func (c *CalendarioEventoController) Post() {
-	var v models.CalendarioEvento
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if _, err := models.AddCalendarioEvento(&v); err == nil {
-			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
-		} else {
-			logs.Error(err)
-			c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
-			c.Data["system"] = err
-			c.Ctx.Output.SetStatus(400)
-		}
-	} else {
+	v, _, terceroID, err := helpers.ParseCalendarioEventoPayload(c.Ctx.Input.RequestBody)
+	if err != nil {
 		logs.Error(err)
 		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
 		c.Ctx.Output.SetStatus(400)
+		c.ServeJSON()
+		return
 	}
+
+	v.FechaCreacion = fechaActual()
+	v.FechaModificacion = v.FechaCreacion
+	if err := models.AddCalendarioEventoAuditado(&v, terceroID); err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Ctx.Output.SetStatus(400)
+		c.ServeJSON()
+		return
+	}
+
+	c.Ctx.Output.SetStatus(201)
+	c.Data["json"] = v
 	c.ServeJSON()
 }
 
@@ -152,31 +155,44 @@ func (c *CalendarioEventoController) GetAll() {
 // @Title Put
 // @Description update the CalendarioEvento
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.CalendarioEvento	true		"body for CalendarioEvento content"
+// @Param	body		body 	models.CalendarioEventoRequest	true		"body for CalendarioEvento content with TerceroId"
 // @Success 200 {object} models.CalendarioEvento
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *CalendarioEventoController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	v := models.CalendarioEvento{Id: id}
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if err := models.UpdateCalendarioEventoById(&v); err == nil {
-			c.Data["json"] = v
-		} else {
-			logs.Error(err)
-			c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
-			c.Data["system"] = err
-			c.Ctx.Output.SetStatus(400)
-		}
-	} else {
+	id, err := strconv.Atoi(idStr)
+	if err != nil || id <= 0 {
+		err = errors.New("id de calendario_evento inválido")
 		logs.Error(err)
 		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
 		c.Data["system"] = err
 		c.Ctx.Output.SetStatus(400)
+		c.ServeJSON()
+		return
 	}
+
+	incoming, fields, terceroID, err := helpers.ParseCalendarioEventoPayload(c.Ctx.Input.RequestBody)
+	if err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Ctx.Output.SetStatus(400)
+		c.ServeJSON()
+		return
+	}
+
+	updated, err := models.UpdateCalendarioEventoAuditado(id, &incoming, fields, terceroID, fechaActual())
+	if err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Ctx.Output.SetStatus(400)
+		c.ServeJSON()
+		return
+	}
+
+	c.Data["json"] = updated
 	c.ServeJSON()
 }
 
@@ -184,14 +200,32 @@ func (c *CalendarioEventoController) Put() {
 // @Title Delete
 // @Description delete the CalendarioEvento
 // @Param	id		path 	string	true		"The id you want to delete"
+// @Param	body	body	models.TerceroRequest	true	"body with TerceroId for audit attribution"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
 func (c *CalendarioEventoController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
-	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteCalendarioEvento(id); err == nil {
-		c.Data["json"] = map[string]interface{}{"Id": id}
+	id, err := strconv.Atoi(idStr)
+	if err != nil || id <= 0 {
+		err = errors.New("id de calendario_evento inválido")
+	}
+	terceroID, terceroErr := helpers.ParseTerceroIDFromBody(c.Ctx.Input.RequestBody)
+	if terceroErr != nil {
+		err = terceroErr
+	}
+	if err != nil {
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Ctx.Output.SetStatus(400)
+		c.ServeJSON()
+		return
+	}
+
+	err = models.InactivarCalendarioEventoAuditado(id, terceroID, fechaActual())
+	if err == nil {
+		c.Data["json"] = map[string]interface{}{"Id": id, "Activo": false}
 	} else {
 		logs.Error(err)
 		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
