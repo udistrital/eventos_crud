@@ -58,6 +58,12 @@ func AddTransaccionEvento(m *TrEvento) (err error) {
 
 	if idEvento, errTr := o.Insert(m.CalendarioEvento); errTr == nil {
 		fmt.Println(idEvento)
+		m.CalendarioEvento.Id = int(idEvento)
+		if errTr = o.Read(m.CalendarioEvento); errTr != nil {
+			err = errTr
+			_ = o.Rollback()
+			return
+		}
 
 		for _, v := range *m.EncargadosEvento {
 			v.CalendarioEventoId.Id = int(idEvento)
@@ -97,7 +103,7 @@ func UpdateTransaccionEvento(m *TrEventoPut) (err error) {
 	// ascertain id exists in the database
 	if errTr := o.Read(&v); errTr == nil {
 		var num int64
-		if num, errTr = o.Update(m.CalendarioEvento, "Descripcion", "FechaInicio", "FechaFin"); errTr == nil {
+		if num, errTr = o.Update(m.CalendarioEvento, "FechaInicio", "FechaFin"); errTr == nil {
 			fmt.Println("Number of records updated (CalendarioEvento) in database:", num)
 
 			// Eliminar tipospublico
@@ -148,6 +154,11 @@ func UpdateTransaccionEvento(m *TrEventoPut) (err error) {
 				}
 			}
 
+			if errTr = o.Read(m.CalendarioEvento); errTr != nil {
+				err = errTr
+				_ = o.Rollback()
+				return
+			}
 			_ = o.Commit()
 		} else {
 			err = errTr

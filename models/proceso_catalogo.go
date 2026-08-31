@@ -10,52 +10,39 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type TipoPublico struct {
+type ProcesoCatalogo struct {
 	Id                int       `orm:"column(id);pk;auto"`
+	CodigoAbreviacion string    `orm:"column(codigo_abreviacion)"`
 	Nombre            string    `orm:"column(nombre)"`
-	CodigoAbreviacion string    `orm:"column(codigo_abreviacion);null"`
+	Descripcion       string    `orm:"column(descripcion);null"`
 	Activo            bool      `orm:"column(activo)"`
-	NumeroOrden       float64   `orm:"column(numero_orden);null"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp without time zone)"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
-func (t *TipoPublico) TableName() string {
-	return "tipo_publico"
-}
+func (t *ProcesoCatalogo) TableName() string { return "proceso_catalogo" }
 
-func init() {
-	orm.RegisterModel(new(TipoPublico))
-}
+func init() { orm.RegisterModel(new(ProcesoCatalogo)) }
 
-// AddTipoPublico insert a new TipoPublico into database and returns
-// last inserted Id on success.
-func AddTipoPublico(m *TipoPublico) (id int64, err error) {
+func AddProcesoCatalogo(m *ProcesoCatalogo) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetTipoPublicoById retrieves TipoPublico by Id. Returns error if
-// Id doesn't exist
-func GetTipoPublicoById(id int) (v *TipoPublico, err error) {
+func GetProcesoCatalogoById(id int) (v *ProcesoCatalogo, err error) {
 	o := orm.NewOrm()
-	v = &TipoPublico{Id: id}
+	v = &ProcesoCatalogo{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllTipoPublico retrieves all TipoPublico matches certain condition. Returns empty list if
-// no records exist
-func GetAllTipoPublico(query map[string]string, fields []string, sortby []string, order []string,
-	offset int64, limit int64) (ml []interface{}, err error) {
+func GetAllProcesoCatalogo(query map[string]string, fields []string, sortby []string, order []string, offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoPublico)).RelatedSel()
-	// query k=v
+	qs := o.QueryTable(new(ProcesoCatalogo)).RelatedSel()
 	for k, v := range query {
-		// rewrite dot-notation to Object__Attribute
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
@@ -63,46 +50,36 @@ func GetAllTipoPublico(query map[string]string, fields []string, sortby []string
 			qs = qs.Filter(k, v)
 		}
 	}
-	// order by:
 	var sortFields []string
 	if len(sortby) != 0 {
 		if len(sortby) == len(order) {
-			// 1) for each sort field, there is an associated order
 			for i, v := range sortby {
-				orderby := ""
 				if order[i] == "desc" {
-					orderby = "-" + v
+					sortFields = append(sortFields, "-"+v)
 				} else if order[i] == "asc" {
-					orderby = v
+					sortFields = append(sortFields, v)
 				} else {
 					return nil, errors.New("Error: Invalid order. Must be either [asc|desc]")
 				}
-				sortFields = append(sortFields, orderby)
 			}
-			qs = qs.OrderBy(sortFields...)
-		} else if len(sortby) != len(order) && len(order) == 1 {
-			// 2) there is exactly one order, all the sorted fields will be sorted by this order
+		} else if len(order) == 1 {
 			for _, v := range sortby {
-				orderby := ""
 				if order[0] == "desc" {
-					orderby = "-" + v
+					sortFields = append(sortFields, "-"+v)
 				} else if order[0] == "asc" {
-					orderby = v
+					sortFields = append(sortFields, v)
 				} else {
 					return nil, errors.New("Error: Invalid order. Must be either [asc|desc]")
 				}
-				sortFields = append(sortFields, orderby)
 			}
-		} else if len(sortby) != len(order) && len(order) != 1 {
+		} else {
 			return nil, errors.New("Error: 'sortby', 'order' sizes mismatch or 'order' size is not 1")
 		}
-	} else {
-		if len(order) != 0 {
-			return nil, errors.New("Error: unused 'order' fields")
-		}
+	} else if len(order) != 0 {
+		return nil, errors.New("Error: unused 'order' fields")
 	}
 
-	var l []TipoPublico
+	var l []ProcesoCatalogo
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -110,7 +87,6 @@ func GetAllTipoPublico(query map[string]string, fields []string, sortby []string
 				ml = append(ml, v)
 			}
 		} else {
-			// trim unused fields
 			for _, v := range l {
 				m := make(map[string]interface{})
 				val := reflect.ValueOf(v)
@@ -125,12 +101,9 @@ func GetAllTipoPublico(query map[string]string, fields []string, sortby []string
 	return nil, err
 }
 
-// UpdateTipoPublico updates TipoPublico by Id and returns error if
-// the record to be updated doesn't exist
-func UpdateTipoPublicoById(m *TipoPublico) (err error) {
+func UpdateProcesoCatalogoById(m *ProcesoCatalogo) (err error) {
 	o := orm.NewOrm()
-	v := TipoPublico{Id: m.Id}
-	// ascertain id exists in the database
+	v := ProcesoCatalogo{Id: m.Id}
 	if err = o.Read(&v); err == nil {
 		var num int64
 		if num, err = o.Update(m); err == nil {
@@ -140,15 +113,12 @@ func UpdateTipoPublicoById(m *TipoPublico) (err error) {
 	return
 }
 
-// DeleteTipoPublico deletes TipoPublico by Id and returns error if
-// the record to be deleted doesn't exist
-func DeleteTipoPublico(id int) (err error) {
+func DeleteProcesoCatalogo(id int) (err error) {
 	o := orm.NewOrm()
-	v := TipoPublico{Id: id}
-	// ascertain id exists in the database
+	v := ProcesoCatalogo{Id: id}
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&TipoPublico{Id: id}); err == nil {
+		if num, err = o.Delete(&ProcesoCatalogo{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
