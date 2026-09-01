@@ -108,6 +108,9 @@ func (c *EventoCatalogoRolGestionController) GetAll() {
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
+		if l == nil {
+			l = append(l, map[string]interface{}{})
+		}
 		c.Data["json"] = l
 	}
 	c.ServeJSON()
