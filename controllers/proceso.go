@@ -7,19 +7,18 @@ import (
 	"strings"
 
 	"github.com/udistrital/eventos_crud/models"
-	"github.com/udistrital/utils_oas/time_bogota"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 )
 
-// TipoEventoController operations for TipoEvento
-type TipoEventoController struct {
+// ProcesoController operations for Proceso
+type ProcesoController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *TipoEventoController) URLMapping() {
+func (c *ProcesoController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -29,17 +28,17 @@ func (c *TipoEventoController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create TipoEvento
-// @Param	body		body 	models.TipoEvento	true		"body for TipoEvento content"
-// @Success 201 {int} models.TipoEvento
+// @Description create Proceso
+// @Param	body		body 	models.Proceso	true		"body for Proceso content"
+// @Success 201 {int} models.Proceso
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
-func (c *TipoEventoController) Post() {
-	var v models.TipoEvento
+func (c *ProcesoController) Post() {
+	var v models.Proceso
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if _, err := models.AddTipoEvento(&v); err == nil {
+		v.FechaCreacion = fechaActual()
+		v.FechaModificacion = fechaActual()
+		if _, err := models.AddProceso(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -59,15 +58,15 @@ func (c *TipoEventoController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get TipoEvento by id
+// @Description get Proceso by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.TipoEvento
+// @Success 200 {object} models.Proceso
 // @Failure 404 not found resource
 // @router /:id [get]
-func (c *TipoEventoController) GetOne() {
+func (c *ProcesoController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetTipoEventoById(id)
+	v, err := models.GetProcesoById(id)
 	if err != nil {
 		logs.Error(err)
 		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
@@ -81,17 +80,17 @@ func (c *TipoEventoController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get TipoEvento
+// @Description get Proceso
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.TipoEvento
+// @Success 200 {object} models.Proceso
 // @Failure 404 not found resource
 // @router / [get]
-func (c *TipoEventoController) GetAll() {
+func (c *ProcesoController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -133,7 +132,7 @@ func (c *TipoEventoController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllTipoEvento(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllProceso(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		logs.Error(err)
 		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
@@ -150,20 +149,20 @@ func (c *TipoEventoController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the TipoEvento
+// @Description update the Proceso
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.TipoEvento	true		"body for TipoEvento content"
-// @Success 200 {object} models.TipoEvento
+// @Param	body		body 	models.Proceso	true		"body for Proceso content"
+// @Success 200 {object} models.Proceso
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
-func (c *TipoEventoController) Put() {
+func (c *ProcesoController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.TipoEvento{Id: id}
+	v := models.Proceso{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
-		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if err := models.UpdateTipoEventoById(&v); err == nil {
+		v.FechaCreacion = fechaCorreccion(v.FechaCreacion)
+		v.FechaModificacion = fechaActual()
+		if err := models.UpdateProcesoById(&v); err == nil {
 			c.Data["json"] = v
 		} else {
 			logs.Error(err)
@@ -182,15 +181,15 @@ func (c *TipoEventoController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the TipoEvento
+// @Description delete the Proceso
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
-func (c *TipoEventoController) Delete() {
+func (c *ProcesoController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteTipoEvento(id); err == nil {
+	if err := models.DeleteProceso(id); err == nil {
 		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
 		logs.Error(err)

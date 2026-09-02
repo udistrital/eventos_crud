@@ -5,55 +5,54 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type TipoEvento struct {
+type Proceso struct {
 	Id                int              `orm:"column(id);pk;auto"`
-	Nombre            string           `orm:"column(nombre)"`
-	Descripcion       string           `orm:"column(descripcion);null"`
-	CodigoAbreviacion string           `orm:"column(codigo_abreviacion);null"`
 	Activo            bool             `orm:"column(activo)"`
-	FechaCreacion     string           `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string           `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	FechaCreacion     time.Time        `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion time.Time        `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 	TipoRecurrenciaId *TipoRecurrencia `orm:"column(tipo_recurrencia_id);rel(fk)"`
 	CalendarioID      *Calendario      `orm:"column(calendario_id);rel(fk)"`
+	ProcesoCatalogoId *ProcesoCatalogo `orm:"column(proceso_catalogo_id);rel(fk)"`
 }
 
-func (t *TipoEvento) TableName() string {
-	return "tipo_evento"
+func (t *Proceso) TableName() string {
+	return "proceso"
 }
 
 func init() {
-	orm.RegisterModel(new(TipoEvento))
+	orm.RegisterModel(new(Proceso))
 }
 
-// AddTipoEvento insert a new TipoEvento into database and returns
+// AddProceso insert a new Proceso into database and returns
 // last inserted Id on success.
-func AddTipoEvento(m *TipoEvento) (id int64, err error) {
+func AddProceso(m *Proceso) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetTipoEventoById retrieves TipoEvento by Id. Returns error if
+// GetProcesoById retrieves Proceso by Id. Returns error if
 // Id doesn't exist
-func GetTipoEventoById(id int) (v *TipoEvento, err error) {
+func GetProcesoById(id int) (v *Proceso, err error) {
 	o := orm.NewOrm()
-	v = &TipoEvento{Id: id}
+	v = &Proceso{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllTipoEvento retrieves all TipoEvento matches certain condition. Returns empty list if
+// GetAllProceso retrieves all Proceso matches certain condition. Returns empty list if
 // no records exist
-func GetAllTipoEvento(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllProceso(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoEvento)).RelatedSel()
+	qs := o.QueryTable(new(Proceso)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -103,7 +102,7 @@ func GetAllTipoEvento(query map[string]string, fields []string, sortby []string,
 		}
 	}
 
-	var l []TipoEvento
+	var l []Proceso
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -126,11 +125,11 @@ func GetAllTipoEvento(query map[string]string, fields []string, sortby []string,
 	return nil, err
 }
 
-// UpdateTipoEvento updates TipoEvento by Id and returns error if
+// UpdateProceso updates Proceso by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateTipoEventoById(m *TipoEvento) (err error) {
+func UpdateProcesoById(m *Proceso) (err error) {
 	o := orm.NewOrm()
-	v := TipoEvento{Id: m.Id}
+	v := Proceso{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -141,15 +140,15 @@ func UpdateTipoEventoById(m *TipoEvento) (err error) {
 	return
 }
 
-// DeleteTipoEvento deletes TipoEvento by Id and returns error if
+// DeleteProceso deletes Proceso by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteTipoEvento(id int) (err error) {
+func DeleteProceso(id int) (err error) {
 	o := orm.NewOrm()
-	v := TipoEvento{Id: id}
+	v := Proceso{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&TipoEvento{Id: id}); err == nil {
+		if num, err = o.Delete(&Proceso{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

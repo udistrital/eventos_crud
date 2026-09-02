@@ -10,52 +10,45 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type TipoPublico struct {
-	Id                int       `orm:"column(id);pk;auto"`
-	Nombre            string    `orm:"column(nombre)"`
-	CodigoAbreviacion string    `orm:"column(codigo_abreviacion);null"`
-	Activo            bool      `orm:"column(activo)"`
-	NumeroOrden       float64   `orm:"column(numero_orden);null"`
-	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+type CalendarioEventoExtension struct {
+	Id                 int               `orm:"column(id);pk;auto"`
+	CalendarioEventoId *CalendarioEvento `orm:"column(calendario_evento_id);rel(fk)"`
+	FechaFin           time.Time         `orm:"column(fecha_fin);type(timestamp without time zone)"`
+	DocumentoId        *int              `orm:"column(documento_id);null"`
+	Descripcion        string            `orm:"column(descripcion);null"`
+	NumeroExtension    int               `orm:"column(numero_extension)"`
+	Activo             bool              `orm:"column(activo)"`
+	FechaCreacion      time.Time         `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion  time.Time         `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
-func (t *TipoPublico) TableName() string {
-	return "tipo_publico"
+func (t *CalendarioEventoExtension) TableName() string {
+	return "calendario_evento_extension"
 }
 
 func init() {
-	orm.RegisterModel(new(TipoPublico))
+	orm.RegisterModel(new(CalendarioEventoExtension))
 }
 
-// AddTipoPublico insert a new TipoPublico into database and returns
-// last inserted Id on success.
-func AddTipoPublico(m *TipoPublico) (id int64, err error) {
+func AddCalendarioEventoExtension(m *CalendarioEventoExtension) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetTipoPublicoById retrieves TipoPublico by Id. Returns error if
-// Id doesn't exist
-func GetTipoPublicoById(id int) (v *TipoPublico, err error) {
+func GetCalendarioEventoExtensionById(id int) (v *CalendarioEventoExtension, err error) {
 	o := orm.NewOrm()
-	v = &TipoPublico{Id: id}
+	v = &CalendarioEventoExtension{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllTipoPublico retrieves all TipoPublico matches certain condition. Returns empty list if
-// no records exist
-func GetAllTipoPublico(query map[string]string, fields []string, sortby []string, order []string,
-	offset int64, limit int64) (ml []interface{}, err error) {
+func GetAllCalendarioEventoExtension(query map[string]string, fields []string, sortby []string, order []string, offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoPublico)).RelatedSel()
-	// query k=v
+	qs := o.QueryTable(new(CalendarioEventoExtension)).RelatedSel()
 	for k, v := range query {
-		// rewrite dot-notation to Object__Attribute
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
@@ -63,11 +56,9 @@ func GetAllTipoPublico(query map[string]string, fields []string, sortby []string
 			qs = qs.Filter(k, v)
 		}
 	}
-	// order by:
 	var sortFields []string
 	if len(sortby) != 0 {
 		if len(sortby) == len(order) {
-			// 1) for each sort field, there is an associated order
 			for i, v := range sortby {
 				orderby := ""
 				if order[i] == "desc" {
@@ -81,7 +72,6 @@ func GetAllTipoPublico(query map[string]string, fields []string, sortby []string
 			}
 			qs = qs.OrderBy(sortFields...)
 		} else if len(sortby) != len(order) && len(order) == 1 {
-			// 2) there is exactly one order, all the sorted fields will be sorted by this order
 			for _, v := range sortby {
 				orderby := ""
 				if order[0] == "desc" {
@@ -96,13 +86,10 @@ func GetAllTipoPublico(query map[string]string, fields []string, sortby []string
 		} else if len(sortby) != len(order) && len(order) != 1 {
 			return nil, errors.New("Error: 'sortby', 'order' sizes mismatch or 'order' size is not 1")
 		}
-	} else {
-		if len(order) != 0 {
-			return nil, errors.New("Error: unused 'order' fields")
-		}
+	} else if len(order) != 0 {
+		return nil, errors.New("Error: unused 'order' fields")
 	}
-
-	var l []TipoPublico
+	var l []CalendarioEventoExtension
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -110,7 +97,6 @@ func GetAllTipoPublico(query map[string]string, fields []string, sortby []string
 				ml = append(ml, v)
 			}
 		} else {
-			// trim unused fields
 			for _, v := range l {
 				m := make(map[string]interface{})
 				val := reflect.ValueOf(v)
@@ -125,12 +111,9 @@ func GetAllTipoPublico(query map[string]string, fields []string, sortby []string
 	return nil, err
 }
 
-// UpdateTipoPublico updates TipoPublico by Id and returns error if
-// the record to be updated doesn't exist
-func UpdateTipoPublicoById(m *TipoPublico) (err error) {
+func UpdateCalendarioEventoExtensionById(m *CalendarioEventoExtension) (err error) {
 	o := orm.NewOrm()
-	v := TipoPublico{Id: m.Id}
-	// ascertain id exists in the database
+	v := CalendarioEventoExtension{Id: m.Id}
 	if err = o.Read(&v); err == nil {
 		var num int64
 		if num, err = o.Update(m); err == nil {
@@ -140,15 +123,12 @@ func UpdateTipoPublicoById(m *TipoPublico) (err error) {
 	return
 }
 
-// DeleteTipoPublico deletes TipoPublico by Id and returns error if
-// the record to be deleted doesn't exist
-func DeleteTipoPublico(id int) (err error) {
+func DeleteCalendarioEventoExtension(id int) (err error) {
 	o := orm.NewOrm()
-	v := TipoPublico{Id: id}
-	// ascertain id exists in the database
+	v := CalendarioEventoExtension{Id: id}
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&TipoPublico{Id: id}); err == nil {
+		if num, err = o.Delete(&CalendarioEventoExtension{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
