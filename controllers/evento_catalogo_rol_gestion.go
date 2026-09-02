@@ -2,10 +2,12 @@ package controllers
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 	"github.com/udistrital/eventos_crud/models"
 )
 
@@ -35,10 +37,14 @@ func (c *EventoCatalogoRolGestionController) Post() {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+			c.Ctx.Output.SetStatus(400)
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Ctx.Output.SetStatus(400)
 	}
 	c.ServeJSON()
 }
@@ -54,7 +60,9 @@ func (c *EventoCatalogoRolGestionController) GetOne() {
 	id, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
 	v, err := models.GetEventoCatalogoRolGestionById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Ctx.Output.SetStatus(400)
 	} else {
 		c.Data["json"] = v
 	}
@@ -84,9 +92,12 @@ func (c *EventoCatalogoRolGestionController) GetAll() {
 	if v := c.GetString("query"); v != "" {
 		for _, cond := range strings.Split(v, ",") {
 			kv := strings.SplitN(cond, ":", 2)
-			if len(kv) == 2 {
-				query[kv[0]] = kv[1]
+			if len(kv) != 2 {
+				c.Data["json"] = errors.New("Error: invalid query key/value pair")
+				c.ServeJSON()
+				return
 			}
+			query[kv[0]] = kv[1]
 		}
 	}
 	if v := c.GetString("fields"); v != "" {
@@ -106,7 +117,9 @@ func (c *EventoCatalogoRolGestionController) GetAll() {
 	}
 	l, err := models.GetAllEventoCatalogoRolGestion(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Ctx.Output.SetStatus(400)
 	} else {
 		if l == nil {
 			l = append(l, map[string]interface{}{})
@@ -131,12 +144,16 @@ func (c *EventoCatalogoRolGestionController) Put() {
 		v.FechaCreacion = fechaCorreccion(v.FechaCreacion)
 		v.FechaModificacion = fechaActual()
 		if err := models.UpdateEventoCatalogoRolGestionById(&v); err == nil {
-			c.Data["json"] = "OK"
+			c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+			c.Ctx.Output.SetStatus(400)
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Ctx.Output.SetStatus(400)
 	}
 	c.ServeJSON()
 }
@@ -151,9 +168,11 @@ func (c *EventoCatalogoRolGestionController) Put() {
 func (c *EventoCatalogoRolGestionController) Delete() {
 	id, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
 	if err := models.DeleteEventoCatalogoRolGestion(id); err == nil {
-		c.Data["json"] = "OK"
+		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["json"] = map[string]interface{}{"Code": "400", "Body": err.Error(), "Type": "error"}
+		c.Ctx.Output.SetStatus(400)
 	}
 	c.ServeJSON()
 }
