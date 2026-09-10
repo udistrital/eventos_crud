@@ -192,6 +192,7 @@ func persistCalendarioEventoAudit(
 		calendarioEventoID,
 		operacion,
 		terceroID,
+		after.FechaModificacion,
 		beforeJSON,
 		afterJSON,
 		changesJSON,
@@ -203,11 +204,11 @@ func insertCalendarioEventoAuditoria(
 	calendarioEventoID int,
 	operacion string,
 	terceroID int,
+	fechaOperacion time.Time,
 	estadoAnterior []byte,
 	estadoNuevo []byte,
 	cambios []byte,
 ) error {
-	fechaOperacion := time.Now().UTC()
 	estadoNuevoString := string(estadoNuevo)
 	cambiosString := string(cambios)
 	auditoria := &CalendarioEventoAuditoria{
